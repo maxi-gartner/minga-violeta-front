@@ -5,7 +5,7 @@ function App() {
   return (
     <body className='mx-24'>
     <nav className='flex justify-between items-center px-5 pb-10 pt-5 w-full h-16'>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-[#F472B6] mt-14">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10  h-10 text-[#F472B6] mt-14">
         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
         <div className='flex relative mt-14'>
             <img className='mt-1 w-20' src="./src/images/Star.png"/>
@@ -21,12 +21,12 @@ function App() {
         </div>
     </nav>
     <main className='w-full'>
-        <div className='flex relative items-center my-10 bg-gradient-to-r from-[#F9A8D4] to-[#F472B6] h-60'>
+        <div className='flex relative items-center my-10 bg-gradient-to-r from-[#F9A8D4] to-[#F472B6] h-60 rounded-lg'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 absolute left-10 text-white">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <div className='w-5/12 h-full flex items-end justify-around mr-52'>
-                <img className='w-60' src="./src/images/img-carousel.png"/>
+                <img className='w-60 ' src="./src/images/img-carousel.png"/>
                 <img className='w-40 h-60 mb-8' src="./src/images/img2-carousel.png"/>
             </div>
             <div className='w-3/12 top-20 right-80 text-l text-white	'>
@@ -38,13 +38,13 @@ function App() {
             </svg>
         </div>
         <div className='relative w-full'>
-            <div className='absolute flex flex-col ml-20 justify-center text-white w-full mt-72'>
+            <div className='absolute flex flex-col pl-20 justify-center text-white h-full w-full bg-black bg-opacity-50'>
                 <h2 className='text-8xl mb-2'>Live the emotion of the manga</h2>
                 <p className='text-3xl mb-2'>Find the perfect manga for you</p>
                 <p className='text-1xl mb-2 font-bold'>#MingaForever 🔥</p>
                 <button className="rounded-none flex border-none bg-gradient-to-r from-[#F9A8D4] to-[#F472B6] w-56 p-2 justify-center text-xl">Sign In!</button>
             </div>
-            <img className='w-full' src="./src/images/img-main.png"/>
+            <img className='w-full rounded-lg' src="./src/images/img-main.jpg"/>
         </div>
     </main>
     <footer>
