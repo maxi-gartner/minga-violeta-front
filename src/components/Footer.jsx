@@ -4,10 +4,10 @@ import Minga from '../assets/images/Minga.png'
 import LogoTop from '../assets/images/img-logo-top.png'
 import LogoBottom from '../assets/images/img-logo-bottom.png'
 
-export default function Footer() {
+export default function Footer(){
   return (
     <div>
-      <div className='flex justify-center '>
+      <div className='flex justify-center'>
             <div className='mb-2 rounded-[0px_0px_50%_50%] overflow-hidden w-screen'>
               <img className='sm:mt-1 w-full' src={FooterImg}/>
             </div>
