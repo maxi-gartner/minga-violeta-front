@@ -30,7 +30,7 @@ function App() {
                 <img className='h-60 mb-4' src="./src/images/img2-carousel.png"/>
             </div>
             <div className='text-l p-5 px-20 text-white xl:w-6/12 sm:w-10/12 '>
-                <h3 className='text-4xl'>Shonen</h3>
+                <h3 className='text-4xl'>Shonen </h3>
                 <p>Is the manga that is aimed at adolescent boys. They are series with large amounts of action, in which humorous situations often occur. The camaraderie between members of a collective or a combat team stands out.</p>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 absolute right-10 text-white">
