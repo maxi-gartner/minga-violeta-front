@@ -1,6 +1,7 @@
-import './App.css'
+import apiUrl from "../api"
 
 function App() {
+  console.log(apiUrl)
 
   return (
     <div className='xl:mx-24 sm:mx-0 bg-black text-white sm:text-black sm:bg-white'>
