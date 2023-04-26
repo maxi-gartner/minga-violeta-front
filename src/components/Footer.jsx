@@ -1,8 +1,5 @@
 import Star from '../assets/images/Star.png'
 import FooterImg from '../assets/images/img-footer.png'
-import Minga from '../assets/images/Minga.png'
-import LogoTop from '../assets/images/img-logo-top.png'
-import LogoBottom from '../assets/images/img-logo-bottom.png'
 
 export default function Footer(){
   return (
@@ -13,20 +10,18 @@ export default function Footer(){
             </div>
         </div>
         <div  className='flex flex-col sm:flex-row items-center justify-between sm:mx-2 md:mx-10 mb-10 mt-0 pb-5 border-b-2 border-[#cbd5e1]'>
-            <div>
-                <a className='mr-10 text-xl' href="">Home</a>
-                <a className='text-xl' href="">Mangas</a>
-            </div>
-            <div className='flex relative mt-4'>
-                <img className='mt-1 w-20' src={Star}/>
-                <div className='bg-black absolute top-8 p-1'>
-                  <img src={Minga}/>
+        <div className='flex relative mt-14 text-white font-medium'>
+                <img className='ml-[0.08rem] mt-1 w-20 mr-1' src={Star}/>
+                <div className='bg-black absolute p-0 top-11 py-1 left-[1.9rem] px-1 text-sm '>
+                <p className='h-4'>ー</p>
+                <p className='h-5'>ブ</p>
                 </div>
-                <div className='bg-black absolute left-7 px-1'>
-                  <img src={LogoTop}/>
+                <div className='bg-black absolute top-[2.1rem] p-0 right-0'>
+                <p className='w-[5.5rem] text-center text-sm'> M i n g a</p>
                 </div>
-                <div className='bg-black absolute left-7 top-10 mt-3 px-1  pt-1'>
-                  <img src={LogoBottom}/>
+                <div className='bg-black absolute p-0 top-0 left-[1.9rem] px-1 pt-1 text-sm'>
+                <p className='h-4'>ス</p>
+                <p className='h-4'>リ</p>
                 </div>
             </div>
             <div className='flex flex-col items-center mt-4'>
