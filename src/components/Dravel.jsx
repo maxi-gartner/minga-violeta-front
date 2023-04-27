@@ -1,7 +1,7 @@
-import { useState } from "react";
+//import { useState } from "react";
 
 export default function Dravel() {
-
+/* 
     let stateDisplay = ['none','flex']
 
     let [counter, SetCounter] = useState(0)
@@ -11,13 +11,14 @@ export default function Dravel() {
         if (counter === 0){
             SetCounter(stateDisplay.length-1)
         }
-    }
+    } */
+    
 
-    //let changeDisplay = ()=> document.getElementById("dravel").classList.add('hidden');
+    let subtract = ()=> document.getElementById("dravel").classList.add('hidden');
     
     return (
         <>
-            <div className="flex-col h-screen w-screen sm:w-[640px] bg-[#f472b5f9] z-50 absolute left-0" id='dravel'  style={{display:stateDisplay[counter]}}>
+            <div className="hidden flex-col h-screen w-screen sm:w-[400px] bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] z-50 absolute left-0" id='dravel'  /* style={{display:stateDisplay[counter]}} */>
                 <div className="w-full p-5 text-xl relative">
                     <p>Gartner Maximiliano</p>
                     <p>maxi.gartner@hotmail.com</p>

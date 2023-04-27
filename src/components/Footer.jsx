@@ -4,12 +4,12 @@ import FooterImg from '../assets/images/img-footer.png'
 export default function Footer(){
   return (
     <div>
-      <div className='flex justify-center'>
-            <div className='mb-2 rounded-[0px_0px_50%_50%] overflow-hidden w-screen'>
+      <div className='flex justify-center '>
+            <div className='mpb-2 rounded-[0px_0px_50%_50%] overflow-hidden w-screen'>
               <img className='sm:mt-1 w-full' src={FooterImg}/>
             </div>
         </div>
-        <div  className='flex flex-col sm:flex-row items-center justify-between sm:mx-2 md:mx-10 mb-10 mt-0 pb-5 border-b-2 border-[#cbd5e1]'>
+        <div  className='flex flex-col sm:flex-row items-center justify-between sm:mx-2 md:mx-10 sm:mb-10 mt-0 pb-5 border-b-2 border-[#cbd5e1]'>
         <div className='flex relative mt-14 text-white font-medium'>
                 <img className='ml-[0.08rem] mt-1 w-20 mr-1' src={Star}/>
                 <div className='bg-black absolute p-0 top-11 py-1 left-[1.9rem] px-1 text-sm '>

@@ -1,9 +1,9 @@
 import Star from '../assets/images/Star.png'
-import { useState } from "react"; 
+//import { useState } from "react"; 
 
 export default function Navbar() {
 
-    let stateDisplay = ['flex','none']
+/*     let stateDisplay = ['flex','none']
 
     let [counter, SetCounter] = useState(0)
     
@@ -13,9 +13,10 @@ export default function Navbar() {
             SetCounter(0)
         }
         document.getElementById("dravel").style.display = stateDisplay[counter];
-    }
+        //document.getElementById("dravel").style.setAttribute("style", `display = ${stateDisplay[counter]}`);
+    } */
     
-    //let changeDisplay = ()=> document.getElementById("dravel").classList.remove('hidden');
+    let add = ()=> document.getElementById("dravel").classList.remove('hidden');
 
     return (
         <div className='flex w-full justify-between items-center px-5 pb-10 pt-5 h-[10vh] mb-[5vh] xl:h-[12vh] absolute z-40 sm:relative'>
