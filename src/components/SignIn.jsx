@@ -11,7 +11,7 @@ export default function SignIn() {
                 <ButtonSingIn/>
             </div>
             <img className='object-cover w-full hidden sm:flex object-top  sm:rounded-t-lg' src={MainImg}/>
-            <img className='object-cover w-full sm:hidden' src='https://ae01.alicdn.com/kf/HTB1FRXmKXXXXXbLXVXXq6xXFXXX5/Living-Room-Decor-Hot-Anime-Naruto-Shippuden-Poster-27x40-cm-Etiqueta-de-La-Pared.jpg_Q90.jpg_.webp'/>
+            <img className='object-cover w-full sm:hidden' src='https://i.pinimg.com/564x/57/a1/21/57a121180595279d0f3875bf6db0d92d.jpg'/>
         </div>
     );
 }
