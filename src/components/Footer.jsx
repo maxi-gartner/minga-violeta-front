@@ -1,4 +1,4 @@
-import Star from '../assets/images/Star.png'
+import Logo from '../assets/images/Logo.png'
 import FooterImg from '../assets/images/img-footer.png'
 
 export default function Footer(){
@@ -11,18 +11,7 @@ export default function Footer(){
         </div>
         <div  className='flex flex-col sm:flex-row items-center justify-between sm:mx-2 md:mx-10 sm:mb-10 mt-0 pb-5 border-b-2 border-[#cbd5e1]'>
         <div className='flex relative mt-14 text-white font-medium'>
-                <img className='ml-[0.08rem] mt-1 w-20 mr-1' src={Star}/>
-                <div className='bg-black absolute p-0 top-11 py-1 left-[1.9rem] px-1 text-sm '>
-                <p className='h-4'>ー</p>
-                <p className='h-5'>ブ</p>
-                </div>
-                <div className='bg-black absolute top-[2.1rem] p-0 right-0'>
-                <p className='w-[5.5rem] text-center text-sm'> M i n g a</p>
-                </div>
-                <div className='bg-black absolute p-0 top-0 left-[1.9rem] px-1 pt-1 text-sm'>
-                <p className='h-4'>ス</p>
-                <p className='h-4'>リ</p>
-                </div>
+                <img className='ml-[0.08rem] mt-1 w-20 mr-1' src={Logo}/>
             </div>
             <div className='flex flex-col items-center mt-4'>
               <div className='flex w-full justify-evenly'>
