@@ -1,7 +1,17 @@
 import Logo from '../assets/images/Logo.png'
-//import { useState } from "react"; 
+import { useParams } from "react-router-dom";
 
 export default function Navbar() {
+
+    let display = {}
+    let hamburger = {}
+    let {page} = useParams()
+    //console.log(page)
+    if(page == "author-form"){
+        //console.log("es igual")
+        display = {position: "absolute", left: "0", padding: "0vw 5vw"}
+        hamburger = {height: "4rem", width: "4rem"}
+    }
 
 /*     let stateDisplay = ['flex','none']
 
@@ -19,12 +29,14 @@ export default function Navbar() {
     let add = ()=> document.getElementById("dravel").classList.remove('hidden');
 
     return (
-        <div className='flex w-full justify-between items-center px-5 pb-10 pt-5 h-[10vh] mb-[5vh] xl:h-[12vh] absolute z-40 sm:relative'>
-        <svg onClick={add}  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12  h-12 text-[#F472B6] mt-14 cursor-pointer">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
-        <div className='flex relative mt-14 text-white font-medium'>
+        <div className='flex w-full justify-between items-center px-5 pb-10 pt-5 h-[10vh] mb-[5vh] xl:h-[12vh] absolute z-40 sm:relative' style={display}>
+        <svg onClick={add}  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12  h-12 text-[#F472B6] mt-14 cursor-pointer rounded-lg" style={hamburger} id='hamburger'>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+        <a href="/">
+            <div className='flex relative mt-14 text-white font-medium'>
                 <img className='ml-[0.08rem] mt-1 w-20 mr-1' src={Logo}/>
             </div>
+        </a>
         </div>
     );
 }
