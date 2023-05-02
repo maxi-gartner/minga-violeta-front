@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import  { useRef } from "react";
 import apiUrl from "../../api"
 import { useParams } from "react-router-dom";
 
@@ -43,7 +43,6 @@ export default function ChapterForm() {
             className="w-80 appearance-none  border-0  p-2 px-4  border-b border-gray-500 bg-transparent focus:outline-none focus:ring-0 text-black"
             ref = {title}
           />
-         
           <input
             type="text"
             id="Insert order"
