@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const res = await axios.get(`http://localhost:8000/auth/read`);
+const res = await axios.get(`http://localhost:8000/auth`);
 let allUsers = await res.data.users
 //console.log(allUsers);
 localStorage.setItem('userLoged', JSON.stringify(allUsers.find(element=> element.email === "maxi.gartner@hotmail.com")));
