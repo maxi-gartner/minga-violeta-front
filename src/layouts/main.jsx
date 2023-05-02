@@ -15,10 +15,9 @@ export default function Main(){
         styles = {padding: "0"}
     }
 
-
     return (
         <>
-            <div className='h-full sm:px-0 lg:px-24 bg-[#EBEBEB] text-black' id="layouts" style={styles}>
+            <div className='h-full bg-[#EBEBEB] text-black' id="layouts" style={styles}>
                 <Dravel/>
                 <Navbar/>
                 <Outlet/>

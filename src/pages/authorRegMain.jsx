@@ -24,7 +24,7 @@ export default function AuthorRegister() {
       user_id: user._id
     }
     console.log(data);
-    axios.post("http://localhost:8000/authors/create", data).then(res=> console.log(res))
+    axios.post("http://localhost:8000/authors", data).then(res=> console.log(res))
   }
 
 
