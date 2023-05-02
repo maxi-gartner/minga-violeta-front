@@ -5,5 +5,3 @@ import routes from './router/router.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <RouterProvider router={routes} />
-  
-)
