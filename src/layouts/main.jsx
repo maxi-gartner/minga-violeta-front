@@ -1,15 +1,26 @@
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import Dravel from "../components/Dravel"
-import { Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom";
 
-export default function main(){
+import { useParams } from "react-router-dom";
+
+export default function Main(){
+
+    let styles = {}
+    let {page} = useParams()
+    //console.log(page)
+    if(page == "author-form"){
+        //console.log("es igual")
+        styles = {padding: "0"}
+    }
+
     return (
         <>
-            <div className='h-full sm:mx-0 lg:mx-24 xl:mx-52 bg-black text-white sm:text-black sm:bg-white'>
+            <div className='h-full sm:px-0 lg:px-24 bg-[#EBEBEB] text-black' id="layouts" style={styles}>
                 <Dravel/>
                 <Navbar/>
-                    <Outlet />
+                <Outlet/>
                 <Footer/>
             </div>
         </>
