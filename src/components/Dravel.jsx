@@ -9,11 +9,13 @@ const data = JSON.parse(localStorage.getItem('userLoged'));
 export default function Dravel() {
     let authors = "none"
     let mangas = "none"
+    let company = "none"
     const viewsButtons = () => {
         if(data.role === 0){
             authors = "flex"
+            company = "flex"
         }
-        if(data.role === 1 || data.role === 2){
+        if(data.role === 0 || data.role === 2){
             mangas = "flex"
         }
     }
@@ -34,27 +36,30 @@ export default function Dravel() {
                     </div>
                 </div>
                 <div className="w-full">
-                    <ul className="flex flex-col">
-                        <li className="py-5 w-full flex justify-center">
+                    <ul className="flex flex-col justify-between h-[75vh] max-h-[30rem]">
+                        <li className="w-full flex justify-center">
                             <a className="bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-[#F472B6] font-bold text-xl" href="#">Home</a>
                         </li>
-                        <li className="py-5 w-full flex justify-center">
+                        <li className="w-full flex justify-center">
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">Mangas</a>
                         </li>
-                        <li className="py-5 w-full flex justify-center">
+                        <li className="w-full flex justify-center">
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">My mangas</a>
                         </li>
-                        <li className="py-5 w-full flex justify-center">
+                        <li className="w-full flex justify-center">
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">Favorites</a>
                         </li>
-                        <li className="py-5 w-full flex justify-center">
+                        <li className="w-full flex justify-center">
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">Logout</a>
                         </li>
-                        <li className="py-5 w-full justify-center" style={{display: `${authors}`}}>
+                        <li className="w-full justify-center" style={{display: `${authors}`}}>
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="/AuthorRegister/author-form">New Author</a>
                         </li>
-                        <li className="py-5 w-full justify-center" style={{display: `${mangas}`}}>
+                        <li className="w-full justify-center" style={{display: `${mangas}`}}>
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">New Manga</a>
+                        </li>
+                        <li className="w-full justify-center" style={{display: `${company}`}}>
+                            <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">New Company</a>
                         </li>
                     </ul>
                 </div>
