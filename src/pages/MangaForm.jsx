@@ -12,7 +12,7 @@ export default function MangaForm() {
 
     let [categories, setCategories] = useState([])
     const categoryNames = () => {
-        return categories.map(cat => <option key={cat._id} value={cat._id}>{cat.name}</option>)
+        return categories.map(cat => <option key={cat._id} value={cat._id}>{cat.name.charAt(0).toUpperCase()+cat.name.slice(1)}</option>)
     }
 
     let title = useRef()
@@ -25,10 +25,10 @@ export default function MangaForm() {
             category_id: category.current.value,
             description: description.current.value
         }
-        console.log(data)
         axios.post(apiUrl+'mangas', data)
         .then(res=>console.log(res))
-        .catch(err=>console.log(err))
+        .catch(err=>{alert(err.response.data.message)})
+        console.log(data)
     }
 
     return (
