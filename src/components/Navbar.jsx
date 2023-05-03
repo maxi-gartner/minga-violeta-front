@@ -7,7 +7,7 @@ export default function Navbar() {
     let hamburger = {}
     let {page} = useParams()
     //console.log(page)
-    if(page == "author-form"){
+    if(page == "author-form" || page == "CompanyForm"){
         //console.log("es igual")
         display = {position: "absolute", left: "0", padding: "0vw 5vw"}
         hamburger = {height: "4rem", width: "4rem"}
