@@ -17,9 +17,9 @@ const ModalChapter = ({ onClose, children }) => {
       }}
     >
       <div
+        className='divide-y-2'
         style={{
           backgroundColor: '#F2F2F7',
-          padding: '1rem',
           borderRadius: '14px',
           boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
           textAlign: 'center',
@@ -27,8 +27,8 @@ const ModalChapter = ({ onClose, children }) => {
         }}
       >
         {children}
-        <div className='divide-y-reverse divide-gray-400'>
-          <button className="text-[#0A7AFF]" onClick={onClose}>Close</button>
+        <div>
+          <button className="text-[#0A7AFF] p-2" onClick={onClose}>Close</button>
         </div>
         
       </div>

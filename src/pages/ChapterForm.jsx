@@ -13,14 +13,14 @@ export default function ChapterForm() {
 
   const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
   const [modalErrorIsOpen, setModalErrorIsOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState([]);
 
   const successModal = () => {
     return (
       <div>
-        <div>
-          <h2>Success</h2>
-          <p>Author created successfully!</p>
+        <div className="p-4">
+          <h2 className="font-semibold">Success</h2>
+          <p>Chapter created successfully!</p>
         </div>
       </div>
     );
@@ -29,9 +29,11 @@ export default function ChapterForm() {
   const errorModal = () => {
     return (
       <div>
-        <div>
-          <h2>Error</h2>
-          <p>{errorMessage}</p>
+        <div className="p-4">
+          <h2 className="font-semibold">Error</h2>
+          {errorMessage.map(message => (
+            <div key={message}>{message}</div>
+          ))}  
         </div>
       </div>
     );
@@ -66,7 +68,7 @@ export default function ChapterForm() {
     }) 
     .catch(err => {
       console.error(err.response.data.message)
-      setErrorMessage(err.response.data.message)
+      setErrorMessage(err.response.data.message.map(message => message))
       setModalErrorIsOpen(true)
     })
     
