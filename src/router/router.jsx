@@ -13,9 +13,15 @@ const routes = createBrowserRouter([
         {path: '/', element:<Main/>},
         {path: '/AuthorRegister/:page', element: <AuthorRegMain/>},
         {path: '/manga-form', element: <MangaForm/>},
+<<<<<<< HEAD
         { path: "/auth/signup", element: <SignUp /> },
         { path: "/auth/signin", element: <SignIn /> },
         { path: '/chapter-form/:id_manga', element:<ChapterForm/>}
+=======
+        {path: "/auth/signup", element: <SignUp />},
+        {path: "/auth/signin", element: <SignIn />},
+        {path: '/chapter-form/:id_manga', element:<ChapterForm/>}
+>>>>>>> 74cb359afb7013b5abe5d5c106ac3312017ea629
     ]}
 ])
 export default routes
