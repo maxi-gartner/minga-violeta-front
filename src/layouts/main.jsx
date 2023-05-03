@@ -10,7 +10,7 @@ export default function Main(){
     let styles = {}
     let {page} = useParams()
     //console.log(page)
-    if(page == "author-form"){
+    if(page == "author-form" || page == "CompanyForm"){
         //console.log("es igual")
         styles = {padding: "0"}
     }
