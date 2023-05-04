@@ -2,7 +2,7 @@ import axios from "axios";
 import  { useRef, useState } from "react"
 import apiUrl from "../../api"
 import { useParams } from "react-router-dom"
-import ModalChapter from "../components/ModalChapter"
+import ModalMinga from "../components/ModalMinga"
 
 export default function ChapterForm() {
   let chapterId = useParams()
@@ -116,14 +116,14 @@ export default function ChapterForm() {
         </form>
       </section>
       {modalSuccessIsOpen && (
-        <ModalChapter onClose={closeModal}>
+        <ModalMinga onClose={closeModal}>
           {successModal()}
-        </ModalChapter>
+        </ModalMinga>
       )}
       {modalErrorIsOpen && (
-        <ModalChapter onClose={closeErrorModal}>
+        <ModalMinga onClose={closeErrorModal}>
           {errorModal()}
-        </ModalChapter>
+        </ModalMinga>
       )}
     </>
   )
