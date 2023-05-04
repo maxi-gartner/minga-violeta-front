@@ -1,19 +1,47 @@
-import React from 'react'
+import VITE_API from '../../api'
 import { Link } from "react-router-dom";
-//import { useRef } from "react";
+import { useRef } from "react";
+import axios from 'axios';
 
-export const signIn = () => {
+ const signIn = () => {
+  let email = useRef();
+  let password = useRef();
+
+   function handleForm(e) {
+     e.preventDefault()
+     let data = {
+       email: email.current.value,
+       password: password.current.value
+     }
+     axios.post(VITE_API + "auth/signin", data)
+       .then(res => {
+         console.log(res.data)
+         const token = res.data.token;
+         const role = res.data.user.role;
+         const email = res.data.user.email;
+         const photo = res.data.user.photo;
+         console.log(token)
+      
+         localStorage.setItem('token', token);
+         localStorage.setItem('role', role);
+         localStorage.setItem('email', email);
+         localStorage.setItem('photo', photo);
+       })
+       .catch(error => { console.log(error) })
+   }
+      
+
     return (
       <>
         <div className="h-screen w-full flex justify-center items-center bg-white">
           <img
             src="/public/fondosignin.png"
-            className="hidden sm:w-1/2 sm:flex object-contain object-top"
+            className="hidden sm:w-1/2 h-full sm:flex object-cover object-top "
           />
           <div className="flex justify-center w-1/2 bg-white">
             <div className="bg-white min-h-screen w-1/2 flex justify-center items-center">
               <div className="flex flex-col">
-                <form>
+                <form onSubmit={(e) => handleForm(e)}>
                   <div className="flex flex-col items-center">
                     <span className="text-5xl text-center font-semibold text-gray-800">
                       Welcome!
@@ -30,6 +58,7 @@ export const signIn = () => {
                         Email
                       </legend>
                       <input
+                        ref={email}
                         className="px-4 w-full  py-2 rounded-md text-sm outline-none"
                         type="email"
                         name="Email"
@@ -60,6 +89,7 @@ export const signIn = () => {
                         Password
                       </legend>
                       <input
+                        ref={password}
                         className="px-4 w-full  py-2 rounded-md text-sm outline-none"
                         type="password"
                         name="Password"
@@ -105,17 +135,17 @@ export const signIn = () => {
                   </a>
                 </div>
                 <div className="flex flex-col items-center">
-                  <Link to="/signup" className="mt-6 ">
+                  <Link to="/auth/signup" className="mt-6 text-[12px] ">
                     {" "}
                     you don't have an account yet?{" "}
-                    <span className="cursor-pointer text-sm text-fuchsia-500 font-bold">
+                    <span className="cursor-pointer text-[11px] text-fuchsia-500 font-bold">
                       Sign up
                     </span>
                   </Link>
-                  <Link to="/" className="mt-2">
+                  <Link to="/" className="mt-2 text-[12px]">
                     {" "}
                     Go back to{" "}
-                    <span className="cursor-pointer text-m text-fuchsia-500 font-bold">
+                    <span className="cursor-pointer text-[11px] text-fuchsia-500 font-bold">
                       Home page
                     </span>
                   </Link>
@@ -125,6 +155,9 @@ export const signIn = () => {
           </div>
         </div>
       </>
-    );
-}
+    )
+  };
+  
+
+
 export default signIn

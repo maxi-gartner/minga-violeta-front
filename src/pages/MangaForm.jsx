@@ -30,7 +30,7 @@ export default function MangaForm() {
             <div>
                 <div className="p-4">
                     <h2 className="font-semibold">Success</h2>
-                    <p>Chapter created successfully!</p>
+                    <p>Manga created successfully!</p>
                 </div>
             </div>
         );
