@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import apiUrl from "../../api"
+import ModalMinga from "../components/ModalMinga"
 
 export default function MangaForm() {
     useEffect(
@@ -12,23 +13,67 @@ export default function MangaForm() {
 
     let [categories, setCategories] = useState([])
     const categoryNames = () => {
-        return categories.map(cat => <option key={cat._id} value={cat._id}>{cat.name.charAt(0).toUpperCase()+cat.name.slice(1)}</option>)
+        return categories.map(cat => <option key={cat._id} value={cat._id}>{cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}</option>)
     }
 
     let title = useRef()
     let category = useRef()
     let description = useRef()
-    function handleForm(e){
+
+
+    const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
+    const [modalErrorIsOpen, setModalErrorIsOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState([]);
+
+    const successModal = () => {
+        return (
+            <div>
+                <div className="p-4">
+                    <h2 className="font-semibold">Success</h2>
+                    <p>Chapter created successfully!</p>
+                </div>
+            </div>
+        );
+    };
+
+    const errorModal = () => {
+        return (
+            <div>
+                <div className="p-4">
+                    <h2 className="font-semibold">Error</h2>
+                    {errorMessage.map(message => (
+                        <div key={message}>{message}</div>
+                    ))}
+                </div>
+            </div>
+        );
+    };
+
+    const closeModal = () => {
+        setModalSuccessIsOpen(false);
+    }
+
+    const closeErrorModal = () => {
+        setModalErrorIsOpen(false);
+    }
+
+    function handleForm(e) {
         e.preventDefault()
         let data = {
             title: title.current.value,
             category_id: category.current.value,
             description: description.current.value
         }
-        axios.post(apiUrl+'mangas', data)
-        .then(res=>console.log(res))
-        .catch(err=>{alert(err.response.data.message)})
-        console.log(data)
+        axios.post(apiUrl + 'mangas', data)
+            .then(res => {
+                console.log(res)
+                setModalSuccessIsOpen(true)
+            })
+            .catch(err => {
+                console.error(err.response.data.message)
+                setErrorMessage(err.response.data.message.map(message => message))
+                setModalErrorIsOpen(true)
+            })
     }
 
     return (
@@ -53,6 +98,16 @@ export default function MangaForm() {
                     <button className='bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] gap-y-12 h-10 mt-10 rounded-full text-white font-bold'>Send</button>
                 </form>
             </div>
+            {modalSuccessIsOpen && (
+                <ModalMinga onClose={closeModal}>
+                    {successModal()}
+                </ModalMinga>
+            )}
+            {modalErrorIsOpen && (
+                <ModalMinga onClose={closeErrorModal}>
+                    {errorModal()}
+                </ModalMinga>
+            )}
         </div>
     )
 }

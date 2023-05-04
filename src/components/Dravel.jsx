@@ -15,7 +15,7 @@ export default function Dravel() {
             authors = "flex"
             company = "flex"
         }
-        if(data.role === 0 || data.role === 2){
+        if(data.role === 1 || data.role === 2){
             mangas = "flex"
         }
     }
