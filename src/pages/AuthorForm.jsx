@@ -1,13 +1,7 @@
-<<<<<<< HEAD
 import  { useRef, useState } from "react"
 import axios from "axios";
 import apiUrl from "../../api"
 import ModalMinga from "../components/ModalMinga"
-=======
-import { useRef } from "react";
-import axios from "axios";
-import apiUrl from "../../api"
->>>>>>> c01f716cf0cfdf2665d2ba486d873f59c28b8c99
 const data = JSON.parse(localStorage.getItem('userLoged')) || [];
 
 export default function AuthorForm(){
@@ -33,7 +27,6 @@ export default function AuthorForm(){
     }
     console.log(data);
     axios.post(apiUrl+"authors", data)
-<<<<<<< HEAD
     .then(res =>{
       console.log(res)
       setModalSuccessIsOpen(true)
@@ -82,21 +75,11 @@ export default function AuthorForm(){
   }
 
 
-=======
-    .then(res=> console.log("mensaje de res correcto", res.data))
-    .catch(err=> console.log("mensaje de res INcorrecto", err.response.data))
-  }
-
->>>>>>> c01f716cf0cfdf2665d2ba486d873f59c28b8c99
 
   return (
     <div className="flex h-screen">
       <img src="../../img-authors.jpg" alt="" className="hidden sm:w-1/2 sm:flex object-cover object-top"/>
-<<<<<<< HEAD
     <div className="bg-[#EBEBEB] w-screen h-screen flex flex-col justify-around pt-32 pb-10 items-center sm:w-1/2 ">
-=======
-      <div className="bg-[#EBEBEB] w-screen h-screen flex flex-col justify-around pt-[10vh] pb-[5vh] items-center sm:w-1/2 ">
->>>>>>> c01f716cf0cfdf2665d2ba486d873f59c28b8c99
         <h1 className="text-black text-3xl ">New Author</h1>
         <div className="mr-5 h-24 w-24 sm:h-36 sm:w-36 rounded-full overflow-hidden shadow-[0px_0px_20px_4px_rgba(0,0,0,0.56)]">
           <img src={data.photo} alt="" />
@@ -159,7 +142,6 @@ export default function AuthorForm(){
           <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">Submit</button>
         </form>
       </div>
-<<<<<<< HEAD
       {modalSuccessIsOpen && (
         <ModalMinga onClose={closeModal}>
           {successModal()}
@@ -170,8 +152,6 @@ export default function AuthorForm(){
           {errorModal()}
         </ModalMinga>
       )}
-=======
->>>>>>> c01f716cf0cfdf2665d2ba486d873f59c28b8c99
     </div>
   );
 }
