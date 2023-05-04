@@ -2,7 +2,7 @@ import  { useRef, useState } from "react"
 import axios from "axios";
 import apiUrl from "../../api"
 import ModalMinga from "../components/ModalMinga"
-const data = JSON.parse(localStorage.getItem('userLoged')) || [];
+let photo = localStorage.getItem('photo');
 
 export default function AuthorForm(){
   const name = useRef()
@@ -11,7 +11,6 @@ export default function AuthorForm(){
   const birthdate = useRef()
   const img = useRef()
   function handleForm(e){
-    const user = JSON.parse(localStorage.getItem('userLoged')) || [];
     e.preventDefault()
     let dataCity =  country.current.value.split(',')[0]
     let dataCountry =  country.current.value.split(',')[1]
@@ -23,7 +22,6 @@ export default function AuthorForm(){
       date: birthdate.current.value,
       photo: img.current.value,
       active: true,
-      user_id: user._id
     }
     console.log(data);
     axios.post(apiUrl+"authors", data)
@@ -36,6 +34,7 @@ export default function AuthorForm(){
       setErrorMessage(err.response.data.message.map(message => message))
       setModalErrorIsOpen(true)
     })
+    localStorage.setItem('role', 1);
   }
 
   const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
@@ -75,14 +74,13 @@ export default function AuthorForm(){
   }
 
 
-
   return (
     <div className="flex h-screen">
       <img src="../../img-authors.jpg" alt="" className="hidden sm:w-1/2 sm:flex object-cover object-top"/>
     <div className="bg-[#EBEBEB] w-screen h-screen flex flex-col justify-around pt-32 pb-10 items-center sm:w-1/2 ">
         <h1 className="text-black text-3xl ">New Author</h1>
         <div className="mr-5 h-24 w-24 sm:h-36 sm:w-36 rounded-full overflow-hidden shadow-[0px_0px_20px_4px_rgba(0,0,0,0.56)]">
-          <img src={data.photo} alt="" />
+          <img className="h-full object-cover" src={photo} alt="" />
         </div>
         <form onSubmit={handleForm}  className="text-black h-2/3 flex flex-col justify-between pb-5 w-full px-[15vw] sm:px-[5vw] xl:px-[10vw]">
           <div className="grid h-full py-5">

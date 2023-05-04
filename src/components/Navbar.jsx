@@ -14,8 +14,7 @@ export default function Navbar() {
     }
     if (page == "auth") {
       //console.log("es igual")
-      display = { position: "absolute", left: "0", padding: "0vw 5vw" };
-      
+        display = { position: "absolute", left: "0", padding: "0vw 5vw" };
     }
 
 /*     let stateDisplay = ['flex','none']
