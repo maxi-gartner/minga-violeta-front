@@ -1,6 +1,8 @@
-import { useRef } from "react";
+import  { useRef, useState } from "react"
 import axios from "axios";
 import apiUrl from "../../api"
+import ModalMinga from "../components/ModalMinga"
+
 const data = JSON.parse(localStorage.getItem('userLoged')) || [];
 
 export default function AuthorForm(){
@@ -21,8 +23,51 @@ function handleForm(e){
     }
     console.log(data);
     axios.post(apiUrl+"companies", data)
-    .then(res=> console.log("mensaje de res correcto", res.data))
-    .catch(err=> console.log("mensaje company INcorrecta", err.response.data.message))
+.then(res =>{
+    console.log(res)
+    setModalSuccessIsOpen(true)
+}) 
+.catch(err => {
+    console.error(err.response.data.message)
+    setErrorMessage(err.response.data.message.map(message => message))
+    setModalErrorIsOpen(true)
+})
+}
+
+const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
+const [modalErrorIsOpen, setModalErrorIsOpen] = useState(false);
+const [errorMessage, setErrorMessage] = useState([]);
+
+const successModal = () => {
+return (
+    <div>
+    <div className="p-4">
+        <h2 className="font-semibold">Success</h2>
+        <p>Chapter created successfully!</p>
+    </div>
+    </div>
+);
+};
+
+const errorModal = () => {
+return (
+    <div>
+    <div className="p-4">
+        <h2 className="font-semibold">Error</h2>
+        {errorMessage.map(message => (
+        <div key={message}>{message}</div>
+        ))}  
+    </div>
+    </div>
+);
+};
+
+const closeModal = () => {
+setModalSuccessIsOpen(false);
+}
+
+const closeErrorModal = () => {
+setModalErrorIsOpen(false);
 }
 
 
@@ -82,6 +127,16 @@ return (
         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">Submit</button>
         </form>
     </div>
+        {modalSuccessIsOpen && (
+            <ModalMinga onClose={closeModal}>
+            {successModal()}
+            </ModalMinga>
+        )}
+        {modalErrorIsOpen && (
+            <ModalMinga onClose={closeErrorModal}>
+            {errorModal()}
+            </ModalMinga>
+        )}
     </div>
 );
 }
