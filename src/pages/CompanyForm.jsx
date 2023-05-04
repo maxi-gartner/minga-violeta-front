@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 import  { useRef, useState } from "react"
 import axios from "axios";
 import apiUrl from "../../api"
 import ModalMinga from "../components/ModalMinga"
 
+=======
+import { useRef } from "react";
+import axios from "axios";
+import apiUrl from "../../api"
+>>>>>>> c01f716cf0cfdf2665d2ba486d873f59c28b8c99
 const data = JSON.parse(localStorage.getItem('userLoged')) || [];
 
 export default function AuthorForm(){
@@ -23,6 +29,7 @@ function handleForm(e){
     }
     console.log(data);
     axios.post(apiUrl+"companies", data)
+<<<<<<< HEAD
 .then(res =>{
     console.log(res)
     setModalSuccessIsOpen(true)
@@ -68,6 +75,10 @@ setModalSuccessIsOpen(false);
 
 const closeErrorModal = () => {
 setModalErrorIsOpen(false);
+=======
+    .then(res=> console.log("mensaje de res correcto", res.data))
+    .catch(err=> console.log("mensaje company INcorrecta", err.response.data.message))
+>>>>>>> c01f716cf0cfdf2665d2ba486d873f59c28b8c99
 }
 
 
@@ -127,6 +138,7 @@ return (
         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">Submit</button>
         </form>
     </div>
+<<<<<<< HEAD
         {modalSuccessIsOpen && (
             <ModalMinga onClose={closeModal}>
             {successModal()}
@@ -137,6 +149,8 @@ return (
             {errorModal()}
             </ModalMinga>
         )}
+=======
+>>>>>>> c01f716cf0cfdf2665d2ba486d873f59c28b8c99
     </div>
 );
 }

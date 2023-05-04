@@ -12,6 +12,11 @@ export default function Navbar() {
         display = {position: "absolute", left: "0", padding: "0vw 5vw"}
         hamburger = {height: "4rem", width: "4rem"}
     }
+    if (page == "auth") {
+      //console.log("es igual")
+      display = { position: "absolute", left: "0", padding: "0vw 5vw" };
+      
+    }
 
 /*     let stateDisplay = ['flex','none']
 

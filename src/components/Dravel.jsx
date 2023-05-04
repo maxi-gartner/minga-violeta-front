@@ -59,7 +59,11 @@ export default function Dravel() {
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">New Manga</a>
                         </li>
                         <li className="w-full justify-center" style={{display: `${company}`}}>
+<<<<<<< HEAD
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="/CompanyForm/CompanyForm">New Company</a>
+=======
+                            <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">New Company</a>
+>>>>>>> c01f716cf0cfdf2665d2ba486d873f59c28b8c99
                         </li>
                     </ul>
                 </div>
