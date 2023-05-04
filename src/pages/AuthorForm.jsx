@@ -2,7 +2,11 @@ import  { useRef, useState } from "react"
 import axios from "axios";
 import apiUrl from "../../api"
 import ModalMinga from "../components/ModalMinga"
+<<<<<<< HEAD
 let photo = localStorage.getItem('photo');
+=======
+const data = JSON.parse(localStorage.getItem('userLoged')) || [];
+>>>>>>> fd947d8c52b2b0cc1f238120c907da5c53873e1e
 
 export default function AuthorForm(){
   const name = useRef()
@@ -34,7 +38,6 @@ export default function AuthorForm(){
       setErrorMessage(err.response.data.message.map(message => message))
       setModalErrorIsOpen(true)
     })
-    localStorage.setItem('role', 1);
   }
 
   const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
@@ -72,6 +75,7 @@ export default function AuthorForm(){
   const closeErrorModal = () => {
     setModalErrorIsOpen(false);
   }
+
 
 
   return (
