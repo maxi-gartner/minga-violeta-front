@@ -1,4 +1,6 @@
-const data = JSON.parse(localStorage.getItem('userLoged')) || [];
+let role = localStorage.getItem('role')
+let email = localStorage.getItem('email')
+// let email = localStorage.getItem('email')
 
 export default function Dravel() {
     let authors = "none"
@@ -6,11 +8,11 @@ export default function Dravel() {
     let company = "none"
     
     const viewsButtons = () => {
-        if(data.role === 0){
+        if(role === 0){
             authors = "flex"
             company = "flex"
         }
-        if(data.role === 0 || data.role === 2){
+        if(role === 1 || role === 2){
             mangas = "flex"
         }
     }
@@ -25,8 +27,7 @@ export default function Dravel() {
                         <img src="../Logo.png" alt="" />
                     </div>
                     <div>
-                        <p className="sm:font-medium">Gartner Maximiliano</p>
-                        <p>data.email</p>
+                        <p>{email}</p>
                         <svg onClick={subtract} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"  stroke="currentColor" className="w-10 h-10 absolute right-3 top-3  cursor-pointer"><path d="M6 18L18 6M6 6l12 12" /></svg>
                     </div>
                 </div>
@@ -51,7 +52,7 @@ export default function Dravel() {
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="/AuthorRegister/author-form">New Author</a>
                         </li>
                         <li className="w-full justify-center" style={{display: `${mangas}`}}>
-                            <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">New Manga</a>
+                            <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="/manga-form">New Manga</a>
                         </li>
                         <li className="w-full justify-center" style={{display: `${company}`}}>
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="/CompanyForm/CompanyForm">New Company</a>
