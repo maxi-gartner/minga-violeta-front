@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import  { useRef, useState } from "react"
 import axios from "axios";
 import apiUrl from "../../api"
+import ModalMinga from "../components/ModalMinga"
 const data = JSON.parse(localStorage.getItem('userLoged')) || [];
 
 export default function AuthorForm(){
@@ -26,15 +27,59 @@ export default function AuthorForm(){
     }
     console.log(data);
     axios.post(apiUrl+"authors", data)
-    .then(res=> console.log("mensaje de res correcto", res.data))
-    .catch(err=> console.log("mensaje de res INcorrecto", err.response.data))
+    .then(res =>{
+      console.log(res)
+      setModalSuccessIsOpen(true)
+    }) 
+    .catch(err => {
+      console.error(err.response.data.message)
+      setErrorMessage(err.response.data.message.map(message => message))
+      setModalErrorIsOpen(true)
+    })
   }
+
+  const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
+  const [modalErrorIsOpen, setModalErrorIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState([]);
+
+  const successModal = () => {
+    return (
+      <div>
+        <div className="p-4">
+          <h2 className="font-semibold">Success</h2>
+          <p>Chapter created successfully!</p>
+        </div>
+      </div>
+    );
+  };
+
+  const errorModal = () => {
+    return (
+      <div>
+        <div className="p-4">
+          <h2 className="font-semibold">Error</h2>
+          {errorMessage.map(message => (
+            <div key={message}>{message}</div>
+          ))}  
+        </div>
+      </div>
+    );
+  };
+
+  const closeModal = () => {
+    setModalSuccessIsOpen(false);
+  }
+
+  const closeErrorModal = () => {
+    setModalErrorIsOpen(false);
+  }
+
 
 
   return (
     <div className="flex h-screen">
       <img src="../../img-authors.jpg" alt="" className="hidden sm:w-1/2 sm:flex object-cover object-top"/>
-      <div className="bg-[#EBEBEB] w-screen h-screen flex flex-col justify-around pt-[10vh] pb-[5vh] items-center sm:w-1/2 ">
+    <div className="bg-[#EBEBEB] w-screen h-screen flex flex-col justify-around pt-32 pb-10 items-center sm:w-1/2 ">
         <h1 className="text-black text-3xl ">New Author</h1>
         <div className="mr-5 h-24 w-24 sm:h-36 sm:w-36 rounded-full overflow-hidden shadow-[0px_0px_20px_4px_rgba(0,0,0,0.56)]">
           <img src={data.photo} alt="" />
@@ -97,6 +142,16 @@ export default function AuthorForm(){
           <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">Submit</button>
         </form>
       </div>
+      {modalSuccessIsOpen && (
+        <ModalMinga onClose={closeModal}>
+          {successModal()}
+        </ModalMinga>
+      )}
+      {modalErrorIsOpen && (
+        <ModalMinga onClose={closeErrorModal}>
+          {errorModal()}
+        </ModalMinga>
+      )}
     </div>
   );
 }

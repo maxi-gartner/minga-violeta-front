@@ -1,6 +1,4 @@
-import React from 'react';
-
-const ModalChapter = ({ onClose, children }) => {
+const ModalMinga = ({ onClose, children }) => {
   return (
     <div
       style={{
@@ -36,4 +34,4 @@ const ModalChapter = ({ onClose, children }) => {
   );
 };
 
-export default ModalChapter;
+export default ModalMinga;
