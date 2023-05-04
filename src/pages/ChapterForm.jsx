@@ -3,7 +3,7 @@ import  { useRef, useState } from "react"
 import apiUrl from "../../api"
 import { useParams } from "react-router-dom"
 import ModalMinga from "../components/ModalMinga"
-import Index from "../components/Index"; 
+// import Index from "../components/Index"; 
 
 export default function ChapterForm() {
   let chapterId = useParams()
@@ -61,7 +61,7 @@ export default function ChapterForm() {
     }
 
    
-    axios.post(apiUrl+"chapters", data, headers)
+    axios.post(apiUrl+"chapters", data/* , headers */)
     .then(res =>{
       console.log(res)
       setModalSuccessIsOpen(true)
@@ -73,15 +73,15 @@ export default function ChapterForm() {
     })
     
   }
-  //let role = JSON.parse(localStorage.getItem('user'))?.role;
-  let role = localStorage.getItem('role')
-  let token = localStorage.getItem('token')
-  let headers = {headers:{'Authorization':`Bearer ${token}`}}
+ 
+  // let role = localStorage.getItem('role')
+  // let token = localStorage.getItem('token')
+  // let headers = {headers:{'Authorization':`Bearer ${token}`}}
 
   return (
     <>
-    {role == 1 || role == 2 ? (
-      <>
+    {/* {role == 1 || role == 2 ? (
+      <> */}
       <section className="grid h-screen place-content-center text-slate-300  bg-[#EBEBEB]">
         <div className="mb-5 text-center text-black">
           <h1 className="text-3xl">New Chapter</h1>
@@ -131,9 +131,9 @@ export default function ChapterForm() {
         </ModalMinga>
       )}
     </>
-    ):(
-      < Index/>
-    )}
-    </>
+    // ):(
+    //   < Index/>
+    // )}
+    // </>
   )
   }
