@@ -1,4 +1,5 @@
-import React from "react";
+
+import VITE_API from '../../api'
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import axios from "axios";
@@ -9,21 +10,25 @@ export const signUp = () => {
     let photo = useRef();
     let password = useRef();
     function handleForm(e) {
-        e.preventDefault()
-        let data = {
-            email: email.current.value,
-            photo: photo.current.value,
-            password: password.current.value
-        }
-        axios.post("VITE_API", data)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+      e.preventDefault();
+      let data = {
+        email: email.current.value,
+        photo: photo.current.value,
+        password: password.current.value,
+      };
+      axios.post(VITE_API + "auth/signup", data)
+        .then((res) => {
+          console.log(res);
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+        })
+        .catch((err) => console.log(err));
     }
 
   return (
     <>
       <div className="h-screen w-full flex justify-center items-center bg-white">
-        <div className="flex justify-center w-1/2 bg-white">
+        <div className="flex justify-center w-1/2 bg-white ">
           <div className="bg-white min-h-screen w-1/2 flex justify-center items-center">
             <div className="flex flex-col">
               <form onSubmit={(e) => handleForm(e)}>
@@ -42,7 +47,8 @@ export const signUp = () => {
                     <legend className="text-sm ml-2 text-fuchsia-400">
                       Email
                     </legend>
-                    <input ref={email}
+                    <input
+                      ref={email}
                       className="px-4 w-full  py-2 rounded-md text-sm outline-none"
                       type="email"
                       name="Email"
@@ -54,11 +60,11 @@ export const signUp = () => {
                       width=""
                       height=""
                       viewBox="0 0 24 24"
-                      strokewidth="1.5"
+                      strokeWidth="1.5"
                       stroke="#2c3e50"
                       fill="none"
                       strokeLinecap="round"
-                      stroke-linejoin="round"
+                      strokeLinejoin="round"
                     >
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <circle cx="12" cy="12" r="4" />
@@ -71,7 +77,8 @@ export const signUp = () => {
                     <legend className="text-sm ml-2 text-fuchsia-400">
                       Photo
                     </legend>
-                    <input ref= {photo}
+                    <input
+                      ref={photo}
                       className="px-4 w-full  py-2 rounded-md text-sm outline-none"
                       type="url"
                       name="Photo"
@@ -87,7 +94,7 @@ export const signUp = () => {
                       stroke="#2c3e50"
                       fill="none"
                       strokeLinecap="round"
-                      stroke-linejoin="round"
+                      strokeLinejoin="round"
                     >
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <path d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
@@ -100,7 +107,8 @@ export const signUp = () => {
                     <legend className="text-sm ml-2 text-fuchsia-400">
                       Password
                     </legend>
-                    <input ref = {password}
+                    <input
+                      ref={password}
                       className="px-4 w-full  py-2 rounded-md text-sm outline-none"
                       type="password"
                       name="Password"
@@ -116,7 +124,7 @@ export const signUp = () => {
                       stroke="#2c3e50"
                       fill="none"
                       strokeLinecap="round"
-                      stroke-linejoin="round"
+                      strokeLinejoin="round"
                     >
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <rect x="5" y="11" width="14" height="10" rx="2" />
@@ -157,17 +165,17 @@ export const signUp = () => {
                 </a>
               </div>
               <div className="flex flex-col items-center">
-                <Link to="/signin" className="mt-6 ">
+                <Link to="/auth/signin" className="mt-6 text-[12px]">
                   {" "}
                   Already have an account?{" "}
-                  <span className="cursor-pointer text-sm text-fuchsia-500 font-bold">
+                  <span className="cursor-pointer text-[11px] text-fuchsia-500 font-bold">
                     Log in
                   </span>
                 </Link>
-                <Link to="/" className="mt-2">
+                <Link to="/" className="mt-2 text-[12px]">
                   {" "}
                   Go back to{" "}
-                  <span className="cursor-pointer text-m text-fuchsia-500 font-bold">
+                  <span className="cursor-pointer text-[11px] text-fuchsia-500 font-bold">
                     Home page
                   </span>
                 </Link>
@@ -177,7 +185,7 @@ export const signUp = () => {
         </div>
         <img
           src="/public/Rectangle 81.png"
-          className="hidden sm:w-1/2 sm:flex object-contain object-top"
+          className="hidden sm:w-1/2 h-full sm:flex object-cover object-top"
         />
       </div>
     </>
