@@ -26,8 +26,7 @@ export default function ButtonSingIn() {
 
     
     <>
-      <a href="/auth/signin/auth" className="hidden sm:flex  border-none  w-56 p-2 justify-center text-xl rounded-lg"  style={{backgroundColor:categories[counter]?.color}}>Sign In!</a>
-                <button className="text-[4vw] rounded-full flex border-none  p-[2vw] mt-5 w-[70vw] justify-center text-xl sm:hidden "  style={{backgroundColor:categories[counter]?.color}}>Explore</button>
+      <a href="/auth/signin/auth" className="text-[4vw] rounded-full border-none  p-[2vw] mt-5 w-[70vw] justify-center text-xl flex  sm:border-none  sm:w-56 sm:p-2 sm:justify-center sm:text-xl sm:rounded-lg"  style={{backgroundColor:categories[counter]?.color}}>Sign In!</a>
     </>
   );
 }
