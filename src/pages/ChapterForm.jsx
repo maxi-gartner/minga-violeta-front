@@ -1,8 +1,8 @@
 import axios from "axios";
-import  { useRef } from "react";
+import  { useRef, useState } from "react"
 import apiUrl from "../../api"
-import { useParams } from "react-router-dom";
-
+import { useParams } from "react-router-dom"
+import ModalChapter from "../components/ModalChapter"
 
 export default function ChapterForm() {
   let chapterId = useParams()
@@ -11,8 +11,44 @@ export default function ChapterForm() {
   let order = useRef()
   let pages = useRef()
 
+  const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
+  const [modalErrorIsOpen, setModalErrorIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState([]);
+
+  const successModal = () => {
+    return (
+      <div>
+        <div className="p-4">
+          <h2 className="font-semibold">Success</h2>
+          <p>Chapter created successfully!</p>
+        </div>
+      </div>
+    );
+  };
+
+  const errorModal = () => {
+    return (
+      <div>
+        <div className="p-4">
+          <h2 className="font-semibold">Error</h2>
+          {errorMessage.map(message => (
+            <div key={message}>{message}</div>
+          ))}  
+        </div>
+      </div>
+    );
+  };
+
+  const closeModal = () => {
+    setModalSuccessIsOpen(false);
+  }
+
+  const closeErrorModal = () => {
+    setModalErrorIsOpen(false);
+  }
 
   function handleForm(e){
+    
     e.preventDefault()
     let inputpages = pages.current.value
     let listPages = inputpages.split(',')
@@ -22,11 +58,22 @@ export default function ChapterForm() {
       order: order.current.value,
       pages: listPages
     }
+
+    // let token = localStorage.getItem('token')
+    // let headers = {headers:{'Authorization':`Bearer ${token}`}}
     axios.post(apiUrl+"chapters", data)
-    .then(res => console.log(res))
-    .catch(err => console.error(err.response.data.message))
-    console.log(data)
+    .then(res =>{
+      console.log(res)
+      setModalSuccessIsOpen(true)
+    }) 
+    .catch(err => {
+      console.error(err.response.data.message)
+      setErrorMessage(err.response.data.message.map(message => message))
+      setModalErrorIsOpen(true)
+    })
+    
   }
+
 
   return (
     <>
@@ -68,6 +115,16 @@ export default function ChapterForm() {
           </button>
         </form>
       </section>
+      {modalSuccessIsOpen && (
+        <ModalChapter onClose={closeModal}>
+          {successModal()}
+        </ModalChapter>
+      )}
+      {modalErrorIsOpen && (
+        <ModalChapter onClose={closeErrorModal}>
+          {errorModal()}
+        </ModalChapter>
+      )}
     </>
-  );
-}
+  )
+  }
