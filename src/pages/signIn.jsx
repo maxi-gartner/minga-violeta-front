@@ -3,32 +3,32 @@ import { Link } from "react-router-dom";
 import { useRef } from "react";
 import axios from 'axios';
 
- const signIn = () => {
+const signIn = () => {
   let email = useRef();
   let password = useRef();
 
-   function handleForm(e) {
-     e.preventDefault()
-     let data = {
-       email: email.current.value,
-       password: password.current.value
-     }
-     axios.post(VITE_API + "auth/signin", data)
-       .then(res => {
-         console.log(res.data)
-         const token = res.data.token;
-         const role = res.data.user.role;
-         const email = res.data.user.email;
-         const photo = res.data.user.photo;
-         console.log(token)
-      
-         localStorage.setItem('token', token);
-         localStorage.setItem('role', role);
-         localStorage.setItem('email', email);
-         localStorage.setItem('photo', photo);
-       })
-       .catch(error => { console.log(error) })
-   }
+  function handleForm(e) {
+    e.preventDefault()
+    let data = {
+      email: email.current.value,
+      password: password.current.value
+    }
+    axios.post(VITE_API + "auth/signin", data)
+      .then(res => {
+        console.log(res.data)
+        const token = res.data.token;
+        const role = res.data.user.role;
+        const email = res.data.user.email;
+        const photo = res.data.user.photo;
+        console.log(token)
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
+        localStorage.setItem('email', email);
+        localStorage.setItem('photo', photo);
+      })
+      .catch(error => { console.log(error) })
+  }
       
 
     return (
@@ -135,7 +135,7 @@ import axios from 'axios';
                   </a>
                 </div>
                 <div className="flex flex-col items-center">
-                  <Link to="/auth/signup" className="mt-6 text-[12px] ">
+                  <Link to="/auth/signup/auth" className="mt-6 text-[12px] ">
                     {" "}
                     you don't have an account yet?{" "}
                     <span className="cursor-pointer text-[11px] text-fuchsia-500 font-bold">

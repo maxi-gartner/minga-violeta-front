@@ -165,7 +165,7 @@ export const signUp = () => {
                 </a>
               </div>
               <div className="flex flex-col items-center">
-                <Link to="/auth/signin" className="mt-6 text-[12px]">
+                <Link to="/auth/signin/auth" className="mt-6 text-[12px]">
                   {" "}
                   Already have an account?{" "}
                   <span className="cursor-pointer text-[11px] text-fuchsia-500 font-bold">
