@@ -13,19 +13,26 @@ export default function Dravel() {
             authors = "flex"
             company = "flex"
         }
-        if(role == 1 || role === 2){
+        if(role == 0 /* va en 1 en realidad */ || role === 2){
             mangas = "flex"
         }
     }
     viewsButtons()
+
+    const logout = function(){
+        localStorage.clear()
+        window.location.href="/"
+    }
 
     let subtract = ()=> document.getElementById("dravel").classList.add('hidden');
     return (
         <>
             <div className="hidden flex-col h-screen w-screen sm:w-[400px] bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] z-50 fixed left-0" id='dravel'  /* style={{display:stateDisplay[counter]}} */>
                 <div className="w-full p-5 sm:text-xl relative text-white flex">
-                    <div className="w-14 h-14 mr-5 rounded-full overflow-hidden  shadow-[0px_0px_40px_4px_rgba(0,0,0,0.56)]">
-                        <img className="object-cover h-full" src={photo} alt="" />
+                    <div className="w-14 h-14 mr-5 rounded-full overflow-hidden ">
+                        <a  href="/auth/signin/auth" className="relative">
+                            <img className="object-cover w-14 h-14 mr-5 rounded-full overflow-hidden" src={photo} alt="" />
+                        </a>
                     </div>
                     <div className="h-14 flex items-center">
                         <p>{email}</p>
@@ -35,7 +42,7 @@ export default function Dravel() {
                 <div className="w-full">
                     <ul className="flex flex-col justify-between h-[75vh] max-h-[30rem]">
                         <li className="w-full flex justify-center">
-                            <a className="bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-[#F472B6] font-bold text-xl" href="#">Home</a>
+                            <a className="bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-[#F472B6] font-bold text-xl" href="/">Home</a>
                         </li>
                         <li className="w-full flex justify-center">
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">Mangas</a>
@@ -47,7 +54,7 @@ export default function Dravel() {
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">Favorites</a>
                         </li>
                         <li className="w-full flex justify-center">
-                            <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="#">Logout</a>
+                            <buttom className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" onClick={logout} >Logout</buttom>
                         </li>
                         <li className="w-full justify-center" style={{display: `${authors}`}}>
                             <a className="hover:bg-white w-3/4 h-12 flex justify-center items-center rounded-lg text-white  hover:text-[#F472B6] font-bold text-xl" href="/AuthorRegister/author-form">New Author</a>

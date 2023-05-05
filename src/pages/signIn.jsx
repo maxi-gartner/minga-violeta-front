@@ -21,7 +21,7 @@ const signIn = () => {
         const email = res.data.user.email;
         const photo = res.data.user.photo;
         console.log(token)
-
+    
         localStorage.setItem('token', token);
         localStorage.setItem('role', role);
         localStorage.setItem('email', email);
@@ -29,7 +29,7 @@ const signIn = () => {
       })
       .catch(error => { console.log(error) })
   }
-      
+    
 
     return (
       <>

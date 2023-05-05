@@ -2,8 +2,7 @@ import  { useRef, useState } from "react"
 import axios from "axios";
 import apiUrl from "../../api"
 import ModalMinga from "../components/ModalMinga"
-
-const data = JSON.parse(localStorage.getItem('userLoged')) || [];
+let photo = localStorage.getItem('photo');
 
 export default function AuthorForm(){
 const name = useRef()
@@ -11,15 +10,13 @@ const website = useRef()
 const logo = useRef()
 const description = useRef()
 function handleForm(e){
-    const user = JSON.parse(localStorage.getItem('userLoged')) || [];
     e.preventDefault()
     let data = {
         name: name.current.value,
         logo: logo.current.value,
         website: website.current.value,
         description: description.current.value,
-        active: true,
-        user_id: user._id
+        active: true
     }
     console.log(data);
     axios.post(apiUrl+"companies", data)
@@ -77,7 +74,7 @@ return (
     <div className="bg-[#EBEBEB] w-screen h-screen flex flex-col justify-around pt-32 pb-10 items-center sm:w-1/2 ">
         <h1 className="text-black text-3xl ">New Company</h1>
         <div className="mr-5 h-24 w-24 sm:h-36 sm:w-36 rounded-full overflow-hidden shadow-[0px_0px_20px_4px_rgba(0,0,0,0.56)]">
-        <img src={data.photo} alt="" />
+        <img className="h-full object-cover" src={photo} alt="" />
         </div>
         <form onSubmit={handleForm}  className="text-black h-2/3 flex flex-col justify-between pb-5 w-full px-[15vw] sm:px-[5vw] xl:px-[10vw]">
         <div className="grid h-full py-5">
