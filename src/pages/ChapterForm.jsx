@@ -1,8 +1,9 @@
 import axios from "axios";
-import  { useRef } from "react";
+import  { useRef, useState } from "react"
 import apiUrl from "../../api"
-import { useParams } from "react-router-dom";
-
+import { useParams } from "react-router-dom"
+import ModalMinga from "../components/ModalMinga"
+// import Index from "../components/Index"; 
 
 export default function ChapterForm() {
   let chapterId = useParams()
@@ -11,8 +12,44 @@ export default function ChapterForm() {
   let order = useRef()
   let pages = useRef()
 
+  const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
+  const [modalErrorIsOpen, setModalErrorIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState([]);
+
+  const successModal = () => {
+    return (
+      <div>
+        <div className="p-4">
+          <h2 className="font-semibold">Success</h2>
+          <p>Chapter created successfully!</p>
+        </div>
+      </div>
+    );
+  };
+
+  const errorModal = () => {
+    return (
+      <div>
+        <div className="p-4">
+          <h2 className="font-semibold">Error</h2>
+          {errorMessage.map(message => (
+            <div key={message}>{message}</div>
+          ))}  
+        </div>
+      </div>
+    );
+  };
+
+  const closeModal = () => {
+    setModalSuccessIsOpen(false);
+  }
+
+  const closeErrorModal = () => {
+    setModalErrorIsOpen(false);
+  }
 
   function handleForm(e){
+    
     e.preventDefault()
     let inputpages = pages.current.value
     let listPages = inputpages.split(',')
@@ -22,14 +59,29 @@ export default function ChapterForm() {
       order: order.current.value,
       pages: listPages
     }
-    axios.post(apiUrl+"chapters", data)
-    .then(res => console.log(res))
-    .catch(err => console.error(err.response.data.message))
-    console.log(data)
+
+   
+    axios.post(apiUrl+"chapters", data/* , headers */)
+    .then(res =>{
+      console.log(res)
+      setModalSuccessIsOpen(true)
+    }) 
+    .catch(err => {
+      console.error(err.response.data.message)
+      setErrorMessage(err.response.data.message.map(message => message))
+      setModalErrorIsOpen(true)
+    })
+    
   }
+ 
+  // let role = localStorage.getItem('role')
+  // let token = localStorage.getItem('token')
+  // let headers = {headers:{'Authorization':`Bearer ${token}`}}
 
   return (
     <>
+    {/* {role == 1 || role == 2 ? (
+      <> */}
       <section className="grid h-screen place-content-center text-slate-300  bg-[#EBEBEB]">
         <div className="mb-5 text-center text-black">
           <h1 className="text-3xl">New Chapter</h1>
@@ -68,6 +120,20 @@ export default function ChapterForm() {
           </button>
         </form>
       </section>
+      {modalSuccessIsOpen && (
+        <ModalMinga onClose={closeModal}>
+          {successModal()}
+        </ModalMinga>
+      )}
+      {modalErrorIsOpen && (
+        <ModalMinga onClose={closeErrorModal}>
+          {errorModal()}
+        </ModalMinga>
+      )}
     </>
-  );
-}
+    // ):(
+    //   < Index/>
+    // )}
+    // </>
+  )
+  }
