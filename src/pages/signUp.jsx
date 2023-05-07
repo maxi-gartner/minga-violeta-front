@@ -2,6 +2,7 @@ import VITE_API from '../../api'
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import axios from "axios";
+import { Link as Anchor } from "react-router-dom";
 
 export const signUp = () => {
     let email = useRef();
@@ -150,31 +151,15 @@ export const signUp = () => {
                   />
                 </div>
               </form>
-              <div className="flex space-x-2 justify-center items-end border-2 border-gray-250 text-gray-550 py-2 rounded-xl transition duration-100">
-                <img
-                  className=" h-5 "
-                  src="https://i.imgur.com/arC60SB.png"
-                  alt="asd"
-                />
-                <a href="https://www.google.com.ar/">
-                  <button>Sign in with google</button>
-                </a>
+              <div className="flex space-x-2 justify-center items-end border-2 border-gray-300 text-gray-600 py-2 rounded-xl transition duration-100">
+                <img className=" h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="asd" />
+                <Anchor to="https://www.google.com.ar/"><button>Sign in with google</button></Anchor>
               </div>
-              <div className="flex flex-col items-center">
-                <Link to="/auth/signin" className="mt-6 text-[12px]">
-                  {" "}
-                  Already have an account?{" "}
-                  <span className="cursor-pointer text-[11px] text-fuchsia-500 font-bold">
-                    Log in
-                  </span>
-                </Link>
-                <Link to="/" className="mt-2 text-[12px]">
-                  {" "}
-                  Go back to{" "}
-                  <span className="cursor-pointer text-[11px] text-fuchsia-500 font-bold">
-                    Home page
-                  </span>
-                </Link>
+              <div className='flex flex-col items-center'>
+              <Anchor to="/auth/signin/login" className="mt-2"><span className="mt-6 "> Already have an account? <span className="cursor-pointer text-sm text-fuchsia-400 font-bold">Log in</span></span></Anchor>
+              </div>
+              <div className='flex self-center'>
+                <Anchor to="/" className="mt-2"> Go back to  <span className="cursor-pointer text-sm text-fuchsia-400 font-bold">Home page</span></Anchor>
               </div>
             </div>
           </div>

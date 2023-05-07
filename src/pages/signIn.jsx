@@ -1,7 +1,7 @@
 import VITE_API from '../../api'
-import { Link } from "react-router-dom";
 import { useRef } from "react";
 import axios from 'axios';
+import { Link as Anchor } from 'react-router-dom'
 
  const signIn = () => {
   let email = useRef();
@@ -134,20 +134,20 @@ import axios from 'axios';
                   </a>
                 </div>
                 <div className="flex flex-col items-center">
-                  <Link to="/auth/signup/:page" className="mt-6 text-[12px] ">
+                  <Anchor to="/auth/signup/:page" className="mt-6 text-[12px] ">
                     {" "}
                     you don't have an account yet?{" "}
                     <span className="cursor-pointer text-[11px] text-fuchsia-500 font-bold">
                       Sign up
                     </span>
-                  </Link>
-                  <Link to="/" className="mt-2 text-[12px]">
+                  </Anchor>
+                  <Anchor to="/" className="mt-2 text-[12px]">
                     {" "}
                     Go back to{" "}
                     <span className="cursor-pointer text-[11px] text-fuchsia-500 font-bold">
                       Home page
                     </span>
-                  </Link>
+                  </Anchor>
                 </div>
               </div>
             </div>

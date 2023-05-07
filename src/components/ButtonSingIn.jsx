@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import apiUrl from '../../api'
+import { Link as Anchor } from "react-router-dom"
 
 export default function ButtonSingIn() {
+  let token = localStorage.getItem('token')
 
   useEffect(
       ()=>{
@@ -22,11 +24,17 @@ export default function ButtonSingIn() {
           return () => clearInterval(interval)
       }, [])
 
-  return (
+      return (
+        <>
+          {token ? (
+            <>
+              <Anchor to="/manga-form"><button className="text-white not-italic font-medium text-2xl leading-[95.19%] bg-gradient-to-r from-btn1 from-(-13.10%) to-btn2 to-58.69% rounded-md flex flex-row justify-center items-center gap-2.5 w-60 h-[55px] p-4" style={{backgroundColor:categories[counter]?.color}}>Explore Mangas!</button></Anchor>
+            </>
+          ) : (
+            <Anchor  to="/auth/signin/login"><button className="text-white not-italic font-medium text-2xl leading-[95.19%] bg-gradient-to-r from-btn1 from-(-13.10%) to-btn2 to-58.69% rounded-md flex flex-row justify-center items-center gap-2.5 w-60 h-[55px] p-4" style={{backgroundColor:categories[counter]?.color}}>Sign in</button></Anchor>
+          )
+          }
+        </>
+      )
+    }
 
-    
-    <>
-      <a href="/auth/signin/auth" className="text-[4vw] rounded-full border-none  p-[2vw] mt-5 w-[70vw] justify-center text-xl flex  sm:border-none  sm:w-56 sm:p-2 sm:justify-center sm:text-xl sm:rounded-lg"  style={{backgroundColor:categories[counter]?.color}}>Sign In!</a>
-    </>
-  );
-}
