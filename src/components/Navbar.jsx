@@ -1,46 +1,121 @@
-import Logo from '../assets/images/Logo.png'
+import Logo from "../assets/images/Logo.png";
 import { useParams } from "react-router-dom";
+import { Link as Anchor } from "react-router-dom";
+import { useState } from "react";
 
 export default function Navbar() {
+  const anchorStyles = "text-white hover:bg-white w-11/12 p-2 flex justify-center items-center rounded-lg hover:text-[#F472B6] font-medium text-md mb-3"; 
+  const [showMenu, setShowMenu] = useState(false);
 
-    let display = {}
-    let hamburger = {}
-    let {page} = useParams()
-    //console.log(page)
-    if(page == "author-form" || page == "CompanyForm"){
-        //console.log("es igual")
-        display = {position: "absolute", left: "0", padding: "0vw 5vw"}
-        hamburger = {height: "4rem", width: "4rem"}
-    }
-    if (page == "auth") {
-      //console.log("es igual")
-        display = { position: "absolute", left: "0", padding: "0vw 5vw" };
-    }
+  const handleMenuClick = () => {
+    setShowMenu((prevState) => !prevState);
+  };
 
-/*     let stateDisplay = ['flex','none']
 
-    let [counter, SetCounter] = useState(0)
-    
-    let add = ()=> {
-        SetCounter(counter + 1)
-        if (counter === stateDisplay.length-1){
-            SetCounter(0)
-        }
-        document.getElementById("dravel").style.display = stateDisplay[counter];
-        //document.getElementById("dravel").style.setAttribute("style", `display = ${stateDisplay[counter]}`);
-    } */
-    
-    let add = ()=> document.getElementById("dravel").classList.remove('hidden');
 
+  let display = {};
+  let hamburger = {};
+  let { page } = useParams();
+  //console.log(page)
+  if (page == "author-form" || page == "CompanyForm") {
+    //console.log("es igual")
+    display = { position: "absolute", left: "0", padding: "0vw 5vw" };
+    hamburger = { height: "4rem", width: "4rem" };
+  }
+  if (page == "auth") {
+    //console.log("es igual")
+    display = { position: "absolute", left: "0" };
+  } 
+
+
+const Drawer = () => {
     return (
-        <div className='flex w-full justify-between items-center px-5 pb-10 pt-5 h-[8vh] mb-[5vh] absolute z-40 sm:relative sm:px-0 lg:px-24' style={display}>
-        <svg onClick={add}  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12  h-12 text-[#F472B6] mt-14 cursor-pointer rounded-lg" style={hamburger} id='hamburger'>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-        <a href="/">
-            <div className='flex relative mt-14 text-white font-medium'>
-                <img className='ml-[0.08rem] mt-1 w-20 mr-1' src={Logo}/>
+    <>
+        <div className="absolute top-0 left-0 sm:w-[400px] bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] h-screen w-screen py-2 z-20" id="dravel">
+            <div className="w-full p-5 sm:text-xl relative text-white flex">
+                <div className="mr-5 overflow-hidden flex items-center">
+                    <Anchor to="/auth/signin/auth" className="relative" onClick={handleMenuClick}>
+                        <img
+                        className="object-cover w-14 h-14 mr-5 rounded-full overflow-hidden"
+                        src={Logo}
+                        alt="" />
+                    </Anchor>
+                    <div className="flex-col">
+                        <p className="text-md">Nombre de prueba</p>
+                        <p className="text-sm">emailprueba@gmail.com</p>
+                    </div>
+                </div>
+                <div className="h-14">
+                    <button onClick={handleMenuClick} className="self-center">
+                        <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        className="w-10 h-10 absolute right-3 top-5  cursor-pointer"
+                        >
+                        <path d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-        </a>
+
+            <nav className="w-full font-poppins">
+                <ul
+                onClick={handleMenuClick}
+                className="flex flex-col h-[75vh] max-h-[30rem] font-poppins"
+                >
+                    <li className="w-full flex justify-center">
+                        <Anchor className={anchorStyles}
+                        to="/">Home</Anchor>
+                    </li>
+                    <li className="w-full flex justify-center">
+                        <Anchor className={anchorStyles}
+                        to="#">Mangas</Anchor>
+                    </li>
+                    <li className="w-full flex justify-center">
+                        <Anchor className={anchorStyles}
+                        to="#">My mangas</Anchor>
+                    </li>
+                    <li className="w-full flex justify-center">
+                        <Anchor
+                        className={anchorStyles}
+                        to="#">Favorites</Anchor>
+                    </li>
+                    <li className="w-full flex justify-center">
+                        <Anchor className={anchorStyles}
+                        to="#">Logout</Anchor>
+                    </li>
+                </ul>
+            </nav>
         </div>
+    </>
     );
+};
+
+return (
+    <div className="flex w-screen justify-between items-center absolute z-40 sm:relative pl-4 sm:px-12 pt-4" style={display} >
+        <button onClick={handleMenuClick}>
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-12 h-12 text-[#F472B6] cursor-pointer rounded-lg"
+            /* style={hamburger} */
+            id="hamburger">
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+            </svg>
+        </button>
+        <Anchor to="/" className="flex relative text-white pr-4 sm:pr-0">
+            <img className="w-[58px] h-[58px] md:w-[68px] md:h-[68px]" src={Logo} />
+        </Anchor>
+        {showMenu && <Drawer />}
+    </div>
+);
 }

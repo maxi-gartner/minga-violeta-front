@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
-import Dravel from "../components/Dravel"
+
 import { Outlet } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
@@ -17,8 +17,8 @@ export default function Main(){
 
     return (
         <>
-            <div className='h-full bg-[#EBEBEB] text-black' id="layouts" style={styles}>
-                <Dravel/>
+            <div className='h-full w-full bg-[#EBEBEB] text-black' id="layouts" style={styles}>
+                {/* <Dravel/> */}
                 <Navbar/>
                 <Outlet/>
                 <Footer/>

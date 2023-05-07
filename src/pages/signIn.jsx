@@ -38,18 +38,17 @@ import axios from 'axios';
             src="/public/fondosignin.png"
             className="hidden sm:w-1/2 h-full sm:flex object-cover object-top "
           />
-          <div className="flex justify-center w-1/2 bg-white">
-            <div className="bg-white min-h-screen w-1/2 flex justify-center items-center">
-              <div className="flex flex-col">
+          <div className="flex justify-center sm:w-1/2 bg-white">
+            <div className="bg-white min-h-screen sm:w-10/12 flex justify-center items-center">
+              <div className="flex flex-col w-full">
                 <form onSubmit={(e) => handleForm(e)}>
                   <div className="flex flex-col items-center">
-                    <span className="text-5xl text-center font-semibold text-gray-800">
-                      Welcome!
-                    </span>
-                    <h1 className="text-m text-center text-gray-550 mt-4">
+                  <h1 className="text-xl text-center font-semibold text-gray-800 tracking-wider">Welcome<span className='text-[#F472B6]'> back</span>!</h1>
+                    
+                    <p className="text-xs text-center text-gray-550 mt-4">
                       Discover manga, manhua and manhwa, track your <br></br>{" "}
                       progress, have fun, read manga.
-                    </h1>
+                    </p>
                   </div>
 
                   <div className="mt-5">
@@ -135,7 +134,7 @@ import axios from 'axios';
                   </a>
                 </div>
                 <div className="flex flex-col items-center">
-                  <Link to="/auth/signup" className="mt-6 text-[12px] ">
+                  <Link to="/auth/signup/:page" className="mt-6 text-[12px] ">
                     {" "}
                     you don't have an account yet?{" "}
                     <span className="cursor-pointer text-[11px] text-fuchsia-500 font-bold">

@@ -1,3 +1,9 @@
+:root{
+   font-family:'Montserrat';
+   font-size: 16px;
+
+}
+
 .fade-enter {
 opacity: 0;
 transform: translateX(-100%);

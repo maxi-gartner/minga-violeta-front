@@ -1,9 +1,7 @@
-
 import VITE_API from '../../api'
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import axios from "axios";
-
 
 export const signUp = () => {
     let email = useRef();
@@ -33,13 +31,11 @@ export const signUp = () => {
             <div className="flex flex-col">
               <form onSubmit={(e) => handleForm(e)}>
                 <div className="flex flex-col items-center">
-                  <span className="text-5xl text-center font-semibold text-gray-800">
-                    Welcome!
-                  </span>
-                  <h1 className="text-m text-center text-gray-550 mt-4">
+                  <h1 className="text-5xl text-center font-semibold text-gray-800">Welcome<span className='text-[#F472B6]'> back</span>!</h1>
+                  <p className="text-m text-center text-gray-550 mt-4">
                     Discover manga, manhua and manhwa, track your <br></br>{" "}
                     progress, have fun, read manga.
-                  </h1>
+                  </p>
                 </div>
 
                 <div className="mt-5">

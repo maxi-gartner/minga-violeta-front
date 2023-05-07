@@ -14,8 +14,13 @@ export default {
         backgroundColor: {
             minga1: "#F9A8D4",
             minga2: "black",
+        },
+        fontFamily: {
+          'poppins': 'Poppins',
+          'montserrat': 'Montserrat',
         }
     }
+    
   },
   plugins: [],
 }
