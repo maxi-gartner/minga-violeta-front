@@ -40,7 +40,7 @@ return (
     <div>
     <div className="p-4">
         <h2 className="font-semibold">Success</h2>
-        <p>Chapter created successfully!</p>
+        <p>Company created successfully!</p>
     </div>
     </div>
 );

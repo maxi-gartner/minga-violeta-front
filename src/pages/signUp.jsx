@@ -1,13 +1,15 @@
+import  { useRef, useState } from "react"
 import VITE_API from '../../api'
-import { Link } from "react-router-dom";
-import { useRef } from "react";
 import axios from "axios";
-import { Link as Anchor } from "react-router-dom";
+import { Link as Anchor ,useNavigate } from "react-router-dom";
+import ModalMinga from "../components/ModalMinga"
 
-export const signUp = () => {
+export default function SignUp(){
     let email = useRef();
     let photo = useRef();
     let password = useRef();
+    const navigate = useNavigate()
+
     function handleForm(e) {
       e.preventDefault();
       let data = {
@@ -16,23 +18,64 @@ export const signUp = () => {
         password: password.current.value,
       };
       axios.post(VITE_API + "auth/signup", data)
-        .then((res) => {
-          console.log(res);
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("user", JSON.stringify(res.data.user));
+        .then(() => {
+          setModalSuccessIsOpen(true)
+          setTimeout(function(){
+            navigate('/auth/signin/auth');
+        }, 1000);
         })
-        .catch((err) => console.log(err));
+        .catch(err => { 
+          setErrorMessage(err.response.data.message.map(message => message))
+          setModalErrorIsOpen(true)
+        })
     }
+
+    
+  const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
+  const [modalErrorIsOpen, setModalErrorIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState([]);
+
+  const successModal = () => {
+    return (
+      <div>
+        <div className="p-4">
+          <h2 className="font-semibold">Success</h2>
+          <p>User crate successfully!</p>
+        </div>
+      </div>
+    );
+  };
+
+  const errorModal = () => {
+    return (
+      <div>
+        <div className="p-4">
+          <h2 className="font-semibold">Error</h2>
+          {errorMessage.map(message => (
+            <div key={message}>{message}</div>
+          ))}  
+        </div>
+      </div>
+    );
+  };
+
+  const closeModal = () => {
+    setModalSuccessIsOpen(false);
+  }
+
+  const closeErrorModal = () => {
+    setModalErrorIsOpen(false);
+  }
 
   return (
     <>
       <div className="h-screen w-full flex justify-center items-center bg-white">
-        <div className="flex justify-center w-1/2 bg-white ">
-          <div className="bg-white min-h-screen w-1/2 flex justify-center items-center">
-            <div className="flex flex-col">
+        <div className="flex justify-center w-1/2 bg-white">
+          <div className="bg-white min-h-screen sm:w-1/2 flex justify-center items-center pt-24 sm:pt-12">
+            <div className="flex flex-col w-[90vw]">
               <form onSubmit={(e) => handleForm(e)}>
                 <div className="flex flex-col items-center">
-                  <h1 className="text-5xl text-center font-semibold text-gray-800">Welcome<span className='text-[#F472B6]'> back</span>!</h1>
+                  <h1 className="text-lg text-center font-semibold text-gray-800">Welcome<span className='text-[#F472B6]'> back</span>!</h1>
                   <p className="text-m text-center text-gray-550 mt-4">
                     Discover manga, manhua and manhwa, track your <br></br>{" "}
                     progress, have fun, read manga.
@@ -54,8 +97,6 @@ export const signUp = () => {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="icon w-6 h-6 icon-tabler icon-tabler-at"
-                      width=""
-                      height=""
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="#2c3e50"
@@ -145,7 +186,7 @@ export const signUp = () => {
                 </div>
                 <div className="">
                   <input
-                    className="mt-4 mb-3 w-full bg-gradient-to-b from-[#f49dcd] to-[#f36eb3] text-white py-2 rounded-xl transition duration-100 shadow-cyan-600 font-bold text-md h-12 "
+                    className="mt-4 mb-3 w-full bg-gradient-to-b from-[#f49dcd] to-[#f36eb3] text-white py-2 rounded-xl transition duration-100 shadow-cyan-600 font-bold text-md h-12 cursor-pointer"
                     type="submit"
                     value="Sign up"
                   />
@@ -169,11 +210,17 @@ export const signUp = () => {
           className="hidden sm:w-1/2 h-full sm:flex object-cover object-top"
         />
       </div>
+      
+      {modalSuccessIsOpen && (
+        <ModalMinga onClose={closeModal}>
+          {successModal()}
+        </ModalMinga>
+      )}
+      {modalErrorIsOpen && (
+        <ModalMinga onClose={closeErrorModal}>
+          {errorModal()}
+        </ModalMinga>
+      )}
     </>
   );
-};
-
-  
-
-
-export default signUp;
+}

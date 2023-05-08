@@ -1,32 +1,46 @@
 import Logo from "../assets/images/Logo.png";
 import { useParams } from "react-router-dom";
-import { Link as Anchor } from "react-router-dom";
+import { Link as Anchor ,useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+import apiUrl from "../../api"
+
 
 export default function Navbar() {
-  const anchorStyles = "text-white hover:bg-white w-11/12 p-2 flex justify-center items-center rounded-lg hover:text-[#F472B6] font-medium text-md mb-3"; 
-  const [showMenu, setShowMenu] = useState(false);
+    const anchorStyles = "text-white hover:bg-white w-11/12 p-2 flex justify-center items-center rounded-lg hover:text-[#F472B6] font-medium text-md mb-3"; 
+    const [showMenu, setShowMenu] = useState(false);
 
-  const handleMenuClick = () => {
+    const handleMenuClick = () => {
     setShowMenu((prevState) => !prevState);
-  };
+    };
 
-
-
-  let display = {};
-  let hamburger = {};
-  let { page } = useParams();
-  //console.log(page)
-  if (page == "author-form" || page == "CompanyForm") {
+    let display = {};
+    let { page } = useParams();
+    //console.log(page)
+    if (page == "author-form" || page == "CompanyForm") {
     //console.log("es igual")
     display = { position: "absolute", left: "0", padding: "0vw 5vw" };
-    hamburger = { height: "4rem", width: "4rem" };
-  }
-  if (page == "auth") {
+    }
+    if (page == "auth"|| page == "login") {
     //console.log("es igual")
     display = { position: "absolute", left: "0" };
-  } 
+    } 
 
+    const role = localStorage.getItem("role")
+    let token = localStorage.getItem('token')
+    let headers = { headers: { 'authorization': `Bearer ${token}` } }
+    let email = localStorage.getItem('email')
+    let photo = localStorage.getItem('photo')
+    const navigate = useNavigate()
+            
+    function backHome() {
+    axios.post(apiUrl + 'auth/signOut', null, headers)
+        .then(() => {
+        localStorage.clear();
+        navigate('/')
+        })
+        .catch(err => alert(err))
+    }
 
 const Drawer = () => {
     return (
@@ -35,15 +49,18 @@ const Drawer = () => {
             <div className="w-full p-5 sm:text-xl relative text-white flex">
                 <div className="mr-5 overflow-hidden flex items-center">
                     <Anchor to="/auth/signin/auth" className="relative" onClick={handleMenuClick}>
-                        <img
+                    {!token && <img
                         className="object-cover w-14 h-14 mr-5 rounded-full overflow-hidden"
                         src={Logo}
-                        alt="" />
+                        alt="" />}
+                    {token && <img
+                        className="object-cover w-14 h-14 mr-5 rounded-full overflow-hidden"
+                        src={photo}
+                        alt="" />}
                     </Anchor>
-                    <div className="flex-col">
-                        <p className="text-md">Nombre de prueba</p>
-                        <p className="text-sm">emailprueba@gmail.com</p>
-                    </div>
+                    {token && <div className="flex-col">
+                        <p className="text-sm">{email}</p>
+                    </div>}
                 </div>
                 <div className="h-14">
                     <button onClick={handleMenuClick} className="self-center">
@@ -52,7 +69,7 @@ const Drawer = () => {
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
-                        className="w-10 h-10 absolute right-3 top-5  cursor-pointer"
+                        className="w-10 h-10 absolute right-3 top-1 sm:top-5  cursor-pointer"
                         >
                         <path d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -71,21 +88,17 @@ const Drawer = () => {
                     </li>
                     <li className="w-full flex justify-center">
                         <Anchor className={anchorStyles}
-                        to="#">Mangas</Anchor>
+                        to="/">Mangas</Anchor>
                     </li>
-                    <li className="w-full flex justify-center">
-                        <Anchor className={anchorStyles}
-                        to="#">My mangas</Anchor>
-                    </li>
-                    <li className="w-full flex justify-center">
-                        <Anchor
-                        className={anchorStyles}
-                        to="#">Favorites</Anchor>
-                    </li>
-                    <li className="w-full flex justify-center">
-                        <Anchor className={anchorStyles}
-                        to="#">Logout</Anchor>
-                    </li>
+                    {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signup/login">Register</Anchor></li>}
+                    {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signin/auth" >Login</Anchor></li>}
+                    {token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="#">My mangas</Anchor></li>}
+                    {token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="#">Favorites</Anchor></li>}
+                    {token && <li className="w-full flex justify-center cursor-pointer"><a className={anchorStyles} onClick={backHome}>Sign Out</a></li>}
+                    {role == 0 ?(<li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/AuthorRegister/author-form">New Author</Anchor></li>) : ("")}
+                    {role == 0 ?(<li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/AuthorRegister/CompanyForm">New Company</Anchor></li>) : ("")}
+                    {role == 1 || role == 2 ? (<><li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/manga-form">New mangas</Anchor></li></>) : ("")}
+                
                 </ul>
             </nav>
         </div>
