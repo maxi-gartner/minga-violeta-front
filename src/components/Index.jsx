@@ -1,11 +1,11 @@
 import Carousel from "./Carousel";
-import SignIn from "./SignIn";
+import Welcome from "./Welcome";
 
 export default function Main() {
   return (
     <div className='w-full'>
         <Carousel/>
-        <SignIn/>
+        <Welcome />
     </div>
     );
 }
