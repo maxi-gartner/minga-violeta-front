@@ -3,7 +3,7 @@ import axios from 'axios'
 import apiUrl from '../../api'
 import { Link as Anchor } from "react-router-dom"
 
-export default function ButtonSingIn() {
+export default function ButtonWelcome() {
   let token = localStorage.getItem('token')
 
   useEffect(
