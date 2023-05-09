@@ -21,7 +21,7 @@ export default function Navbar() {
     //console.log("es igual")
     display = { position: "absolute", left: "0", padding: "0vw 5vw" };
     }
-    if (page == "auth"|| page == "login") {
+    if (page == "auth"|| page == "login" || page == "mangas") {
     //console.log("es igual")
     display = { position: "absolute", left: "0" };
     } 
@@ -88,7 +88,7 @@ const Drawer = () => {
                     </li>
                     <li className="w-full flex justify-center">
                         <Anchor className={anchorStyles}
-                        to="/">Mangas</Anchor>
+                        to="/mangas/mangas">Mangas</Anchor>
                     </li>
                     {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signup/login">Register</Anchor></li>}
                     {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signin/auth" >Login</Anchor></li>}
