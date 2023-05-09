@@ -96,7 +96,7 @@ const Drawer = () => {
                     {token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="#">Favorites</Anchor></li>}
                     {token && <li className="w-full flex justify-center cursor-pointer"><a className={anchorStyles} onClick={backHome}>Sign Out</a></li>}
                     {role == 0 ?(<li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/AuthorRegister/author-form">New Author</Anchor></li>) : ("")}
-                    {role == 0 ?(<li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/AuthorRegister/CompanyForm">New Company</Anchor></li>) : ("")}
+                    {role == 0 ?(<li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/CompanyForm/CompanyForm">New Company</Anchor></li>) : ("")}
                     {role == 1 || role == 2 ? (<><li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/manga-form">New mangas</Anchor></li></>) : ("")}
                 
                 </ul>
