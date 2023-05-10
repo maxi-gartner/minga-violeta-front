@@ -2,17 +2,15 @@ import axios from "axios"
 //import apiUrl from "../../api"
 import { useEffect, useState } from "react";
 import apiUrl from "../../api"
-console.log(apiUrl);
+//console.log(apiUrl);
 
 const idLink = "6455251e7468e2153e947d4b"
 
 
 let token = localStorage.getItem('token')
-console.log(token);
 let headers = { headers: { 'Authorization': `Bearer ${token}` } }
-const resManga =  await axios.get(apiUrl+"mangas/"+idLink, headers) || [];
+const resManga = await axios.get(apiUrl+"mangas/"+idLink, headers) || [];
 const manga = resManga.data.response
-console.log("manga", manga);
 
 
 const emojiButton = "text-4xl rounded-full h-16 w-16 bg-white shadow-[0px_2px_5px_rgba(0,0,0,0.56)]"; 
@@ -64,7 +62,6 @@ const SwitchButton = () =>{
     useEffect(() => {
                     let token = localStorage.getItem('token')
                     let headers = { headers: { 'Authorization': `Bearer ${token}`} }
-                    axios.get()
                     axios(apiUrl+`chapters?manga_id=${idLink}&page=${page}`, headers).then(res=> setChapters(res.data.chapters)).catch(err => console.log(err))
                 }, [page]
                 )
