@@ -18,9 +18,6 @@ export default {
         backgroundImage: {
           "mangasGirlM" : "url('/mangasGirlM.png')",
           "mangasGirlD" : "url('/mangasGirlD.png')",
-          "mangasFotito1" : "url('/mangasFotito1.png')",
-          "mangasFotito2" : "url('/mangasFotito2.png')",
-          "mangasFotito3" : "url('/mangasFotito3.png')",
         },
         fontFamily: {
           'poppins': 'Poppins',

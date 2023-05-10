@@ -15,13 +15,13 @@ export default function Navbar() {
     };
 
     let display = {};
-    let { page } = useParams();
-    //console.log(page)
-    if (page == "author-form" || page == "CompanyForm") {
+    let { url } = useParams();
+    //console.log(url)
+    if (url == "author-form" || url == "CompanyForm") {
     //console.log("es igual")
     display = { position: "absolute", left: "0", padding: "0vw 5vw" };
     }
-    if (page == "auth"|| page == "login" || page == "mangas") {
+    if (url == "auth"|| url == "login" || url == "page") {
     //console.log("es igual")
     display = { position: "absolute", left: "0" };
     } 
@@ -88,7 +88,7 @@ const Drawer = () => {
                     </li>
                     <li className="w-full flex justify-center">
                         <Anchor className={anchorStyles}
-                        to="/mangas/mangas">Mangas</Anchor>
+                        to="/mangas/page">Mangas</Anchor>
                     </li>
                     {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signup/login">Register</Anchor></li>}
                     {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signin/auth" >Login</Anchor></li>}

@@ -16,14 +16,14 @@ const routes = createBrowserRouter([
     element: <LayoutMain />,
     children: [
       { path: "/", element: <Main /> },
-      { path: "/AuthorRegister/:page", element: <AuthorForm /> },
+      { path: "/AuthorRegister/:url", element: <AuthorForm /> },
       //{ path: '/auth', element: <Authform /> },
       { path: "/manga-form", element: <MangaForm /> },
-      { path: "/auth/signup/:page", element: <SignUp /> },
-      { path: "/auth/signin/:page", element: <SignIn /> }, //  sigue=> /login
+      { path: "/auth/signup/:url", element: <SignUp /> },
+      { path: "/auth/signin/:url", element: <SignIn /> }, //  sigue=> /login
       { path: "/chapter-form/:id_manga", element: <ChapterForm /> },
-      { path: "/CompanyForm/:page", element: <CompanyForm /> },
-      { path: "/mangas/:page", element: <Mangas /> },
+      { path: "/CompanyForm/:url", element: <CompanyForm /> },
+      { path: "/mangas/:url", element: <Mangas /> },
     ],
   },
 ]);
