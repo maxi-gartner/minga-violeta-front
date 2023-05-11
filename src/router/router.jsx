@@ -8,6 +8,7 @@ import MangaForm from "../pages/MangaForm.jsx";
 import ChapterForm from "../pages/ChapterForm.jsx";
 import CompanyForm from "../pages/CompanyForm.jsx";
 import Mangas from "../pages/Mangas.jsx"
+import ChapterPages from "../pages/Page.jsx";
 //import Authform from "../pages/AuthForm.jsx";
 
 const routes = createBrowserRouter([
@@ -24,6 +25,7 @@ const routes = createBrowserRouter([
       { path: "/chapter-form/:id_manga", element: <ChapterForm /> },
       { path: "/CompanyForm/:url", element: <CompanyForm /> },
       { path: "/mangas/:url", element: <Mangas /> },
+      { path: "/chapters/:url/:id/:page", element: <ChapterPages />}
     ],
   },
 ]);
