@@ -9,6 +9,7 @@ import ChapterForm from "../pages/ChapterForm.jsx";
 import CompanyForm from "../pages/CompanyForm.jsx";
 import DetailsManga from "../pages/detailsManga.jsx";
 import Mangas from "../pages/Mangas.jsx"
+
 import ChapterPages from "../pages/Page.jsx";
 
 const routes = createBrowserRouter([
@@ -26,9 +27,8 @@ const routes = createBrowserRouter([
       { path: "/CompanyForm/:url", element: <CompanyForm /> },
       { path: "/DetailsManga/:id", element: <DetailsManga /> },
       { path: "/chapter-form/:id_manga", element: <ChapterForm /> },
-      { path: "/CompanyForm/:url", element: <CompanyForm /> },
       { path: "/mangas/:url", element: <Mangas /> },
-      { path: "/chapters/:url/:id/:page", element: <ChapterPages />}
+      { path: "/chapters/:id/:page", element: <ChapterPages />}
     ],
   },
 ]);
