@@ -1,7 +1,7 @@
 import { createAction } from "@reduxjs/toolkit";
 
-const inputs_filter = createAction(
-    'inputs_filter', (objeto)=> {
+const mangasFilter = createAction(
+    'mangasFilter', (objeto)=> {
         return{
             payload: {
                 title:objeto.title,
@@ -11,5 +11,5 @@ const inputs_filter = createAction(
     }
 )
 
-const actions = { inputs_filter }
+const actions = { mangasFilter }
 export default actions

@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import inputs_reducer from './reducers/inputs_filter'
+import mangasReducer from './reducers/mangasFilter'
+import savePageReducer from './reducers/saveCurrentPage'
 import chapter_reducer from './reducers/chapter_bar'
 
 const store = configureStore({
-    reducer: {
-        inputs: inputs_reducer,
-        data: chapter_reducer
-    }
+        reducer: {
+                inputs: mangasReducer,
+                currentPage: savePageReducer,
+                data: chapter_reducer
+        }
 })
 
 export default store

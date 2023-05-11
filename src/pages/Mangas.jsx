@@ -2,7 +2,7 @@ import axios from "axios"
 import apiUrl from "../../api"
 import { useState, useEffect, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import inputs_filter_actions from '../store/actions/inputs_filter'
+import inputs_filter_actions from '../store/actions/mangasFilter'
 import { Link as Anchor } from "react-router-dom"
 
 export default function Mangas() {
@@ -13,29 +13,31 @@ export default function Mangas() {
     const {title, categories} = useSelector( store => store.inputs)
     const dispatch = useDispatch()
     const [mangas, setMangas] = useState()
-    const [page, setPage] = useState(1)
-    const [limit, setLimit] = useState(6)
     const [reload, setReload] = useState(false)
     const [categorias, setCategorias] = useState([])
+    const [count, setCount] = useState()
+    const [pagAct, setNextPag] = useState(1)
     let token = localStorage.getItem('token')
     let headers = {headers:{'Authorization' : `Bearer ${token}`}}
-    const {inputs_filter} = inputs_filter_actions
+    const {mangasFilter} = inputs_filter_actions
     console.log(categories)
     useEffect(
         ()=>{
-            axios(apiUrl+`mangas?title=${buscador.current.value}&category_id=${categories.join(',')}&order=1&page=${page}&limit=${limit}`, headers).then(res=>setMangas(res.data.response)).catch(err => console.log(err))
+            axios(apiUrl+`mangas?title=${buscador.current.value}&category_id=${categories.join(',')}&order=1&page=${pagAct}`, headers)
+                .then(res=>{
+                    setMangas(res.data.response)
+                    setCount(res.data.count)
+                })
+                .catch(err => console.log(err))
         },
-        [reload]
+        [reload, pagAct]
     )
-    console.log("count", count)
+    console.log(count)
     function next() {
-        console.log(next)
-        setPage(page+1)
-        setReload(!reload)
+        setNextPag(pagAct+1)
     }
     function prev() {
-        setPage(page-1)
-        setReload(!reload)
+        setNextPag(pagAct-1)
     }
     console.log(mangas)
 
@@ -47,14 +49,13 @@ export default function Mangas() {
     )
     
     function capture(){
-        dispatch(inputs_filter({
+        dispatch(mangasFilter({
             title: buscador.current?.value,
             categories: Object.values(category_id.current)
                 .filter(each => each.checked)
                 .map(each => each.value)
         }))
         setReload(!reload)
-        setLimit(10)
         console.log(categories)
         console.log(title)
     }
@@ -112,8 +113,8 @@ console.log(categories)
                             <div className="flex justify-center items-center w-full h-[30vh] mt-4"><p className="bg-black opacity-80 rounded-full p-1 lg:p-3 text-white text-center">No manga has been found</p></div>
                         )}
                         <div className="w-full flex justify-center pt-4 text-white">
-                            {page == 1 ? null : (<input className="bg-red-400 h-10 w-60 p-2 m-2 rounded-2xl bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] font-semibold hover:shadow-lg hover:border-2" type="button" value="Prev" onClick={prev} ref={prevP}/>)}
-                            {page > 3 ? null : (<input type="button" className="bg-red-400 h-10 w-60 p-2 m-2 rounded-2xl bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] font-semibold hover:shadow-lg hover:border-2" value="Next" onClick={next} ref={nextP}/>)}
+                            {pagAct == 1 ? null : (<input className="bg-red-400 h-10 w-60 p-2 m-2 rounded-2xl bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] font-semibold hover:shadow-lg hover:border-2" type="button" value="Prev" onClick={prev} ref={prevP}/>)}
+                            {pagAct > count-1 ? null : (<input type="button" className="bg-red-400 h-10 w-60 p-2 m-2 rounded-2xl bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] font-semibold hover:shadow-lg hover:border-2" value="Next" onClick={next} ref={nextP}/>)}
                         </div>
                     </div>
                 </div>

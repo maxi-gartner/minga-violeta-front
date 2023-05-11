@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
-import inputs_actions from '../actions/inputs_filter'
-const { inputs_filter } = inputs_actions
+import mangasActions from '../actions/mangasFilter'
+const { mangasFilter } = mangasActions
 
 let initial_state = {
     title: '',
@@ -11,7 +11,7 @@ const reducer = createReducer(
     initial_state,
     (builder) => builder
         .addCase(
-            inputs_filter,
+            mangasFilter,
             (state,action) => {
                 const new_state = {
                     ...state,

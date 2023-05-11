@@ -80,7 +80,7 @@ export default function MangaForm() {
     }
 
     return (
-        <div className='p-32 sm:p-10 h-screen sm:h-[88vh] flex flex-col justify-center items-center gap-12 '>
+        <div className='p-32 sm:p-10 h-screen sm:h-[91vh] flex flex-col justify-center items-center gap-12 '>
             <div className='h-full'>
                 <div className='text-center pb-12'>
                     <p className='text-2xl '>New Manga</p>
