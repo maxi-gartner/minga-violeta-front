@@ -9,7 +9,6 @@ import ChapterForm from "../pages/ChapterForm.jsx";
 import CompanyForm from "../pages/CompanyForm.jsx";
 import DetailsManga from "../pages/detailsManga.jsx";
 import Mangas from "../pages/Mangas.jsx"
-
 import ChapterPages from "../pages/Page.jsx";
 
 const routes = createBrowserRouter([

@@ -1,7 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react";
-import { Link as Anchor } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import apiUrl from "../../api"
@@ -12,7 +11,6 @@ const emojiButton = "text-4xl rounded-full h-16 w-16 bg-white shadow-[0px_2px_5p
 export default function DetailsManga(){
     const [manga, setManga] = useState()
     let { id } = useParams();
-
     useEffect(() => {
         let token = localStorage.getItem('token')
         let headers = { headers: { 'Authorization': `Bearer ${token}`} }
@@ -60,7 +58,6 @@ export default function DetailsManga(){
     )
 }
 const SwitchButton = () =>{
-
     const {page} = useSelector(store => store.currentPage)
     const {selectSwitch} = useSelector(store => store.currentPage)
 
@@ -71,6 +68,7 @@ const SwitchButton = () =>{
     const [disablePrev, setDisablePrev] = useState(true);
     const [disableNext, setDisableNext] = useState(false);
     const [chapters, setChapters] = useState()
+    console.log(chapters);
     const [manga, setManga] = useState()
     const [Switchs, setSelectSwitch] = useState(0)
     
@@ -101,7 +99,6 @@ const SwitchButton = () =>{
                 setDisableNext(false)
             }
             
-
         }
     }
     useEffect(() => {
@@ -111,7 +108,6 @@ const SwitchButton = () =>{
                     axios(apiUrl+`chapters?manga_id=${id}&page=${page}`, headers).then(res=> setChapters(res.data.chapters)).catch(err => console.log(err))
                 }, [page]
                 )
-
     const handleSwitch = (change) => {
         if (change){
             dispatch(saveCurrentPage({
@@ -125,7 +121,7 @@ const SwitchButton = () =>{
             setSelectSwitch(1)
         }
     }
-
+    const navigate = useNavigate()
     return(
         <div className="h-[38rem] w-full">
             <div className="h-10 rounded-full m-5 shadow-[0px_1px_5px_rgba(0,0,0,0.56)] flex items-center">
@@ -158,19 +154,16 @@ const SwitchButton = () =>{
                                     <p>{(Math.random()*100).toFixed()}</p>
                                 </div>
                             </div>
-                            <Anchor to="/chapters/" className="max-w-[10rem] min-w-[8rem] rounded-full flex items-center justify-center text-white max-h-40 text-[20px] px-2 font-bold" style={{background: 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}}>Chapters</Anchor>
-
+                            <button onClick={()=> navigate(`/chapters/${element._id}/0`)} className="max-w-[10rem] min-w-[8rem] rounded-full flex items-center justify-center text-white max-h-40 text-[20px] px-2 font-bold" style={{background: 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}}>Chapters</button>
                         </div>
                     })}
                     </div>
                     <div className="flex justify-around items-center pb-1">
-
                         <button onClick={()=> handlePage(false)} disabled={disablePrev}><svg className="h-[3rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"></path>
                         </svg></button>
                         <p>Page: {page}</p>
                         <button onClick={()=> handlePage(true)} disabled={disableNext}><svg className="h-[3rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-
                             <path d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"></path>
                         </svg></button> 
                     </div>
