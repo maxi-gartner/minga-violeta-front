@@ -23,7 +23,7 @@ const routes = createBrowserRouter([
       { path: "/auth/signin/:page", element: <SignIn /> }, //  sigue=> /login
       { path: "/chapter-form/:id_manga", element: <ChapterForm /> },
       { path: "/CompanyForm/:page", element: <CompanyForm /> },
-      { path: "/chapters/:id/:page", element: <ChapterPages />}
+      { path: "/chapters/:url/:id/:page", element: <ChapterPages />}
     ],
   },
 ]);
