@@ -6,7 +6,8 @@ const saveCurrentPage = createAction(
         return{
             payload: {
                 page: objeto.page,
-                selectSwitch: objeto.selectSwitch
+                selectSwitch: objeto.selectSwitch,
+                id_manga: objeto.id_manga
             }
         }         
     }

@@ -4,7 +4,8 @@ const { saveCurrentPage } = savePageActions
 
 let initial_state = {
     page: 1,
-    selectSwitch: 0
+    selectSwitch: 0,
+    id_manga: 'hola'
 }
 
 const reducer = createReducer(
@@ -16,7 +17,8 @@ const reducer = createReducer(
                             const new_state = {
                                 ...state,
                                 page: action.payload.page,
-                                selectSwitch: action.payload.selectSwitch
+                                selectSwitch: action.payload.selectSwitch,
+                                id_manga: action.payload.id_manga
                             }
                             return new_state
                         }

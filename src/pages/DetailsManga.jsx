@@ -5,27 +5,31 @@ import apiUrl from "../../api"
 import { useSelector, useDispatch } from "react-redux";
 import saveCurrentPageActions from '../store/actions/saveCurrentPage'
 const {saveCurrentPage} = saveCurrentPageActions
-const idLink = "6455251e7468e2153e947d4b"
-
-let token = localStorage.getItem('token')
-let headers = { headers: { 'Authorization': `Bearer ${token}` } }
-const resManga = await axios.get(apiUrl+"mangas/"+idLink, headers) || [];
-const manga = resManga.data.response
-
+import { useParams } from "react-router-dom";
+import icon_comment from "../../public/icon_comment.png"
 
 const emojiButton = "text-4xl rounded-full h-16 w-16 bg-white shadow-[0px_2px_5px_rgba(0,0,0,0.56)]"; 
+
 export default function DetailsManga(){
+    let { id } = useParams();
+    const [manga, setManga] = useState()
+    useEffect(() => {
+        let token = localStorage.getItem('token')
+        let headers = { headers: { 'Authorization': `Bearer ${token}`} }
+        axios.get(apiUrl+"mangas/"+id, headers).then(res=> setManga(res.data.response)).catch(err => console.log(err))
+    }, []
+    )
     return (
         <>
-            <div className="min-h-screen pt-[12vh] bg-[#EBEBEB] flex flex-col items-center">
-                <img className="max-h-[50vh] object-cover object-top w-full px-5" src={manga.cover_photo} alt={"https://blogs.unsw.edu.au/nowideas/files/2018/11/error-no-es-fracaso.jpg"}></img>
-                <div className="min-h-screen w-screen px-5 bg-[#EBEBEB] flex flex-col items-center">
+            <div className="min-h-screen pt-[12vh] sm:pt-2 bg-[#EBEBEB] flex flex-col items-center sm:flex-row">
+                {<img className="max-h-[50vh] sm:max-h-none sm:h-screen object-cover object-top w-full px-5 sm:w-1/2 sm:flex" src={manga?.cover_photo}></img>}
+                <div className="min-h-screen w-screen px-5 bg-[#EBEBEB] flex flex-col items-center sm:w-1/2 sm:flex">
                     <div>
-                        <p className="text-5xl pt-5">{manga.title}</p>
+                        {<p className="text-5xl sm:text-2xl lg:text-5xl pt-5">{manga?.title}</p>}
                     </div>
                     <div className="flex justify-between my-3 w-[100%]">
-                        <p className="flex items-center px-4 rounded-full text-lg shadow-[0px_0px_4px_rgba(0,0,0,0.16)]" style={{background: manga.category_id.hover, color: manga.category_id.color}}>{manga.category_id.name}</p>
-                        <p className="p-2 text-2xl text-[#9D9D9D]">{`${manga.company_id.name}`}</p>
+                        {<p className="flex items-center px-4 rounded-full text-lg shadow-[0px_0px_4px_rgba(0,0,0,0.16)]" style={{background: manga?.category_id.hover, color: manga?.category_id.color}}>{manga?.category_id.name}</p>}
+                        {<p className="p-2 text-2xl text-[#9D9D9D]">{`${manga?.company_id.name}`}</p>}
                     </div>
                     <div className="w-[100%] flex justify-evenly">
                         <button className={emojiButton}>👍</button>
@@ -56,9 +60,11 @@ export default function DetailsManga(){
     )
 }
 const SwitchButton = () =>{
+    let { id } = useParams();
+
     const [chapters, setChapters] = useState()
+    const [manga, setManga] = useState()
     const {page} = useSelector(store => store.currentPage)
-    //console.log(page);
     const dispatch = useDispatch()
     
     const [pages, setPages] = useState(2)
@@ -81,7 +87,8 @@ const SwitchButton = () =>{
     useEffect(() => {
                     let token = localStorage.getItem('token')
                     let headers = { headers: { 'Authorization': `Bearer ${token}`} }
-                    axios(apiUrl+`chapters?manga_id=${idLink}&page=${page}`, headers).then(res=> setChapters(res.data.chapters)).catch(err => console.log(err))
+                    axios.get(apiUrl+"mangas/"+id, headers).then(res=> setManga(res.data.response)).catch(err => console.log(err))
+                    axios(apiUrl+`chapters?manga_id=${id}&page=${page}`, headers).then(res=> setChapters(res.data.chapters)).catch(err => console.log(err))
                 }, [page]
                 )
     const {selectSwitch} = useSelector(store => store.currentPage)
@@ -99,7 +106,7 @@ const SwitchButton = () =>{
             setSelectSwitch(1)
         }
     }
-
+    //console.log(manga);
     return(
         <div className="h-[38rem] w-full">
             <div className="h-10 rounded-full m-5 shadow-[0px_1px_5px_rgba(0,0,0,0.56)] flex items-center">
@@ -116,20 +123,19 @@ const SwitchButton = () =>{
             </div>
             
             {selectSwitch == 0 ? 
-                (<div className="w-[100%]">
-                    <p className="pb-2 pt-5 text-2xl">{manga.title}</p>
-                    <p className="pb-10">{manga.description}</p>
+                (<div className="w-[100%] sm:h-full sm:flex sm:items-top sm:pb-20">
+                    <p className="pb-10 sm:text-lg lg:text-xl xl:text-2xl">{manga?.description}</p>
                 </div>) : 
                 (
-                    <div className="w-full h-full pb-24 flex flex-col justify-between">
+                    <div className="w-full h-full pb-24 flex flex-col justify-between lg:px-10 xl:px-20">
                     <div>
                     {chapters?.map(element => {
                         return <div className=" flex w-full max-h-28 h-[35vw] py-5 justify-between" key={element.order}>
                             <img className="w-20 object-cover object-top" src={element.cover_photo} alt="" />
-                            <div className="max-w-[5rem] max-h-[5rem]">
-                                <h3>{element.title}</h3>
+                            <div className="max-w-[5rem] max-h-[5rem] sm:max-w-none sm:flex sm:flex-col justify-between sm:px-1">
+                                <h3 className="text-center">{element.title}</h3>
                                 <div className="flex justify-around">
-                                    <img src="./icon_comment.png" alt="" />
+                                    <img src={icon_comment} alt="" />
                                     <p>{(Math.random()*100).toFixed()}</p>
                                 </div>
                             </div>
@@ -137,13 +143,11 @@ const SwitchButton = () =>{
                         </div>
                     })}
                     </div>
-                    <div className="flex justify-around items-center">
+                    <div className="flex justify-around items-center pb-1">
                         <button onClick={()=> handlePage(false)}><svg className="h-[3rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"></path>
                         </svg></button>
-                        <svg className="h-[3rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"></path>
-                        </svg>
+                        <p>Page: {page}</p>
                         <button onClick={()=> handlePage(true)}><svg className="h-[3rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"></path>
                         </svg></button> 
