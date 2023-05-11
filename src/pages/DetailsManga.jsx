@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import apiUrl from "../../api"
 import saveCurrentPageActions from '../store/actions/saveCurrentPage'
-import icon_comment from "../../public/icon_comment.png"
 const {saveCurrentPage} = saveCurrentPageActions
 const emojiButton = "text-4xl rounded-full h-16 w-16 bg-white shadow-[0px_2px_5px_rgba(0,0,0,0.56)]"; 
 
@@ -149,11 +148,10 @@ const SwitchButton = () =>{
                             <div className="max-w-[5rem] max-h-[5rem] sm:max-w-none sm:flex sm:flex-col justify-between sm:px-1">
                                 <h3 className="text-center">{element.title}</h3>
                                 <div className="flex justify-around">
-                                    <img src={icon_comment} alt="" />
                                     <p>{(Math.random()*100).toFixed()}</p>
                                 </div>
                             </div>
-                            <Anchor to="/DENISE-PONER-RUTA-DE-TU-PAGINA/" className="max-w-[10rem] min-w-[8rem] rounded-full flex items-center justify-center text-white max-h-40 text-[20px] px-2 font-bold" style={{background: 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}}>Chapters</Anchor>
+                            <Anchor to="/chapters/" className="max-w-[10rem] min-w-[8rem] rounded-full flex items-center justify-center text-white max-h-40 text-[20px] px-2 font-bold" style={{background: 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}}>Chapters</Anchor>
                         </div>
                     })}
                     </div>
