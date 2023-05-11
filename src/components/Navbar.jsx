@@ -18,6 +18,7 @@ export default function Navbar() {
 
     let display = {};
     let { url } = useParams()
+    console.log(url)
 
     if (url == "author-form" || url == "CompanyForm") {
         display = { position: "absolute", left: "0", padding: "0vw 5vw" };
