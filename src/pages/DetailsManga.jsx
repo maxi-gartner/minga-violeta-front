@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react";
-import { Link as Anchor } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import apiUrl from "../../api"
@@ -68,6 +68,7 @@ const SwitchButton = () =>{
     const [disablePrev, setDisablePrev] = useState(true);
     const [disableNext, setDisableNext] = useState(false);
     const [chapters, setChapters] = useState()
+    console.log(chapters);
     const [manga, setManga] = useState()
     const [Switchs, setSelectSwitch] = useState(0)
     
@@ -120,6 +121,7 @@ const SwitchButton = () =>{
             setSelectSwitch(1)
         }
     }
+    const navigate = useNavigate()
     return(
         <div className="h-[38rem] w-full">
             <div className="h-10 rounded-full m-5 shadow-[0px_1px_5px_rgba(0,0,0,0.56)] flex items-center">
@@ -148,10 +150,11 @@ const SwitchButton = () =>{
                             <div className="max-w-[5rem] max-h-[5rem] sm:max-w-none sm:flex sm:flex-col justify-between sm:px-1">
                                 <h3 className="text-center">{element.title}</h3>
                                 <div className="flex justify-around">
+
                                     <p>{(Math.random()*100).toFixed()}</p>
                                 </div>
                             </div>
-                            <Anchor to="" className="max-w-[10rem] min-w-[8rem] rounded-full flex items-center justify-center text-white max-h-40 text-[20px] px-2 font-bold" style={{background: 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}}>Chapters</Anchor>
+                            <button onClick={()=> navigate(`/chapters/${element._id}/0`)} className="max-w-[10rem] min-w-[8rem] rounded-full flex items-center justify-center text-white max-h-40 text-[20px] px-2 font-bold" style={{background: 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}}>Chapters</button>
                         </div>
                     })}
                     </div>

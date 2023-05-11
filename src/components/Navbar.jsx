@@ -1,16 +1,17 @@
 import Logo from "../assets/images/Logo.png";
 import { useParams } from "react-router-dom";
-import { Link as Anchor ,useNavigate } from "react-router-dom";
+import { Link as Anchor ,useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import apiUrl from "../../api"
 import { useSelector } from "react-redux";
 
-
 export default function Navbar() {
     const anchorStyles = "text-white hover:bg-white w-11/12 p-2 flex justify-center items-center rounded-lg hover:text-[#F472B6] font-medium text-md mb-3"; 
     const { order, title } = useSelector( store => store.data)
     const [showMenu, setShowMenu] = useState(false);
+    const location = useLocation()
+    const chapterPathName = location.pathname.includes("chapters")
 
     const handleMenuClick = () => {
     setShowMenu((prevState) => !prevState);
@@ -18,7 +19,6 @@ export default function Navbar() {
 
     let display = {};
     let { url } = useParams()
-    //console.log(url)
 
     if (url == "author-form" || url == "CompanyForm") {
         display = { position: "absolute", left: "0", padding: "0vw 5vw" };
@@ -26,8 +26,8 @@ export default function Navbar() {
     if (url == "auth"|| url == "login" || url == "page") {
         display = { position: "absolute", left: "0" };
     } 
-    if (url == "chapter"){
-        display = { position: "absolute", left: "0", backgroundColor:"#F472B6" };
+    if (chapterPathName){
+        display = { position: "absolute", left: "0", backgroundColor:"#F472B6", color:"#fff" };
     }
 
     const role = localStorage.getItem("role")
@@ -119,7 +119,7 @@ return (
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke={url === "chapter" ? "#fff" : "currentColor"}
+            stroke={chapterPathName ? "#fff" : "currentColor"}
             className="w-10 h-10 text-[#F472B6] cursor-pointer rounded-lg"
             /* style={hamburger} */
             id="hamburger">
@@ -131,7 +131,17 @@ return (
             />
             </svg>
         </button>
-        { url == "chapter" ? (<><p className='flex justify-center items-center text-white w-full h-[14vh] md:h-[9vh] lg:h-[12vh]'>{order} - {title}</p></>):("")}
+        {
+            chapterPathName
+            &&
+                (
+                    <>
+                        <p className='flex justify-center items-center text-white w-full h-[14vh] md:h-[9vh] lg:h-[12vh]'>
+                            {order} - {title}
+                        </p>
+                    </>
+                )
+        }
         <Anchor to="/" className="flex relative text-white pr-4 sm:pr-0">
             <img className="w-[58px] h-auto md:w-[62px] md:h-auto" src={Logo} />
         </Anchor>
