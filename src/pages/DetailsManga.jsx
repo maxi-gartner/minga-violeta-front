@@ -1,18 +1,17 @@
 import axios from "axios"
 import { useEffect, useState } from "react";
 import { Link as Anchor } from "react-router-dom";
-import apiUrl from "../../api"
 import { useSelector, useDispatch } from "react-redux";
-import saveCurrentPageActions from '../store/actions/saveCurrentPage'
-const {saveCurrentPage} = saveCurrentPageActions
 import { useParams } from "react-router-dom";
+import apiUrl from "../../api"
+import saveCurrentPageActions from '../store/actions/saveCurrentPage'
 import icon_comment from "../../public/icon_comment.png"
-
+const {saveCurrentPage} = saveCurrentPageActions
 const emojiButton = "text-4xl rounded-full h-16 w-16 bg-white shadow-[0px_2px_5px_rgba(0,0,0,0.56)]"; 
 
 export default function DetailsManga(){
-    let { id } = useParams();
     const [manga, setManga] = useState()
+    let { id } = useParams();
     useEffect(() => {
         let token = localStorage.getItem('token')
         let headers = { headers: { 'Authorization': `Bearer ${token}`} }
@@ -60,28 +59,46 @@ export default function DetailsManga(){
     )
 }
 const SwitchButton = () =>{
+    const {page} = useSelector(store => store.currentPage)
+    const {selectSwitch} = useSelector(store => store.currentPage)
+
+    const dispatch = useDispatch()
     let { id } = useParams();
 
+    const [pages, setPages] = useState(1)
+    const [disablePrev, setDisablePrev] = useState(true);
+    const [disableNext, setDisableNext] = useState(false);
     const [chapters, setChapters] = useState()
     const [manga, setManga] = useState()
-    const {page} = useSelector(store => store.currentPage)
-    const dispatch = useDispatch()
-    
-    const [pages, setPages] = useState(2)
+    const [Switchs, setSelectSwitch] = useState(0)
     
     const handlePage = (increment) => {
         if (increment){
+            
+    //console.log(chapters?.length);
             setPages(pages +1)
-            if (pages=== 3) {setPages(1)}
-            dispatch(saveCurrentPage({
-                page: pages
-            }))
-        }else{
-            setPages(pages -1)
-            if (pages===0) {setPages(2)}
             dispatch(saveCurrentPage({
                 page: pages+1
             }))
+            if (pages=== 2){
+                setDisableNext(true)
+            }
+            if (pages=== 1){
+                setDisablePrev(false)
+            }
+            
+        }else{
+            setPages(pages -1)
+            dispatch(saveCurrentPage({
+                page: page-1
+            }))
+            if (pages=== 1 || page === 2){
+                setDisablePrev(true)
+            }
+            if (pages=== 2){
+                setDisableNext(false)
+            }
+            
         }
     }
     useEffect(() => {
@@ -91,8 +108,6 @@ const SwitchButton = () =>{
                     axios(apiUrl+`chapters?manga_id=${id}&page=${page}`, headers).then(res=> setChapters(res.data.chapters)).catch(err => console.log(err))
                 }, [page]
                 )
-    const {selectSwitch} = useSelector(store => store.currentPage)
-    const [Switchs, setSelectSwitch] = useState(0)
     const handleSwitch = (change) => {
         if (change){
             dispatch(saveCurrentPage({
@@ -106,7 +121,6 @@ const SwitchButton = () =>{
             setSelectSwitch(1)
         }
     }
-    //console.log(manga);
     return(
         <div className="h-[38rem] w-full">
             <div className="h-10 rounded-full m-5 shadow-[0px_1px_5px_rgba(0,0,0,0.56)] flex items-center">
@@ -144,11 +158,11 @@ const SwitchButton = () =>{
                     })}
                     </div>
                     <div className="flex justify-around items-center pb-1">
-                        <button onClick={()=> handlePage(false)}><svg className="h-[3rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <button onClick={()=> handlePage(false)} disabled={disablePrev}><svg className="h-[3rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"></path>
                         </svg></button>
                         <p>Page: {page}</p>
-                        <button onClick={()=> handlePage(true)}><svg className="h-[3rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <button onClick={()=> handlePage(true)} disabled={disableNext}><svg className="h-[3rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"></path>
                         </svg></button> 
                     </div>
