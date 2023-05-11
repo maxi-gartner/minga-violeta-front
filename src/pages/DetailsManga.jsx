@@ -151,7 +151,7 @@ const SwitchButton = () =>{
                                     <p>{(Math.random()*100).toFixed()}</p>
                                 </div>
                             </div>
-                            <Anchor to="/chapters/" className="max-w-[10rem] min-w-[8rem] rounded-full flex items-center justify-center text-white max-h-40 text-[20px] px-2 font-bold" style={{background: 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}}>Chapters</Anchor>
+                            <Anchor to="" className="max-w-[10rem] min-w-[8rem] rounded-full flex items-center justify-center text-white max-h-40 text-[20px] px-2 font-bold" style={{background: 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}}>Chapters</Anchor>
                         </div>
                     })}
                     </div>
