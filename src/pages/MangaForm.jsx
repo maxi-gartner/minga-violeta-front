@@ -3,10 +3,13 @@ import axios from "axios"
 import apiUrl from "../../api"
 import ModalMinga from "../components/ModalMinga"
 
+let token = localStorage.getItem('token')
+let headers = {headers:{'Authorization' : `Bearer ${token}`}}
+
 export default function MangaForm() {
     useEffect(
         ()=>{
-            axios(apiUrl+'categories').then(res=>setCategories(res.data.categories)).catch(err=>console.log(err))
+            axios(apiUrl+'categories',headers).then(res=>setCategories(res.data.categories)).catch(err=>console.log(err))
         },
         []
     )
@@ -64,7 +67,7 @@ export default function MangaForm() {
             category_id: category.current.value,
             description: description.current.value
         }
-        axios.post(apiUrl + 'mangas', data)
+        axios.post(apiUrl + 'mangas', data, headers)
             .then(res => {
                 console.log(res)
                 setModalSuccessIsOpen(true)
@@ -77,7 +80,7 @@ export default function MangaForm() {
     }
 
     return (
-        <div className='p-32 sm:p-10 h-screen sm:h-[88vh] flex flex-col justify-center items-center gap-12 '>
+        <div className='p-32 sm:p-10 h-screen sm:h-[91vh] flex flex-col justify-center items-center gap-12 '>
             <div className='h-full'>
                 <div className='text-center pb-12'>
                     <p className='text-2xl '>New Manga</p>

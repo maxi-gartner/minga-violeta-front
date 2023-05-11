@@ -23,7 +23,7 @@ export default function Navbar() {
     if (url == "author-form" || url == "CompanyForm") {
         display = { position: "absolute", left: "0", padding: "0vw 5vw" };
     }
-    if (url == "auth"|| url == "login") {
+    if (url == "auth"|| url == "login" || url == "page") {
         display = { position: "absolute", left: "0" };
     } 
     if (url == "chapter"){
@@ -92,7 +92,7 @@ const Drawer = () => {
                     </li>
                     <li className="w-full flex justify-center">
                         <Anchor className={anchorStyles}
-                        to="/">Mangas</Anchor>
+                        to="/mangas/page">Mangas</Anchor>
                     </li>
                     {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signup/login">Register</Anchor></li>}
                     {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signin/auth" >Login</Anchor></li>}
