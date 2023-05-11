@@ -1,11 +1,11 @@
 import axios from "axios"
-//import apiUrl from "../../api"
 import { useEffect, useState } from "react";
+import { Link as Anchor } from "react-router-dom";
 import apiUrl from "../../api"
-//console.log(apiUrl);
-
+import { useSelector, useDispatch } from "react-redux";
+import saveCurrentPageActions from '../store/actions/saveCurrentPage'
+const {saveCurrentPage} = saveCurrentPageActions
 const idLink = "6455251e7468e2153e947d4b"
-
 
 let token = localStorage.getItem('token')
 let headers = { headers: { 'Authorization': `Bearer ${token}` } }
@@ -15,7 +15,6 @@ const manga = resManga.data.response
 
 const emojiButton = "text-4xl rounded-full h-16 w-16 bg-white shadow-[0px_2px_5px_rgba(0,0,0,0.56)]"; 
 export default function DetailsManga(){
-    
     return (
         <>
             <div className="min-h-screen pt-[12vh] bg-[#EBEBEB] flex flex-col items-center">
@@ -58,31 +57,58 @@ export default function DetailsManga(){
 }
 const SwitchButton = () =>{
     const [chapters, setChapters] = useState()
-    const [page, setPages] = useState(1)
+    const {page} = useSelector(store => store.currentPage)
+    //console.log(page);
+    const dispatch = useDispatch()
+    
+    const [pages, setPages] = useState(2)
+    
+    const handlePage = (increment) => {
+        if (increment){
+            setPages(pages +1)
+            if (pages=== 3) {setPages(1)}
+            dispatch(saveCurrentPage({
+                page: pages
+            }))
+        }else{
+            setPages(pages -1)
+            if (pages===0) {setPages(2)}
+            dispatch(saveCurrentPage({
+                page: pages+1
+            }))
+        }
+    }
     useEffect(() => {
                     let token = localStorage.getItem('token')
                     let headers = { headers: { 'Authorization': `Bearer ${token}`} }
                     axios(apiUrl+`chapters?manga_id=${idLink}&page=${page}`, headers).then(res=> setChapters(res.data.chapters)).catch(err => console.log(err))
                 }, [page]
                 )
-                const handlePage = (increment) => {
-                    if (increment){setPages(page +1)
-                        if (page=== 3) {setPages(0)}
-                    }else{setPages(page -1)
-                        if (page===0) {setPages(3)}
-                    }
-                }
+    const {selectSwitch} = useSelector(store => store.currentPage)
+    const [Switchs, setSelectSwitch] = useState(0)
+    const handleSwitch = (change) => {
+        if (change){
+            dispatch(saveCurrentPage({
+                selectSwitch: Switchs-1
+            }))
+            setSelectSwitch(0)
+        }else{
+            dispatch(saveCurrentPage({
+                selectSwitch: Switchs+1
+            }))
+            setSelectSwitch(1)
+        }
+    }
 
-    const [selectSwitch, setSelectSwitch] = useState(0)
     return(
         <div className="h-[38rem] w-full">
             <div className="h-10 rounded-full m-5 shadow-[0px_1px_5px_rgba(0,0,0,0.56)] flex items-center">
-                <button onClick={()=> setSelectSwitch(0)} 
+                <button onClick={()=> handleSwitch(true)}
                         className="h-full w-[50%] rounded-full flex items-center justify-center" 
                         style={{background: selectSwitch==0? 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)' : 'transparent'}
                         }><span 
                             style={{color: selectSwitch==0? 'white' : '#9D9D9D'}}>Manga</span></button>
-                <button onClick={()=> setSelectSwitch(1)} 
+                <button onClick={()=> handleSwitch(false)}
                         className="h-full w-[50%] rounded-full flex items-center justify-center" 
                         style={{background: selectSwitch==0? 'transparent' : 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}
                         }><span 
@@ -107,7 +133,7 @@ const SwitchButton = () =>{
                                     <p>{(Math.random()*100).toFixed()}</p>
                                 </div>
                             </div>
-                            <button className="max-w-[10rem] min-w-[8rem] rounded-full flex items-center justify-center text-white max-h-40 text-[20px] px-2 font-bold" style={{background: 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}}>Chapters</button>
+                            <Anchor to="/DENISE-PONER-RUTA-DE-TU-PAGINA/" className="max-w-[10rem] min-w-[8rem] rounded-full flex items-center justify-center text-white max-h-40 text-[20px] px-2 font-bold" style={{background: 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}}>Chapters</Anchor>
                         </div>
                     })}
                     </div>
