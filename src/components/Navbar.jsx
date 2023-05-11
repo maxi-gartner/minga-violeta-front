@@ -23,7 +23,7 @@ export default function Navbar() {
     if (url == "author-form" || url == "CompanyForm") {
         display = { position: "absolute", left: "0", padding: "0vw 5vw" };
     }
-    if (url == "auth"|| url == "login") {
+    if (url == "auth"|| url == "login" || url == "page") {
         display = { position: "absolute", left: "0" };
     } 
     if (chapterPathName){
