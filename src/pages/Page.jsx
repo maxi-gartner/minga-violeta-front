@@ -38,12 +38,10 @@ export default function ChapterPages() {
             setImgPage(res.data.response.pages[counter]);
             setIdNext(res.data.id_next)
             setIdPrev(res.data.id_prev)
-             console.log(res.data.response.id_next)
             dispatch(chapter_bar({
                 title: res.data.response.title,
                 order: res.data.response.order
             })) 
-            console.log(res)
         })
         .catch(err=>console.log(err))
         }, [reload]
@@ -68,7 +66,7 @@ export default function ChapterPages() {
         if (newCounter >= allPages.length) {
             newCounter = 0
             setCounter(newCounter)
-            navigate(`/chapters/chapter/${id_next}/${newCounter}`);
+            navigate(`/chapters/${id_next}/${newCounter}`);
             setReload(!reload)
         } else {
             setCounter(newCounter)
@@ -76,7 +74,7 @@ export default function ChapterPages() {
                 title: title,
                 order: order
             })) 
-            navigate(`/chapters/chapter/${id}/${newCounter}`);
+            navigate(`/chapters/${id}/${newCounter}`);
         }
     }
 
@@ -87,16 +85,16 @@ export default function ChapterPages() {
           if (id_prev && prevChapterPages.length > 0) {
             newCounter = prevChapterPages.length - 1;
             setCounter(newCounter);
-            navigate(`/chapters/chapter/${id_prev}/${newCounter}`);
+            navigate(`/chapters/${id_prev}/${newCounter}`);
             setReload(!reload);
             return;
           } else {
-            navigate(`/details/manga/${id}/${page}`);
+            navigate(`/detailsManga/${id}`);
             return;
           }
         }
         setCounter(newCounter);
-        navigate(`/chapters/chapter/${id}/${newCounter}`);
+        navigate(`/chapters/${id}/${newCounter}`);
       };
 
     useEffect(() => {
