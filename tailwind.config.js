@@ -15,6 +15,10 @@ export default {
             minga1: "#F9A8D4",
             minga2: "black",
         },
+        backgroundImage: {
+          "mangasGirlM" : "url('/mangasGirlM.png')",
+          "mangasGirlD" : "url('/mangasGirlD.png')",
+        },
         fontFamily: {
           'poppins': 'Poppins',
           'montserrat': 'Montserrat',

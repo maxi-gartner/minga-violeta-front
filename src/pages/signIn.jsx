@@ -84,7 +84,7 @@ export default function SignIn(){
             src="/public/fondosignin.png"
             className="hidden sm:w-1/2 h-full sm:flex object-cover object-top "
           />
-          <div className="flex justify-center sm:w-1/2 bg-white">
+          <div className="flex justify-center sm:w-1/2 bg-white sm:pt-28">
             <div className="bg-white min-h-screen w-[80vw] sm:w-10/12 flex justify-center items-center">
               <div className="flex flex-col w-full">
                 <form onSubmit={(e) => handleForm(e)}>

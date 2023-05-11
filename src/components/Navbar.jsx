@@ -1,30 +1,34 @@
 import Logo from "../assets/images/Logo.png";
 import { useParams } from "react-router-dom";
-import { Link as Anchor ,useNavigate } from "react-router-dom";
+import { Link as Anchor ,useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import apiUrl from "../../api"
-
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
     const anchorStyles = "text-white hover:bg-white w-11/12 p-2 flex justify-center items-center rounded-lg hover:text-[#F472B6] font-medium text-md mb-3"; 
+    const { order, title } = useSelector( store => store.data)
     const [showMenu, setShowMenu] = useState(false);
+    const location = useLocation()
+    const chapterPathName = location.pathname.includes("chapters")
 
     const handleMenuClick = () => {
     setShowMenu((prevState) => !prevState);
     };
 
     let display = {};
-    let { page } = useParams();
-    //console.log(page)
-    if (page == "author-form" || page == "CompanyForm") {
-    //console.log("es igual")
-    display = { position: "absolute", left: "0", padding: "0vw 5vw" };
+    let { url } = useParams()
+
+    if (url == "author-form" || url == "CompanyForm") {
+        display = { position: "absolute", left: "0", padding: "0vw 5vw" };
     }
-    if (page == "auth"|| page == "login") {
-    //console.log("es igual")
-    display = { position: "absolute", left: "0" };
+    if (url == "auth"|| url == "login" || url == "page") {
+        display = { position: "absolute", left: "0" };
     } 
+    if (chapterPathName){
+        display = { position: "absolute", left: "0", backgroundColor:"#F472B6", color:"#fff" };
+    }
 
     const role = localStorage.getItem("role")
     let token = localStorage.getItem('token')
@@ -88,7 +92,7 @@ const Drawer = () => {
                     </li>
                     <li className="w-full flex justify-center">
                         <Anchor className={anchorStyles}
-                        to="/">Mangas</Anchor>
+                        to="/mangas/page">Mangas</Anchor>
                     </li>
                     {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signup/login">Register</Anchor></li>}
                     {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signin/auth" >Login</Anchor></li>}
@@ -107,17 +111,19 @@ const Drawer = () => {
 };
 
 return (
-    <div className="flex w-screen justify-between items-center absolute z-40 sm:relative pl-4 sm:px-12 pt-4" style={display} >
+    
+    <div className="flex w-full justify-between items-center absolute z-40 sm:relative pl-4 sm:px-12 pt-2" style={display} >
         <button onClick={handleMenuClick}>
             <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-12 h-12 text-[#F472B6] cursor-pointer rounded-lg"
+            stroke={chapterPathName ? "#fff" : "currentColor"}
+            className="w-10 h-10 text-[#F472B6] cursor-pointer rounded-lg"
             /* style={hamburger} */
             id="hamburger">
+            
             <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -125,10 +131,22 @@ return (
             />
             </svg>
         </button>
+        {
+            chapterPathName
+            &&
+                (
+                    <>
+                        <p className='flex justify-center items-center text-white w-full h-[14vh] md:h-[9vh] lg:h-[12vh]'>
+                            {order} - {title}
+                        </p>
+                    </>
+                )
+        }
         <Anchor to="/" className="flex relative text-white pr-4 sm:pr-0">
-            <img className="w-[58px] h-[58px] md:w-[68px] md:h-[68px]" src={Logo} />
+            <img className="w-[58px] h-auto md:w-[62px] md:h-auto" src={Logo} />
         </Anchor>
         {showMenu && <Drawer />}
     </div>
+    
 );
 }

@@ -71,8 +71,8 @@ export default function SignUp(){
     <>
       <div className="h-screen w-full flex justify-center items-center bg-white">
         <div className="flex justify-center w-1/2 bg-white">
-          <div className="bg-white min-h-screen sm:w-1/2 flex justify-center items-center pt-24 sm:pt-12">
-            <div className="flex flex-col w-[90vw]">
+          <div className="bg-white min-h-screen flex justify-center items-center pt-24 sm:pt-12 sm:w-[80%]">
+            <div className="flex flex-col w-[90vw] sm:pt-28">
               <form onSubmit={(e) => handleForm(e)}>
                 <div className="flex flex-col items-center">
                   <h1 className="text-lg text-center font-semibold text-gray-800">Welcome<span className='text-[#F472B6]'> back</span>!</h1>
