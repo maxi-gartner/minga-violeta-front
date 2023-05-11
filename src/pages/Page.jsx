@@ -89,7 +89,7 @@ export default function ChapterPages() {
             setReload(!reload);
             return;
           } else {
-            navigate(`/detailsManga/${id}`);
+            navigate(`/DetailsManga/${id}`);
             return;
           }
         }
