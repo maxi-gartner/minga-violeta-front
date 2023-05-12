@@ -68,13 +68,13 @@ const SwitchButton = () =>{
     const dispatch = useDispatch()
     let { id } = useParams();
 
-    const [pages, setPages] = useState(1)
-    const [disablePrev, setDisablePrev] = useState(true);
+    const [pages, setPages] = useState(page)
+    const [disablePrev, setDisablePrev] = useState(page>1? false: true);
     const [disableNext, setDisableNext] = useState(false);
     const [chapters, setChapters] = useState()
     console.log(chapters);
     const [manga, setManga] = useState()
-    const [Switchs, setSelectSwitch] = useState(0)
+    const [Switchs, setSelectSwitch] = useState(selectSwitch)
     
     const handlePage = (increment) => {
         if (increment){
@@ -86,10 +86,10 @@ const SwitchButton = () =>{
                 selectSwitch: 1,
                 id_manga: id
             }))
-            if (pages=== 2){
+            if (page=== 2){
                 setDisableNext(true)
             }
-            if (pages=== 1){
+            if (page){
                 setDisablePrev(false)
             }
             
@@ -100,10 +100,10 @@ const SwitchButton = () =>{
                 selectSwitch: 1,
                 id_manga: id
             }))
-            if (pages=== 1 || page === 2){
+            if (page=== 1 || page === 2){
                 setDisablePrev(true)
             }
-            if (pages=== 2){
+            if (page=== 2){
                 setDisableNext(false)
             }
             
@@ -120,14 +120,14 @@ const SwitchButton = () =>{
         if (change){
             setSelectSwitch(0)
             dispatch(saveCurrentPage({
-                selectSwitch: Switchs,
+                selectSwitch: Switchs-1,
                 id_manga: id,
                 page: pages
             }))
         }else{
             setSelectSwitch(1)
             dispatch(saveCurrentPage({
-                selectSwitch: Switchs-1,
+                selectSwitch: Switchs+1,
                 id_manga: id,
                 page: pages
             }))
@@ -139,17 +139,17 @@ const SwitchButton = () =>{
             <div className="h-10 rounded-full m-5 shadow-[0px_1px_5px_rgba(0,0,0,0.56)] flex items-center">
                 <button onClick={()=> handleSwitch(true)}
                         className="h-full w-[50%] rounded-full flex items-center justify-center" 
-                        style={{background: selectSwitch==0||Switchs==0? 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)' : 'transparent'}
+                        style={{background: selectSwitch==0? 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)' : 'transparent'}
                         }><span 
-                            style={{color: selectSwitch==0||Switchs==0? 'white' : '#9D9D9D'}}>Manga</span></button>
+                            style={{color: selectSwitch==0? 'white' : '#9D9D9D'}}>Manga</span></button>
                 <button onClick={()=> handleSwitch(false)}
                         className="h-full w-[50%] rounded-full flex items-center justify-center" 
-                        style={{background: selectSwitch==0||Switchs==0? 'transparent' : 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}
+                        style={{background: selectSwitch==0? 'transparent' : 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}
                         }><span 
-                            style={{color: selectSwitch==0||Switchs==0? '#9D9D9D' : 'white'}}>Chapters</span></button>
+                            style={{color: selectSwitch==0? '#9D9D9D' : 'white'}}>Chapters</span></button>
             </div>
             
-            {selectSwitch == 0||Switchs==0? 
+            {selectSwitch == 0? 
                 (<div className="w-[100%] sm:h-full sm:flex sm:items-top sm:pb-20">
                     <p className="pb-10 sm:text-lg lg:text-xl xl:text-2xl">{manga?.description}</p>
                 </div>) : 
