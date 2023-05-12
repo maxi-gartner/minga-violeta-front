@@ -79,6 +79,7 @@ export default function ChapterPages() {
     }
 
     //nuevo funcion previuos
+    const {id_manga} = useSelector(store => store.currentPage)
     const previous = () => {
         let newCounter = counter - 1;
         if (counter === 0) {
@@ -89,7 +90,7 @@ export default function ChapterPages() {
             setReload(!reload);
             return;
           } else {
-            navigate(`/DetailsManga/${id}`);
+            navigate(`/DetailsManga/${id_manga}`);
             return;
           }
         }
