@@ -20,8 +20,10 @@ export default function DetailsManga(){
     return (
         <>
             <div className="min-h-screen pt-[12vh] sm:pt-2 bg-[#EBEBEB] flex flex-col items-center sm:flex-row">
-                {<img className="max-h-[50vh] sm:max-h-none sm:h-screen object-cover object-top w-full px-5 sm:w-1/2 sm:flex" src={manga?.cover_photo}></img>}
-                <div className="min-h-screen w-screen px-5 bg-[#EBEBEB] flex flex-col items-center sm:w-1/2 sm:flex">
+                <div className="max-h-[50vh] sm:max-h-full sm:h-screen  w-full px-5 sm:w-1/2 sm:flex sm: justify-center items-start py-5">
+                    {<img className="h-full object-cover" src={manga?.cover_photo}></img>}
+                </div>
+                <div className="min-h-screen w-screen px-5 bg-[#EBEBEB] flex flex-col items-center sm:w-1/2 sm:flex  lg:px-[6vw]">
                     <div>
                         {<p className="text-5xl sm:text-2xl lg:text-5xl pt-5">{manga?.title}</p>}
                     </div>
@@ -60,17 +62,19 @@ export default function DetailsManga(){
 const SwitchButton = () =>{
     const {page} = useSelector(store => store.currentPage)
     const {selectSwitch} = useSelector(store => store.currentPage)
+    const prueba = useSelector(store => store.currentPage)
+    console.log(prueba);
 
     const dispatch = useDispatch()
     let { id } = useParams();
 
-    const [pages, setPages] = useState(1)
-    const [disablePrev, setDisablePrev] = useState(true);
+    const [pages, setPages] = useState(page)
+    const [disablePrev, setDisablePrev] = useState(page>1? false: true);
     const [disableNext, setDisableNext] = useState(false);
     const [chapters, setChapters] = useState()
     console.log(chapters);
     const [manga, setManga] = useState()
-    const [Switchs, setSelectSwitch] = useState(0)
+    const [Switchs, setSelectSwitch] = useState(selectSwitch)
     
     const handlePage = (increment) => {
         if (increment){
@@ -79,13 +83,13 @@ const SwitchButton = () =>{
             setPages(pages +1)
             dispatch(saveCurrentPage({
                 page: pages+1,
-                selectSwitch: Switchs,
+                selectSwitch: 1,
                 id_manga: id
             }))
-            if (pages=== 2){
+            if (page=== 2){
                 setDisableNext(true)
             }
-            if (pages=== 1){
+            if (page){
                 setDisablePrev(false)
             }
             
@@ -93,13 +97,13 @@ const SwitchButton = () =>{
             setPages(pages -1)
             dispatch(saveCurrentPage({
                 page: page-1,
-                selectSwitch: Switchs,
+                selectSwitch: 1,
                 id_manga: id
             }))
-            if (pages=== 1 || page === 2){
+            if (page=== 1 || page === 2){
                 setDisablePrev(true)
             }
-            if (pages=== 2){
+            if (page=== 2){
                 setDisableNext(false)
             }
             
@@ -114,19 +118,19 @@ const SwitchButton = () =>{
                 )
     const handleSwitch = (change) => {
         if (change){
+            setSelectSwitch(0)
             dispatch(saveCurrentPage({
                 selectSwitch: Switchs-1,
                 id_manga: id,
                 page: pages
             }))
-            setSelectSwitch(0)
         }else{
+            setSelectSwitch(1)
             dispatch(saveCurrentPage({
                 selectSwitch: Switchs+1,
                 id_manga: id,
                 page: pages
             }))
-            setSelectSwitch(1)
         }
     }
     const navigate = useNavigate()
@@ -145,12 +149,12 @@ const SwitchButton = () =>{
                             style={{color: selectSwitch==0? '#9D9D9D' : 'white'}}>Chapters</span></button>
             </div>
             
-            {selectSwitch == 0 ? 
+            {selectSwitch == 0? 
                 (<div className="w-[100%] sm:h-full sm:flex sm:items-top sm:pb-20">
                     <p className="pb-10 sm:text-lg lg:text-xl xl:text-2xl">{manga?.description}</p>
                 </div>) : 
                 (
-                    <div className="w-full h-full pb-24 flex flex-col justify-between lg:px-10 xl:px-20">
+                    <div className="w-full h-full pb-24 flex flex-col justify-between lg:px-10">
                     <div>
                     {chapters?.map(element => {
                         return <div className=" flex w-full max-h-28 h-[35vw] py-5 justify-between" key={element.order}>

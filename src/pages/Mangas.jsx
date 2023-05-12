@@ -106,7 +106,7 @@ console.log(categories)
                                             <div className="mt-24 ml-8 text-xs bg-green-200 invisible absolute sm:absolute sm:visible inline-block rounded-2xl hover:shadow-md hover:border-2"><Anchor to={"/detailsManga/" + manga._id}><p className="text-green-500 text-xs font-bold p-2 px-6">Read</p></Anchor></div>
                                         </div>
                                     </div>
-                                    <img src={manga?.cover_photo} className="w-40 sm:w-60 object-cover h-full rounded-[40px_8px_8px_40px/64px_8px_8px_64px;]" alt="" />
+                                    <Anchor to={"/detailsManga/" + manga._id}><img src={manga?.cover_photo} className="w-40 sm:w-60 object-cover h-full rounded-[40px_8px_8px_40px/64px_8px_8px_64px;]" alt="" /></Anchor>
                                 </div>
                             ))
                         ) : (
