@@ -91,7 +91,7 @@ console.log(categories)
                         </div>
                         <form ref={category_id} className="w-full flex justify-center mt-4 sm:justify-center lg:justify-start lg:pl-20 xl:pl-24 2xl:pl-28 gap-x-2 sm:gap-x-4">
                             {categorias && categorias.map((category) =>
-                                <label htmlFor={category._id} key={category._id} className="hover:shadow-lg hover:border-2 border-white" style={{ height: "2rem", backgroundColor: category.hover, color: category.color, padding: '0.3rem', borderRadius: '16px', fontSize: "12px", textAlign: "center", ...(categories.includes(category._id)? {backgroundColor: category.color, color: "white"} : {}) }}>
+                                <label htmlFor={category._id} key={category._id} className="hover:shadow-lg hover:border-2 border-white" style={{ height: "2rem", backgroundColor: category.hover, color: category.color, padding: '0.3rem', borderRadius: '16px', fontSize: "12px", textAlign: "center", ...(categories.includes(category._id)? {backgroundColor: category.color, color: "white", boxShadow: `0 0 0 8px ${category.hover}`} : {}) }}>
                                     {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
                                     <input name="category_id" onClick={capture} defaultChecked={categories.includes(category._id)} style={{ appearance: 'none' }} type="checkbox" value={category._id} id={category._id} />
                                 </label>)}
@@ -106,7 +106,7 @@ console.log(categories)
                                             <div className="mt-24 ml-8 text-xs bg-green-200 invisible absolute sm:absolute sm:visible inline-block rounded-2xl hover:shadow-md hover:border-2"><Anchor to={"/detailsManga/" + manga._id}><p className="text-green-500 text-xs font-bold p-2 px-6">Read</p></Anchor></div>
                                         </div>
                                     </div>
-                                    <img src={manga?.cover_photo} className="w-40 sm:w-60 object-cover h-full rounded-[40px_8px_8px_40px/64px_8px_8px_64px;]" alt="" />
+                                    <Anchor to={"/detailsManga/" + manga._id}><img src={manga?.cover_photo} className="w-40 sm:w-60 object-cover h-full rounded-[40px_8px_8px_40px/64px_8px_8px_64px;]" alt="" /></Anchor>
                                 </div>
                             ))
                         ) : (

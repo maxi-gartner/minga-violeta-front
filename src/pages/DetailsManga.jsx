@@ -20,8 +20,10 @@ export default function DetailsManga(){
     return (
         <>
             <div className="min-h-screen pt-[12vh] sm:pt-2 bg-[#EBEBEB] flex flex-col items-center sm:flex-row">
-                {<img className="max-h-[50vh] sm:max-h-none sm:h-screen object-cover object-top w-full px-5 sm:w-1/2 sm:flex" src={manga?.cover_photo}></img>}
-                <div className="min-h-screen w-screen px-5 bg-[#EBEBEB] flex flex-col items-center sm:w-1/2 sm:flex">
+                <div className="max-h-[50vh] sm:max-h-full sm:h-screen  w-full px-5 sm:w-1/2 sm:flex sm: justify-center items-start py-5">
+                    {<img className="h-full object-cover" src={manga?.cover_photo}></img>}
+                </div>
+                <div className="min-h-screen w-screen px-5 bg-[#EBEBEB] flex flex-col items-center sm:w-1/2 sm:flex  lg:px-[6vw]">
                     <div>
                         {<p className="text-5xl sm:text-2xl lg:text-5xl pt-5">{manga?.title}</p>}
                     </div>
@@ -60,6 +62,8 @@ export default function DetailsManga(){
 const SwitchButton = () =>{
     const {page} = useSelector(store => store.currentPage)
     const {selectSwitch} = useSelector(store => store.currentPage)
+    const prueba = useSelector(store => store.currentPage)
+    console.log(prueba);
 
     const dispatch = useDispatch()
     let { id } = useParams();
@@ -79,7 +83,7 @@ const SwitchButton = () =>{
             setPages(pages +1)
             dispatch(saveCurrentPage({
                 page: pages+1,
-                selectSwitch: Switchs,
+                selectSwitch: 1,
                 id_manga: id
             }))
             if (pages=== 2){
@@ -93,7 +97,7 @@ const SwitchButton = () =>{
             setPages(pages -1)
             dispatch(saveCurrentPage({
                 page: page-1,
-                selectSwitch: Switchs,
+                selectSwitch: 1,
                 id_manga: id
             }))
             if (pages=== 1 || page === 2){
@@ -114,19 +118,19 @@ const SwitchButton = () =>{
                 )
     const handleSwitch = (change) => {
         if (change){
+            setSelectSwitch(0)
+            dispatch(saveCurrentPage({
+                selectSwitch: Switchs,
+                id_manga: id,
+                page: pages
+            }))
+        }else{
+            setSelectSwitch(1)
             dispatch(saveCurrentPage({
                 selectSwitch: Switchs-1,
                 id_manga: id,
                 page: pages
             }))
-            setSelectSwitch(0)
-        }else{
-            dispatch(saveCurrentPage({
-                selectSwitch: Switchs+1,
-                id_manga: id,
-                page: pages
-            }))
-            setSelectSwitch(1)
         }
     }
     const navigate = useNavigate()
@@ -135,22 +139,22 @@ const SwitchButton = () =>{
             <div className="h-10 rounded-full m-5 shadow-[0px_1px_5px_rgba(0,0,0,0.56)] flex items-center">
                 <button onClick={()=> handleSwitch(true)}
                         className="h-full w-[50%] rounded-full flex items-center justify-center" 
-                        style={{background: selectSwitch==0? 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)' : 'transparent'}
+                        style={{background: selectSwitch==0||Switchs==0? 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)' : 'transparent'}
                         }><span 
-                            style={{color: selectSwitch==0? 'white' : '#9D9D9D'}}>Manga</span></button>
+                            style={{color: selectSwitch==0||Switchs==0? 'white' : '#9D9D9D'}}>Manga</span></button>
                 <button onClick={()=> handleSwitch(false)}
                         className="h-full w-[50%] rounded-full flex items-center justify-center" 
-                        style={{background: selectSwitch==0? 'transparent' : 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}
+                        style={{background: selectSwitch==0||Switchs==0? 'transparent' : 'linear-gradient(153deg, #F9A8D4 -13.9%, #F472B6 58.69%)'}
                         }><span 
-                            style={{color: selectSwitch==0? '#9D9D9D' : 'white'}}>Chapters</span></button>
+                            style={{color: selectSwitch==0||Switchs==0? '#9D9D9D' : 'white'}}>Chapters</span></button>
             </div>
             
-            {selectSwitch == 0 ? 
+            {selectSwitch == 0||Switchs==0? 
                 (<div className="w-[100%] sm:h-full sm:flex sm:items-top sm:pb-20">
                     <p className="pb-10 sm:text-lg lg:text-xl xl:text-2xl">{manga?.description}</p>
                 </div>) : 
                 (
-                    <div className="w-full h-full pb-24 flex flex-col justify-between lg:px-10 xl:px-20">
+                    <div className="w-full h-full pb-24 flex flex-col justify-between lg:px-10">
                     <div>
                     {chapters?.map(element => {
                         return <div className=" flex w-full max-h-28 h-[35vw] py-5 justify-between" key={element.order}>
