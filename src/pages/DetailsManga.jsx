@@ -78,7 +78,9 @@ const SwitchButton = () =>{
     //console.log(chapters?.length);
             setPages(pages +1)
             dispatch(saveCurrentPage({
-                page: pages+1
+                page: pages+1,
+                selectSwitch: Switchs,
+                id_manga: id
             }))
             if (pages=== 2){
                 setDisableNext(true)
@@ -90,7 +92,9 @@ const SwitchButton = () =>{
         }else{
             setPages(pages -1)
             dispatch(saveCurrentPage({
-                page: page-1
+                page: page-1,
+                selectSwitch: Switchs,
+                id_manga: id
             }))
             if (pages=== 1 || page === 2){
                 setDisablePrev(true)
@@ -111,12 +115,16 @@ const SwitchButton = () =>{
     const handleSwitch = (change) => {
         if (change){
             dispatch(saveCurrentPage({
-                selectSwitch: Switchs-1
+                selectSwitch: Switchs-1,
+                id_manga: id,
+                page: pages
             }))
             setSelectSwitch(0)
         }else{
             dispatch(saveCurrentPage({
-                selectSwitch: Switchs+1
+                selectSwitch: Switchs+1,
+                id_manga: id,
+                page: pages
             }))
             setSelectSwitch(1)
         }
