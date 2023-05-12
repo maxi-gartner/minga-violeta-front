@@ -91,7 +91,7 @@ console.log(categories)
                         </div>
                         <form ref={category_id} className="w-full flex justify-center mt-4 sm:justify-center lg:justify-start lg:pl-20 xl:pl-24 2xl:pl-28 gap-x-2 sm:gap-x-4">
                             {categorias && categorias.map((category) =>
-                                <label htmlFor={category._id} key={category._id} className="hover:shadow-lg hover:border-2 border-white" style={{ height: "2rem", backgroundColor: category.hover, color: category.color, padding: '0.3rem', borderRadius: '16px', fontSize: "12px", textAlign: "center", ...(categories.includes(category._id)? {backgroundColor: category.color, color: "white"} : {}) }}>
+                                <label htmlFor={category._id} key={category._id} className="hover:shadow-lg hover:border-2 border-white" style={{ height: "2rem", backgroundColor: category.hover, color: category.color, padding: '0.3rem', borderRadius: '16px', fontSize: "12px", textAlign: "center", ...(categories.includes(category._id)? {backgroundColor: category.color, color: "white", boxShadow: `0 0 0 8px ${category.hover}`} : {}) }}>
                                     {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
                                     <input name="category_id" onClick={capture} defaultChecked={categories.includes(category._id)} style={{ appearance: 'none' }} type="checkbox" value={category._id} id={category._id} />
                                 </label>)}
