@@ -10,7 +10,7 @@ let initial_state = {
 const reducer = createReducer(
     initial_state,
     (builder) => builder
-        .addCase(
+        .addCase(        //reduce los datos y modifica el estado
             mangasFilter,
             (state,action) => {
                 const new_state = {

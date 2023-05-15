@@ -7,9 +7,9 @@ import { Link as Anchor } from "react-router-dom"
 
 export default function Mangas() {
     const buscador = useRef('')
-    const category_id = useRef('')
+    const category_id = useRef('')/* 
     const nextP = useRef()
-    const prevP = useRef()
+    const prevP = useRef() */
     const {title, categories} = useSelector( store => store.inputs)
     const dispatch = useDispatch()
     const [mangas, setMangas] = useState()
@@ -30,7 +30,7 @@ export default function Mangas() {
                 })
                 .catch(err => console.log(err))
         },
-        [reload, pagAct]
+        [reload, pagAct]  //el efecto se ejecuta cada vez que una dependencia sufra cambios
     )
     console.log(count)
     function next() {
@@ -113,8 +113,8 @@ console.log(categories)
                             <div className="flex justify-center items-center w-full h-[30vh] mt-4"><p className="bg-black opacity-80 rounded-full p-1 lg:p-3 text-white text-center">No manga has been found</p></div>
                         )}
                         <div className="w-full flex justify-center pt-4 text-white">
-                            {pagAct == 1 ? null : (<input className="bg-red-400 h-10 w-60 p-2 m-2 rounded-2xl bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] font-semibold hover:shadow-lg hover:border-2" type="button" value="Prev" onClick={prev} ref={prevP}/>)}
-                            {pagAct > count-1 ? null : (<input type="button" className="bg-red-400 h-10 w-60 p-2 m-2 rounded-2xl bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] font-semibold hover:shadow-lg hover:border-2" value="Next" onClick={next} ref={nextP}/>)}
+                            {pagAct == 1 ? null : (<input className="bg-red-400 h-10 w-60 p-2 m-2 rounded-2xl bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] font-semibold hover:shadow-lg hover:border-2" type="button" value="Prev" onClick={prev}/>)}
+                            {pagAct > count-1 ? null : (<input type="button" className="bg-red-400 h-10 w-60 p-2 m-2 rounded-2xl bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] font-semibold hover:shadow-lg hover:border-2" value="Next" onClick={next}/>)}
                         </div>
                     </div>
                 </div>
