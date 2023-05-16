@@ -2,8 +2,8 @@ import Logo from "../assets/images/Logo.png";
 import { useParams } from "react-router-dom";
 import { Link as Anchor ,useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-//import axios from "axios";
-//import apiUrl from "../../api"
+import axios from "axios";
+import apiUrl from "../../api"
 import { useSelector } from "react-redux";
 
 export default function Navbar() {
@@ -34,16 +34,16 @@ export default function Navbar() {
     let email = localStorage.getItem('email')
     let photo = localStorage.getItem('photo')
     let token = localStorage.getItem('token')
-    //let headers = { headers: { 'authorization': `Bearer ${token}` } }
+    let headers = { headers: { 'authorization': `Bearer ${token}` } }
     const navigate = useNavigate()
             
     function backHome() {
-        /* axios.post(apiUrl + 'auth/signout', headers, headers)
-          .then(() => { */
+        axios.post(apiUrl + 'auth/signout', null, headers)
+        .then(() => {
             localStorage.clear();
             navigate('/')
-        /* })
-          .catch(err => alert(err)) */
+        })
+        .catch(err => alert(err))
     }
 
 const Drawer = () => {
@@ -96,7 +96,7 @@ const Drawer = () => {
                     </li>
                     {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signup/login">Register</Anchor></li>}
                     {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signin/auth" >Login</Anchor></li>}
-                    {token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="#">My mangas</Anchor></li>}
+                    {token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/MyMangas">My mangas</Anchor></li>}
                     {token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="#">Favorites</Anchor></li>}
                     {token && <li className="w-full flex justify-center cursor-pointer"><a className={anchorStyles} onClick={backHome}>Sign Out</a></li>}
                     {role == 0 ?(<li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/AuthorRegister/author-form">New Author</Anchor></li>) : ("")}
