@@ -7,7 +7,7 @@ export default function MyMangas() {
     useEffect(() => {
         let token = localStorage.getItem('token')
         let headers = { headers: { 'Authorization': `Bearer ${token}`} }
-        axios.get(apiUrl+"mangas/me", headers).then(res=> setManga(res.data.response)).catch(err => console.log(err))
+        axios.get(apiUrl+"mangas/me",null, headers).then(res=> setManga(res.data.response)).catch(err => console.log(err))
     }, []
     )
     console.log(manga);
