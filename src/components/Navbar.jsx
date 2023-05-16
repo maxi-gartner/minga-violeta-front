@@ -2,8 +2,8 @@ import Logo from "../assets/images/Logo.png";
 import { useParams } from "react-router-dom";
 import { Link as Anchor ,useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
-import apiUrl from "../../api"
+//import axios from "axios";
+//import apiUrl from "../../api"
 import { useSelector } from "react-redux";
 
 export default function Navbar() {
@@ -31,19 +31,19 @@ export default function Navbar() {
     }
 
     const role = localStorage.getItem("role")
-    let token = localStorage.getItem('token')
-    let headers = { headers: { 'authorization': `Bearer ${token}` } }
     let email = localStorage.getItem('email')
     let photo = localStorage.getItem('photo')
+    let token = localStorage.getItem('token')
+    //let headers = { headers: { 'authorization': `Bearer ${token}` } }
     const navigate = useNavigate()
             
     function backHome() {
-    axios.post(apiUrl + 'auth/signOut', null, headers)
-        .then(() => {
-        localStorage.clear();
-        navigate('/')
-        })
-        .catch(err => alert(err))
+        /* axios.post(apiUrl + 'auth/signout', headers, headers)
+          .then(() => { */
+            localStorage.clear();
+            navigate('/')
+        /* })
+          .catch(err => alert(err)) */
     }
 
 const Drawer = () => {
