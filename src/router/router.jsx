@@ -8,8 +8,10 @@ import MangaForm from "../pages/MangaForm.jsx";
 import ChapterForm from "../pages/ChapterForm.jsx";
 import CompanyForm from "../pages/CompanyForm.jsx";
 import DetailsManga from "../pages/detailsManga.jsx";
-import Mangas from "../pages/Mangas.jsx"
+import Mangas from "../pages/Mangas.jsx";
 import ChapterPages from "../pages/Page.jsx";
+import NewRole from "../pages/NewRole.jsx";
+import AdminPanel from "../pages/AdminPanel.jsx";
 
 const routes = createBrowserRouter([
   {
@@ -27,7 +29,9 @@ const routes = createBrowserRouter([
       { path: "/DetailsManga/:id", element: <DetailsManga /> },
       { path: "/chapter-form/:id_manga", element: <ChapterForm /> },
       { path: "/mangas/:url", element: <Mangas /> },
-      { path: "/chapters/:id/:page", element: <ChapterPages />}
+      { path: "/chapters/:id/:page", element: <ChapterPages /> },
+      { path: "/new-role/:url", element: <NewRole /> },
+      { path: "/admin/:url", element: <AdminPanel /> }
     ],
   },
 ]);

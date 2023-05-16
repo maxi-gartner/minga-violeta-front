@@ -9,6 +9,8 @@ const name = useRef()
 const website = useRef()
 const logo = useRef()
 const description = useRef()
+let token = localStorage.getItem('token')
+let headers = {headers:{'Authorization' : `Bearer ${token}`}}
 function handleForm(e){
     e.preventDefault()
     let data = {
@@ -19,7 +21,7 @@ function handleForm(e){
         active: true
     }
     console.log(data);
-    axios.post(apiUrl+"companies", data)
+    axios.post(apiUrl+"companies", data, headers)
 .then(res =>{
     console.log(res)
     setModalSuccessIsOpen(true)

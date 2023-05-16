@@ -18,6 +18,8 @@ export default {
         backgroundImage: {
           "mangasGirlM" : "url('/mangasGirlM.png')",
           "mangasGirlD" : "url('/mangasGirlD.png')",
+          "newRole-bg" : "url('/newRole-bg.png')",
+          "adminPanel-bg" : "url('/adminPanel-bg.png')"
         },
         fontFamily: {
           'poppins': 'Poppins',
