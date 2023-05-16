@@ -8,7 +8,7 @@ export default function NewRole() {
                 <p className='font-montserrat font-normal text-xl '>Change role to</p>
                 <img src="/Logo.png" className="h-[10vh] my-2" alt="background" />
                 <Anchor to="/AuthorRegister/author-form" className='w-[70%] flex justify-center'>
-                    <label htmlFor="author" className="w-full cursor-pointer text-center border-2 border-gray-200 rounded-lg | md:flex md:justify-center | lg:justify-between lg:text-start hover:border-pink-400 active:border-3 active:border-pink-400">
+                    <label htmlFor="author" className="flex justify-center items-center h-[24vh] md:h-[18vh] lg:h-[10vh] w-full cursor-pointer text-center border-2 border-gray-200 rounded-lg md:flex md:justify-center lg:justify-between lg:text-start hover:border-pink-400 active:border-3 active:border-pink-400">
                         <div className="flex">
                             <img src="/newRolePersonas1.png" className="lg:inline-block w-20 h-9 self-center m-2" />
                             <div className="m-2">
@@ -19,7 +19,7 @@ export default function NewRole() {
                     </label>
                 </Anchor>
                 <Anchor to="/CompanyForm/CompanyForm" className='w-[70%] flex justify-center'>
-                    <label htmlFor="company" className="w-full cursor-pointer text-center border-2 border-gray-200 rounded-lg | md:flex md:justify-center | lg:justify-between lg:text-start hover:border-pink-400 active:border-3 active:border-pink-400">
+                    <label htmlFor="company" className="flex justify-center items-center h-[24vh] md:h-[18vh] lg:h-[10vh] w-full cursor-pointer text-center border-2 border-gray-200 rounded-lg md:flex md:justify-center lg:justify-between lg:text-start hover:border-pink-400 active:border-3 active:border-pink-400">
                         <div className="flex">
                             <img src="/newRolePersonas2.png" className="lg:inline-block w-20 h-9 self-center m-2" />
                             <div className="m-2">

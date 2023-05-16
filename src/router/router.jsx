@@ -7,7 +7,7 @@ import SignIn from "../pages/signIn.jsx";
 import MangaForm from "../pages/MangaForm.jsx";
 import ChapterForm from "../pages/ChapterForm.jsx";
 import CompanyForm from "../pages/CompanyForm.jsx";
-import DetailsManga from "../pages/detailsManga.jsx";
+import DetailsManga from "../pages/DetailsManga.jsx";
 import Mangas from "../pages/Mangas.jsx";
 import ChapterPages from "../pages/Page.jsx";
 import NewRole from "../pages/NewRole.jsx";

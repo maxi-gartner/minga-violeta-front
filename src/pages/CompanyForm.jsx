@@ -9,9 +9,10 @@ const name = useRef()
 const website = useRef()
 const logo = useRef()
 const description = useRef()
-let token = localStorage.getItem('token')
-let headers = {headers:{'Authorization' : `Bearer ${token}`}}
+
 function handleForm(e){
+    let token = localStorage.getItem('token')
+    let headers = {headers:{'Authorization' : `Bearer ${token}`}}
     e.preventDefault()
     let data = {
         name: name.current.value,
