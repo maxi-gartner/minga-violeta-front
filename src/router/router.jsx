@@ -12,6 +12,7 @@ import Mangas from "../pages/Mangas.jsx";
 import ChapterPages from "../pages/Page.jsx";
 import NewRole from "../pages/NewRole.jsx";
 import AdminPanel from "../pages/AdminPanel.jsx";
+import MyMangas from "../pages/MyMangas.jsx";
 
 const routes = createBrowserRouter([
   {
@@ -31,7 +32,8 @@ const routes = createBrowserRouter([
       { path: "/mangas/:url", element: <Mangas /> },
       { path: "/chapters/:id/:page", element: <ChapterPages /> },
       { path: "/new-role/:url", element: <NewRole /> },
-      { path: "/admin/:url", element: <AdminPanel /> }
+      { path: "/admin/:url", element: <AdminPanel /> },
+      { path: "/MyMangas", element: <MyMangas /> }
     ],
   },
 ]);
