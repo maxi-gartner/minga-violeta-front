@@ -72,9 +72,64 @@ export default function AdminPanel(){
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <div className="h-auto w-full flex flex-wrap justify-center items-center sm:flex sm:justify-between sm:items-center p-2 border-2 border-gray-100 border-b-2">
+                                                <table className="w-full flex flex-row justify-center">
+                                                    <tbody className="w-full">
+                                                        <tr className="flex flex-wrap justify-evenly gap-3 w-full sm:w-full sm:flex sm:flex-row sm:justify-between">
+                                                            <td className="flex">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" className="w-6 h-6 fill-pink-400">
+                                                                    <path d="M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z" />
+                                                                </svg>
+                                                                <p>Blue Team</p>
+                                                            </td>
+                                                            <td>
+                                                                <p className="w-full sm:w-auto sm:inline-block text-center">www.blueteam.com.ar</p>
+                                                            </td>
+                                                            <td>
+                                                                <img className="w-6 h-6 rounded-full mr-2 sm:mr-0" src="https://s3-alpha-sig.figma.com/img/05ac/d9be/f5df0a61815dd84dc569e2b26dc459f8?Expires=1685318400&Signature=qjiDEQ9lmUuCif5p8nrO2W43geSftfp0AY4VIyjSdlsglpH4KrqQDQb9g9HhGo1zckVvdjOa8Q4YxVMZBlh4F-di~i2Xp-yqEYxxjiTNEHfTUSDP1pi5mvnkOk0kKItnyoMEiYErS-R42KbX18uOLPKvQqkIse45Rk06e0fi-lzKD0qDD7og7FTOM9VUmak3LNpPxidOgiYeKtx-XYJOUFOj8FxNaWoIlgN0-axNOUaGSlVHzoROsJjg6CpZWBxi~hhMsFPiAlqRyBeuGSsr-eX7ZjPeniZSMgYA3JeLz24m6nJNYdl0FralIAUGFKNFSDIIJUELEQcZGtDGo5JsQQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4" alt="" />
+                                                            </td>
+                                                            <td>
+                                                                <label className="relative inline-flex items-center cursor-pointer">
+                                                                    <input type="checkbox" value="" className="sr-only peer" />
+                                                                    <div className="w-5 h-3 bg-gray-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:absolute after:right-[10px] after:top-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-[0.5rem] after:w-[0.5rem] after:transition-all dark:border-gray-600 peer-checked:bg-pink-400"></div>
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     ) : (
                                         <div className="flex flex-col h-auto w-full">
+                                            <div className="h-auto w-full flex flex-wrap justify-center items-center sm:flex sm:justify-between sm:items-center p-2 border-2 border-gray-100 border-b-2">
+                                                <table className="w-full flex flex-row justify-center">
+                                                    <tbody className="w-full">
+                                                        <tr className="flex flex-wrap w-full gap-3 sm:w-full sm:flex sm:flex-row sm:justify-between">
+                                                            <td className="flex">
+                                                                <svg className="h-6 w-6 text-pink-400 fill-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                                </svg>
+                                                                <p>Lucas Ezequiel Silva</p>
+                                                            </td>
+                                                            <td>
+                                                                <p className="">16/02/2000</p>
+                                                            </td>
+                                                            <td>
+                                                                <p className="">Caseros</p>
+                                                            </td>
+                                                            <td>
+                                                                <img className="w-6 h-6 rounded-full mr-2 sm:mr-0" src="https://s3-alpha-sig.figma.com/img/05ac/d9be/f5df0a61815dd84dc569e2b26dc459f8?Expires=1685318400&Signature=qjiDEQ9lmUuCif5p8nrO2W43geSftfp0AY4VIyjSdlsglpH4KrqQDQb9g9HhGo1zckVvdjOa8Q4YxVMZBlh4F-di~i2Xp-yqEYxxjiTNEHfTUSDP1pi5mvnkOk0kKItnyoMEiYErS-R42KbX18uOLPKvQqkIse45Rk06e0fi-lzKD0qDD7og7FTOM9VUmak3LNpPxidOgiYeKtx-XYJOUFOj8FxNaWoIlgN0-axNOUaGSlVHzoROsJjg6CpZWBxi~hhMsFPiAlqRyBeuGSsr-eX7ZjPeniZSMgYA3JeLz24m6nJNYdl0FralIAUGFKNFSDIIJUELEQcZGtDGo5JsQQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4" alt="" />
+                                                            </td>
+                                                            <td>
+                                                                <label className="relative inline-flex items-center cursor-pointer">
+                                                                    <input type="checkbox" value="" className="sr-only peer" />
+                                                                    <div className="w-5 h-3 bg-gray-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:absolute after:right-[10px] after:top-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-[0.5rem] after:w-[0.5rem] after:transition-all dark:border-gray-600 peer-checked:bg-pink-400"></div>
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                             <div className="h-auto w-full flex flex-wrap justify-center items-center sm:flex sm:justify-between sm:items-center p-2 border-2 border-gray-100 border-b-2">
                                                 <table className="w-full flex flex-row justify-center">
                                                     <tbody className="w-full">
