@@ -34,7 +34,7 @@ export default function SignIn(){
       }, 1000);
       })
       .catch(err => { 
-        setErrorMessage(err.response.data.message.map(message => message))
+        setErrorMessage(err.response.data.message)
         setModalErrorIsOpen(true)
       })
   }
