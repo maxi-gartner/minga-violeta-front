@@ -1,10 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import actions from "../actions/myMangas";
-<<<<<<< HEAD
 const { read_mangas, delete_mangas, update_mangas } = actions;
-=======
-const { read_mangas, delete_mangas } = actions;
->>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
 
 let initial_state = {
     mangas: []
@@ -34,7 +30,6 @@ const reducer = createReducer(
                 return newState
             },
         )
-<<<<<<< HEAD
         .addCase(
             update_mangas.fulfilled,
             (state, action) => {
@@ -51,8 +46,6 @@ const reducer = createReducer(
                 return newState
             }
         )
-=======
->>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
     }
 )
 
