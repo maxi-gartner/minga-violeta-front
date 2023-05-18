@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import actions from "../actions/myMangas";
-const { read_mangas, delete_mangas } = actions;
+const { read_mangas, delete_mangas, update_mangas } = actions;
 
 let initial_state = {
     mangas: []
@@ -29,6 +29,22 @@ const reducer = createReducer(
                 }
                 return newState
             },
+        )
+        .addCase(
+            update_mangas.fulfilled,
+            (state, action) => {
+                let newState = {
+                    ...state,
+                    mangas: state.mangas.map(each => {
+                        if(each._id === action.payload.data._id){
+                            return action.payload.data
+                        } else {
+                            return each
+                        }
+                    })
+                }
+                return newState
+            }
         )
     }
 )
