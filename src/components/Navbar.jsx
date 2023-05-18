@@ -12,6 +12,7 @@ export default function Navbar() {
     const [showMenu, setShowMenu] = useState(false);
     const location = useLocation()
     const chapterPathName = location.pathname.includes("chapters")
+    const MyMangas = location.pathname.includes("MyMangas")
 
     const handleMenuClick = () => {
     setShowMenu((prevState) => !prevState);
@@ -20,8 +21,8 @@ export default function Navbar() {
     let display = {};
     let { url } = useParams()
 
-    if (url == "author-form" || url == "CompanyForm") {
-        display = { position: "absolute", left: "0", padding: "0vw 5vw" };
+    if (url == "author-form" || url == "CompanyForm" || MyMangas) {
+        display = { position: "absolute", left: "0", padding: "0vw 5vw", marginTop: "1rem" };
     }
     if (url == "auth"|| url == "login" || url == "page") {
         display = { position: "absolute", left: "0" };
