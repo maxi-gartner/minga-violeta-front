@@ -20,7 +20,7 @@ export default function Mangas() {
     let token = localStorage.getItem('token')
     let headers = {headers:{'Authorization' : `Bearer ${token}`}}
     const {mangasFilter} = inputs_filter_actions
-    console.log(categories)
+    //console.log(categories)
     useEffect(
         ()=>{
             axios(apiUrl+`mangas?title=${buscador.current.value}&category_id=${categories.join(',')}&order=1&page=${pagAct}`, headers)
@@ -32,14 +32,14 @@ export default function Mangas() {
         },
         [reload, pagAct]  //el efecto se ejecuta cada vez que una dependencia sufra cambios
     )
-    console.log(count)
+    //console.log(count)
     function next() {
         setNextPag(pagAct+1)
     }
     function prev() {
         setNextPag(pagAct-1)
     }
-    console.log(mangas)
+    //console.log(mangas)
 
     useEffect(
         () => {
@@ -59,7 +59,7 @@ export default function Mangas() {
         console.log(categories)
         console.log(title)
     }
-console.log(categories)
+//console.log(categories)
     return (
         <>
             <div className="w-full h-auto flex flex-col items-center">
