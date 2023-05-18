@@ -33,6 +33,7 @@ const delete_mangas = createAsyncThunk('delete_mangas', async(id)=>{
     }
 });
 
+<<<<<<< HEAD
 const update_mangas = createAsyncThunk('update_mangas', async({id, data})=>{
     try {
         let token = localStorage.getItem('token')
@@ -51,5 +52,8 @@ const update_mangas = createAsyncThunk('update_mangas', async({id, data})=>{
 })
 
 const actions = { read_mangas ,delete_mangas, update_mangas }
+=======
+const actions = { read_mangas ,delete_mangas }
+>>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
 
 export default actions

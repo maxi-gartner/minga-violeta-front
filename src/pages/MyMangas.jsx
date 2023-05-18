@@ -3,12 +3,21 @@ import { useEffect, useState, useRef } from "react";
 import apiUrl from "../../api"
 import { useSelector, useDispatch } from "react-redux";
 import myManga_actions from '../store/actions/myMangas'
+<<<<<<< HEAD
 const { read_mangas, delete_mangas, update_mangas } = myManga_actions
+=======
+const { read_mangas, delete_mangas } = myManga_actions
+>>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
 
 export default function MyMangas() {
   let mangas = useSelector(store => store.myMangas.mangas)
   let dispatch = useDispatch()
+<<<<<<< HEAD
     const [categories, setCategories] = useState([])
+=======
+    //const [mangas, setManga] = useState()
+    const [categorias, setCategorias] = useState([])
+>>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
     useEffect(
       () => {
         if(mangas.length === 0) {
@@ -21,20 +30,29 @@ export default function MyMangas() {
       () => {
         let token = localStorage.getItem('token')
         let headers = { headers: { 'Authorization': `Bearer ${token}`} }
+<<<<<<< HEAD
           axios(apiUrl + 'categories', headers).then(res => setCategories(res.data.categories)).catch(err => console.log(err))
+=======
+          axios(apiUrl + 'categories', headers).then(res => setCategorias(res.data.categories)).catch(err => console.log(err))
+>>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
       },
       []
   )
   const [openModalDelete, setOpenModalDelete] = useState(false)
   const [openModalConfirmDelete, setOpenModalConfirmDelete] = useState(false)
+<<<<<<< HEAD
   const [openModalEdit, setOpenModalEdit] = useState(false)
   const [IdClick, setIdClick] = useState('')
   const [mangaEdit, setMangaEdit] = useState([])
   //funcion activada al hacer click en delete
+=======
+  const [IdClick, setIdClick] = useState('')
+>>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
   const clickDelete = (id) => {
     setOpenModalDelete(true)
     setIdClick(id)
   }
+<<<<<<< HEAD
   //funcion activada al hacer click en edit
   const clickEdit = (id) => {
     setOpenModalEdit(true)
@@ -43,6 +61,9 @@ export default function MyMangas() {
   }
   console.log("mangaEdit", mangaEdit)
   //funcion de confirmacion
+=======
+  console.log(IdClick);
+>>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
   const confirmDelete = () => {
     dispatch(delete_mangas(IdClick))
     setOpenModalDelete(false)
@@ -51,6 +72,7 @@ export default function MyMangas() {
 
   return (
     <div className="min-h-screen">
+<<<<<<< HEAD
       <ModalDelete open={openModalDelete} 
                   onClose={()=> setOpenModalDelete(false)}
                   confirm={()=> confirmDelete()}  
@@ -63,6 +85,15 @@ export default function MyMangas() {
                   onClose={()=> setOpenModalEdit(false)}
                   confirm={()=> setOpenModalConfirmDelete(true)}  
                   />
+=======
+    <ModalDelete open={openModalDelete} 
+    onClose={()=> setOpenModalDelete(false)}
+    confirm={()=> confirmDelete()}  
+    />
+    <ModalConfirmDelete open={openModalConfirmDelete} 
+    onClose={()=> setOpenModalConfirmDelete(false)}
+    />
+>>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
       <img className="h-[40vh] w-screen object-cover" src="./mymangasimg.png" alt="" />
       <form  className="mt-10 ml-10 w-[80%] flex flex-wrap">
         <label  className="bg-[#999999] text-white p-2 m-2 rounded-2xl w-24 flex justify-center shadow-[0px_0px_15px_rgba(0,0,0,0.16)] font-semibold">All
@@ -70,10 +101,17 @@ export default function MyMangas() {
                   style={{ appearance: 'none' }} 
                   type="checkbox" value="" id="" />
         </label>
+<<<<<<< HEAD
         {categories && categories.map((category) =>
             <label htmlFor={category._id} key={category._id} 
                     className=" border-white p-2 m-2 rounded-2xl w-24 flex justify-center font-semibold shadow-[0px_0px_15px_rgba(0,0,0,0.16)] cursor-pointer" 
                     style={{backgroundColor: category.hover, color: category.color, ...(categories.includes(category._id)? {backgroundColor: category.color, color: "white", boxShadow: `0 0 0 8px ${category.hover}`} : {})}}>
+=======
+        {categorias && categorias.map((category) =>
+            <label htmlFor={category._id} key={category._id} 
+                    className=" border-white p-2 m-2 rounded-2xl w-24 flex justify-center font-semibold shadow-[0px_0px_15px_rgba(0,0,0,0.16)] cursor-pointer" 
+                    style={{backgroundColor: category.hover, color: category.color}}>
+>>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
                 {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
                 <input name="category_id"
                       style={{ appearance: 'none' }} 
@@ -100,7 +138,11 @@ export default function MyMangas() {
                           <p style={{color: element.category_id.color}}>{element.category_id.name.charAt(0).toUpperCase() + element.category_id.name.slice(1)}</p>
                         </div>
                         <div className="flex">
+<<<<<<< HEAD
                           <button onClick={()=> clickEdit(element._id)} className="w-20 h-7 rounded-full mr-2" style={{background: element.category_id.hover, color: element.category_id.color}}>Edit</button>
+=======
+                          <button className="w-20 h-7 rounded-full mr-2" style={{background: element.category_id.hover, color: element.category_id.color}}>Edit</button>
+>>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
                           <button onClick={()=> clickDelete(element._id)} className="w-20 h-7 rounded-full bg-red-600 text-white">Delete</button>
                         </div>
                       </div>
@@ -130,7 +172,11 @@ const ModalDelete = ({open, onClose, confirm}) =>{
     </div>
   )
 }
+<<<<<<< HEAD
 const ModalConfirmDelete = ({open, onClose}) =>{
+=======
+const ModalConfirmDelete = ({open, onClose, confirm}) =>{
+>>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
   if(!open) return null
   return(
     <div className="fixed w-full h-full flex items-center justify-center bg-[#00000095]">
@@ -144,6 +190,7 @@ const ModalConfirmDelete = ({open, onClose}) =>{
       </div>
     </div>
   )
+<<<<<<< HEAD
 }
 const ModalEdit = ({open, onClose, mangaSelected, confirm}) =>{
   const coverPhoto = useRef()
@@ -214,4 +261,6 @@ const ModalEdit = ({open, onClose, mangaSelected, confirm}) =>{
       </div> 
     </div>
   )
+=======
+>>>>>>> 7a525bf8e3d0f0928fd4ce46c95c3b173d928e47
 }
