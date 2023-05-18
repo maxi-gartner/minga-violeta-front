@@ -1,15 +1,14 @@
 import axios from "axios"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import apiUrl from "../../api"
 import { useSelector, useDispatch } from "react-redux";
 import myManga_actions from '../store/actions/myMangas'
-const { read_mangas, delete_mangas } = myManga_actions
+const { read_mangas, delete_mangas, update_mangas } = myManga_actions
 
 export default function MyMangas() {
   let mangas = useSelector(store => store.myMangas.mangas)
   let dispatch = useDispatch()
-    //const [mangas, setManga] = useState()
-    const [categorias, setCategorias] = useState([])
+    const [categories, setCategories] = useState([])
     useEffect(
       () => {
         if(mangas.length === 0) {
@@ -22,18 +21,28 @@ export default function MyMangas() {
       () => {
         let token = localStorage.getItem('token')
         let headers = { headers: { 'Authorization': `Bearer ${token}`} }
-          axios(apiUrl + 'categories', headers).then(res => setCategorias(res.data.categories)).catch(err => console.log(err))
+          axios(apiUrl + 'categories', headers).then(res => setCategories(res.data.categories)).catch(err => console.log(err))
       },
       []
   )
   const [openModalDelete, setOpenModalDelete] = useState(false)
   const [openModalConfirmDelete, setOpenModalConfirmDelete] = useState(false)
+  const [openModalEdit, setOpenModalEdit] = useState(false)
   const [IdClick, setIdClick] = useState('')
+  const [mangaEdit, setMangaEdit] = useState([])
+  //funcion activada al hacer click en delete
   const clickDelete = (id) => {
     setOpenModalDelete(true)
     setIdClick(id)
   }
-  console.log(IdClick);
+  //funcion activada al hacer click en edit
+  const clickEdit = (id) => {
+    setOpenModalEdit(true)
+    setIdClick(id)
+    setMangaEdit(mangas.find(manga => manga._id === id))
+  }
+  console.log("mangaEdit", mangaEdit)
+  //funcion de confirmacion
   const confirmDelete = () => {
     dispatch(delete_mangas(IdClick))
     setOpenModalDelete(false)
@@ -42,13 +51,18 @@ export default function MyMangas() {
 
   return (
     <div className="min-h-screen">
-    <ModalDelete open={openModalDelete} 
-    onClose={()=> setOpenModalDelete(false)}
-    confirm={()=> confirmDelete()}  
-    />
-    <ModalConfirmDelete open={openModalConfirmDelete} 
-    onClose={()=> setOpenModalConfirmDelete(false)}
-    />
+      <ModalDelete open={openModalDelete} 
+                  onClose={()=> setOpenModalDelete(false)}
+                  confirm={()=> confirmDelete()}  
+                  />
+      <ModalConfirmDelete open={openModalConfirmDelete} 
+                          onClose={()=> setOpenModalConfirmDelete(false)}
+                          />
+      <ModalEdit  open={openModalEdit} 
+                  mangaSelected={mangaEdit}
+                  onClose={()=> setOpenModalEdit(false)}
+                  confirm={()=> setOpenModalConfirmDelete(true)}  
+                  />
       <img className="h-[40vh] w-screen object-cover" src="./mymangasimg.png" alt="" />
       <form  className="mt-10 ml-10 w-[80%] flex flex-wrap">
         <label  className="bg-[#999999] text-white p-2 m-2 rounded-2xl w-24 flex justify-center shadow-[0px_0px_15px_rgba(0,0,0,0.16)] font-semibold">All
@@ -56,10 +70,10 @@ export default function MyMangas() {
                   style={{ appearance: 'none' }} 
                   type="checkbox" value="" id="" />
         </label>
-        {categorias && categorias.map((category) =>
+        {categories && categories.map((category) =>
             <label htmlFor={category._id} key={category._id} 
                     className=" border-white p-2 m-2 rounded-2xl w-24 flex justify-center font-semibold shadow-[0px_0px_15px_rgba(0,0,0,0.16)] cursor-pointer" 
-                    style={{backgroundColor: category.hover, color: category.color}}>
+                    style={{backgroundColor: category.hover, color: category.color, ...(categories.includes(category._id)? {backgroundColor: category.color, color: "white", boxShadow: `0 0 0 8px ${category.hover}`} : {})}}>
                 {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
                 <input name="category_id"
                       style={{ appearance: 'none' }} 
@@ -86,7 +100,7 @@ export default function MyMangas() {
                           <p style={{color: element.category_id.color}}>{element.category_id.name.charAt(0).toUpperCase() + element.category_id.name.slice(1)}</p>
                         </div>
                         <div className="flex">
-                          <button className="w-20 h-7 rounded-full mr-2" style={{background: element.category_id.hover, color: element.category_id.color}}>Edit</button>
+                          <button onClick={()=> clickEdit(element._id)} className="w-20 h-7 rounded-full mr-2" style={{background: element.category_id.hover, color: element.category_id.color}}>Edit</button>
                           <button onClick={()=> clickDelete(element._id)} className="w-20 h-7 rounded-full bg-red-600 text-white">Delete</button>
                         </div>
                       </div>
@@ -116,7 +130,7 @@ const ModalDelete = ({open, onClose, confirm}) =>{
     </div>
   )
 }
-const ModalConfirmDelete = ({open, onClose, confirm}) =>{
+const ModalConfirmDelete = ({open, onClose}) =>{
   if(!open) return null
   return(
     <div className="fixed w-full h-full flex items-center justify-center bg-[#00000095]">
@@ -128,6 +142,76 @@ const ModalConfirmDelete = ({open, onClose, confirm}) =>{
           <button onClick={onClose} className="w-full flex justify-center items-center h-14 border-t-[1px] border-gray-300 text-[#0A7AFF] hover:font-semibold">Acept</button>
         </div>
       </div>
+    </div>
+  )
+}
+const ModalEdit = ({open, onClose, mangaSelected, confirm}) =>{
+  const coverPhoto = useRef()
+  const description = useRef()
+  const title = useRef()
+  let dispatch = useDispatch()
+  if(!open) return null
+  //update_mangas
+
+  function handleForm(e){
+    e.preventDefault()
+    let data = {}
+      if(title.current.value.length > 0){
+        data.title = title.current.value
+      }
+      if(coverPhoto.current.value.length > 0){
+        data.cover_photo = coverPhoto.current.value
+      }
+      if(description.current.value.length > 0){
+        data.description = description.current.value
+      }
+      console.log("data", data);
+      console.log("mangaSelected._id", mangaSelected._id);
+      dispatch(update_mangas({
+        id: mangaSelected._id, 
+        data: data}
+        ))
+        confirm()
+        onClose()
+    }
+
+  return(
+    <div className="fixed w-full h-full flex items-center justify-center bg-[#00000095]">
+      <div className="w-full h-full max-w-96 sm:w-96 sm:h-[80vh] bg-[#F2F2F7] rounded-xl flex flex-col justify-center items-center">
+        <div>
+          <h1 className="text-center text-4xl pb-[2vh]">Edit Manga</h1>
+        </div>
+        <form onSubmit={handleForm}  className="text-black flex flex-col justify-between w-[70%]">
+          <div className="grid h-full py-5">
+            <div className="flex flex-col mb-4">
+                <input type="text" 
+                        placeholder={mangaSelected.title}  
+                        ref={title}  
+                        autoComplete="off"
+                        className="bg-transparent border-b-[1px] border-gray-600 pl-4 text-gray-500 text-lg"
+                />
+            </div>
+            <div className="flex flex-col mb-4">
+                <input type="text"
+                        placeholder="Cover Photo"
+                        ref={coverPhoto}
+                        autoComplete="off"
+                        className="bg-transparent border-b-[1px] border-gray-600 pl-4 text-gray-500 text-lg" 
+                />
+            </div>
+            <div className="flex flex-col">
+                <textarea name="textarea" 
+                          rows="10" 
+                          ref={description}  
+                          placeholder={mangaSelected.description}
+                          className="bg-transparent border-[1px] border-gray-700">
+                </textarea>
+            </div>
+          </div>
+          <button type="submit" className="text-white bg-[#34D399] text-2xl font-medium hover:font-bold text-center py-3 rounded-full mb-5">Edit</button>
+          <button onClick={onClose} className="bg-[#FBDDDC] text-[#EE8380] text-2xl font-medium hover:font-bold text-center py-3 rounded-full ">Cancel</button>
+        </form>
+      </div> 
     </div>
   )
 }
