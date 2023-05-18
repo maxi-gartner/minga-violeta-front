@@ -4,6 +4,7 @@ import apiUrl from "../../api"
 import { useSelector, useDispatch } from "react-redux";
 import myManga_actions from '../store/actions/myMangas'
 const { read_mangas, delete_mangas, update_mangas } = myManga_actions
+import { Link as Anchor} from "react-router-dom";
 
 export default function MyMangas() {
   let mangas = useSelector(store => store.myMangas.mangas)
@@ -64,7 +65,7 @@ export default function MyMangas() {
                   confirm={()=> setOpenModalConfirmDelete(true)}  
                   />
       <img className="h-[40vh] w-screen object-cover" src="./mymangasimg.png" alt="" />
-      <form  className="mt-10 ml-10 w-[80%] flex flex-wrap">
+      <form  className="mt-10 w-full flex flex-wrap justify-center sm:justify-start">
         <label  className="bg-[#999999] text-white p-2 m-2 rounded-2xl w-24 flex justify-center shadow-[0px_0px_15px_rgba(0,0,0,0.16)] font-semibold">All
           <input name="category_id" 
                   style={{ appearance: 'none' }} 
@@ -81,22 +82,30 @@ export default function MyMangas() {
             </label>)}
       </form>
       <div className="pt-10 flex flex-wrap justify-center sm:justify-around">
+        <div className=" flex w-[23rem] sm:min-w-96 sm:w-96 sm:mx-2 h-48 sm:my-10 rounded-xl items-center overflow-hidden relative shadow-[0px_0px_10px_rgba(0,0,0,0.56)] z-0">
+          <img className="w-full h-full object-cover" src="https://pm1.narvii.com/6053/fdbd539202ef383dd75878822be6e4e2ad8a61ce_hq.jpg" alt="" />
+            <Anchor to="/manga-form" className="mr-3 absolute w-full h-full flex flex-col items-center justify-center hover:bg-[#00000073]">
+              <svg fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="w-14 h-14 border-solid border-2 border-black rounded-full bg-[#00000073]">
+              <path d="M12 4.5v15m7.5-7.5h-15"></path></svg>  
+            </Anchor>
+            <p className="sm:text-5xl text-4xl text-white absolute w-full text-center bottom-0 py-1 bg-[#00000073]">Create Manga</p>
+      </div>
         {mangas?.map(element => {
-            return <div className=" flex w-80 sm:min-w-96 sm:w-96 sm:mx-2 h-48 my-10 rounded-xl items-center overflow-hidden shadow-[0px_0px_10px_rgba(0,0,0,0.56)]" key={element.title}>
+            return <div className=" flex w-[23rem] sm:min-w-96 sm:w-96 sm:mx-2 h-48 my-5 sm:my-10 rounded-xl items-center overflow-hidden shadow-[0px_0px_10px_rgba(0,0,0,0.56)]" key={element.title}>
                       <div className="w-2 h-36" style={{background: element.category_id.color}}></div>
                       <div className="w-1/2 flex flex-col items-center p-3 justify-between h-full">
                         <div className="w-full flex">
-                          <button className="mr-3">
+                          <Anchor to={`/chapter-form/${element._id}`} className="mr-3">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="w-5 h-5 border-solid border-2 border-black rounded-full">
                             <path d="M12 4.5v15m7.5-7.5h-15"></path></svg>  
-                          </button>
-                          <button>
+                          </Anchor>
+                          <Anchor to={`/edit/${element._id}`}>
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="w-5 h-5 border-solid border-2 border-black rounded-full p-[2px]">
                             <path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"></path></svg>
-                          </button>
+                          </Anchor>
                         </div>
                         <div className=" w-full">
-                          <p className="text-[22px] font-bold">{element.title}</p>
+                        <Anchor to={`/detailsManga/${element._id}`}><p className="text-[22px] font-bold">{element.title}</p></Anchor>
                           <p style={{color: element.category_id.color}}>{element.category_id.name.charAt(0).toUpperCase() + element.category_id.name.slice(1)}</p>
                         </div>
                         <div className="flex">
@@ -105,7 +114,7 @@ export default function MyMangas() {
                         </div>
                       </div>
                       <div className="w-1/2">
-                        {<img className="h-48 w-full object-cover shadow-[0px_0px_15px_rgba(0,0,0,0.56)]" style={{"borderRadius": "30% / 50% 0% 0% 50%"}} src={element.cover_photo} alt="" />}
+                      <Anchor to={`/detailsManga/${element._id}`}>{<img className="h-48 w-full object-cover shadow-[0px_0px_15px_rgba(0,0,0,0.56)]" style={{"borderRadius": "30% / 50% 0% 0% 50%"}} src={element.cover_photo} alt="" />}</Anchor>
                       </div>
                   </div>
               })}
@@ -176,7 +185,7 @@ const ModalEdit = ({open, onClose, mangaSelected, confirm}) =>{
     }
 
   return(
-    <div className="fixed w-full h-full flex items-center justify-center bg-[#00000095]">
+    <div className="fixed w-full h-full flex items-center justify-center bg-[#00000095] z-50">
       <div className="w-full h-full max-w-96 sm:w-96 sm:h-[80vh] bg-[#F2F2F7] rounded-xl flex flex-col justify-center items-center">
         <div>
           <h1 className="text-center text-4xl pb-[2vh]">Edit Manga</h1>
