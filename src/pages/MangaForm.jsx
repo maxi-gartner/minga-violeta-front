@@ -3,8 +3,8 @@ import axios from "axios"
 import apiUrl from "../../api"
 import ModalMinga from "../components/ModalMinga"
 
-let token = localStorage.getItem('token')
-let headers = {headers:{'Authorization' : `Bearer ${token}`}}
+let token = () => localStorage.getItem('token')
+let headers = {headers:{'Authorization' : `Bearer ${token()}`}}
 
 export default function MangaForm() {
     useEffect(
