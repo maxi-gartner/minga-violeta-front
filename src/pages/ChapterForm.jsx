@@ -3,7 +3,6 @@ import  { useRef, useState } from "react"
 import apiUrl from "../../api"
 import { useParams } from "react-router-dom"
 import ModalMinga from "../components/ModalMinga"
-import Index from "../components/Index"; 
 
 export default function ChapterForm() {
   let chapterId = useParams()
@@ -80,8 +79,6 @@ export default function ChapterForm() {
 
   return (
     <>
-    {role == 1 || role == 2 ? (
-      <>
       <section className="grid h-screen place-content-center text-slate-300  bg-[#EBEBEB]">
         <div className="mb-5 text-center text-black">
           <h1 className="text-3xl">New Chapter</h1>
@@ -130,10 +127,6 @@ export default function ChapterForm() {
           {errorModal()}
         </ModalMinga>
       )}
-    </>
-    ):(
-      < Index/>
-    )}
     </>
   )
   }
