@@ -12,7 +12,8 @@ const read_mangas = createAsyncThunk('read_mangas', async()=>{
         }
     } catch (error) {
         return{
-            mangas: []
+            mangas: [],
+            error: error.response.data.message
         }
     }
 })

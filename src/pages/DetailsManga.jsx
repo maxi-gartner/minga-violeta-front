@@ -28,8 +28,8 @@ export default function DetailsManga(){
                         {<p className="text-5xl sm:text-2xl lg:text-5xl pt-5">{manga?.title}</p>}
                     </div>
                     <div className="flex justify-between my-3 w-[100%]">
-                        {<p className="flex items-center px-4 rounded-full text-lg shadow-[0px_0px_4px_rgba(0,0,0,0.16)]" style={{background: manga?.category_id.hover, color: manga?.category_id.color}}>{manga?.category_id.name}</p>}
-                        {<p className="p-2 text-2xl text-[#9D9D9D]">{`${manga?.company_id.name}`}</p>}
+                        <p className="flex items-center px-4 rounded-full text-lg shadow-[0px_0px_4px_rgba(0,0,0,0.16)]" style={{background: manga?.category_id.hover, color: manga?.category_id.color}}>{manga?.category_id.name}</p>
+                        {/* <p className="p-2 text-2xl text-[#9D9D9D]">{manga.company_id ? manga.company_id.name : 'Anonymous'}</p> */}
                     </div>
                     <div className="w-[100%] flex justify-evenly">
                         <button className={emojiButton}>👍</button>

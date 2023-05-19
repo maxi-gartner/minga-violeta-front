@@ -3,7 +3,8 @@ import actions from "../actions/myMangas";
 const { read_mangas, delete_mangas, update_mangas } = actions;
 
 let initial_state = {
-    mangas: []
+    mangas: [],
+    error: []
 }
 
 const reducer = createReducer(
