@@ -14,11 +14,6 @@ export default function AdminPanel(){
     const dispatch = useDispatch()
 
     let store = useSelector(store => store);
-    /* //console.log(store)
-    let getAuthors = store.authors.getAuthors
-    //console.log(getAuthors)
-    let getCompanies = store.companies.getCompanies
-    //console.log(getCompanies) */
 
     let activeAuthors = store.authors.active
     let inactiveAuthors = store.authors.inactive
@@ -36,7 +31,6 @@ export default function AdminPanel(){
     
     function handleClick() {
         setView(!view)
-        console.log(view)
     }
 
     return(
