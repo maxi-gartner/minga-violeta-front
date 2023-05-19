@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Main from "../App.jsx";
 import LayoutMain from "../layouts/main.jsx";
 import AuthorForm from "../pages/AuthorForm.jsx";
@@ -10,10 +10,10 @@ import CompanyForm from "../pages/CompanyForm.jsx";
 import DetailsManga from "../pages/DetailsManga.jsx";
 import Mangas from "../pages/Mangas.jsx";
 import ChapterPages from "../pages/Page.jsx";
+import EditChapter from "../pages/EditChapter.jsx";
 import NewRole from "../pages/NewRole.jsx";
 import AdminPanel from "../pages/AdminPanel.jsx";
 import MyMangas from "../pages/MyMangas.jsx";
-import { Navigate } from "react-router-dom";
 
 let token = () => localStorage.getItem('token')
 let role = () => JSON.parse(localStorage.getItem('role'))
@@ -34,9 +34,10 @@ const routes = createBrowserRouter([
       { path: "/AuthorRegister/:url", element: token() ? <AuthorForm /> : <Navigate to="/" /> },
       { path: "/CompanyForm/:url", element: token() ? <CompanyForm /> : <Navigate to="/" /> },
       { path: "/DetailsManga/:id", element: <DetailsManga /> },
-      { path: "/chapter-form/:id_manga", element: <ChapterForm /> },
+      { path: "/chapter-form/:id_manga", element: role() === 1 || role() === 2 && token() ? <ChapterForm /> : <Navigate to="/" /> },
       { path: "/mangas/:url", element: <Mangas /> },
-      { path: "/chapters/:id/:page", element: <ChapterPages /> },
+      { path: "/chapters/:id/:page", element: <ChapterPages />},
+      { path: "/edit/:id_manga", element: role() === 1 || role() === 2 && token() ? <EditChapter /> : <Navigate to="/" />},
       { path: "/new-role/:url", element: role() === 0 && token() ? <NewRole /> : <Navigate to="/" /> },
       { path: "/MyMangas", element: <MyMangas /> },
       { path: "/admin/:url", element: role() === 3 && token() ? <AdminPanel /> : <Navigate to="/" /> }

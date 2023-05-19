@@ -12,6 +12,7 @@ export default function ChapterPages() {
     //store
     const dispatch = useDispatch()
     const stateChapters = useSelector( store => store.data)
+    console.log(stateChapters)
     const [title, setTitle] = useState(stateChapters.title);
     const [order, setOrder] = useState(stateChapters.order);
     const [id_prev, setIdPrev] = useState();

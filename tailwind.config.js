@@ -24,6 +24,14 @@ export default {
         fontFamily: {
           'poppins': 'Poppins',
           'montserrat': 'Montserrat',
+        },
+        screens: {
+          'msm': {'min': '320px', 'max': '425px'},
+          'mmd': {'min': '426px', 'max': '768px'},
+          'mlg': {'min': '769px', 'max': '1023px'},
+          'mxl': {'min': '1024px', 'max': '1350px'},
+          'm2xl': {'min': '1351px'},
+  
         }
     }
     
