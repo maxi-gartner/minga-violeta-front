@@ -12,6 +12,7 @@ export default function Navbar() {
     const [showMenu, setShowMenu] = useState(false);
     const location = useLocation()
     const chapterPathName = location.pathname.includes("chapters")
+    const MyMangas = location.pathname.includes("MyMangas")
 
     const handleMenuClick = () => {
     setShowMenu((prevState) => !prevState);
@@ -20,8 +21,8 @@ export default function Navbar() {
     let display = {};
     let { url } = useParams()
 
-    if (url == "author-form" || url == "CompanyForm") {
-        display = { position: "absolute", left: "0", padding: "0vw 5vw" };
+    if (url == "author-form" || url == "CompanyForm" || MyMangas) {
+        display = { position: "absolute", left: "0", padding: "0vw 5vw", marginTop: "1rem" };
     }
     if (url == "auth"|| url == "login" || url == "page") {
         display = { position: "absolute", left: "0" };
@@ -49,7 +50,7 @@ export default function Navbar() {
 const Drawer = () => {
     return (
     <>
-        <div className="absolute top-0 left-0 sm:w-[400px] bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] h-screen w-screen py-2 z-20" id="dravel">
+        <div className="fixed top-0 left-0 sm:w-[400px] bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] h-screen w-screen py-2 z-20" id="dravel">
             <div className="w-full p-5 sm:text-xl relative text-white flex">
                 <div className="mr-5 overflow-hidden flex items-center">
                     <Anchor to="/auth/signin/auth" className="relative" onClick={handleMenuClick}>
