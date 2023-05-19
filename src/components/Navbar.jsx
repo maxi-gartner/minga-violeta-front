@@ -50,7 +50,7 @@ export default function Navbar() {
 const Drawer = () => {
     return (
     <>
-        <div className="absolute top-0 left-0 sm:w-[400px] bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] h-screen w-screen py-2 z-20" id="dravel">
+        <div className="fixed top-0 left-0 sm:w-[400px] bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] h-screen w-screen py-2 z-20" id="dravel">
             <div className="w-full p-5 sm:text-xl relative text-white flex">
                 <div className="mr-5 overflow-hidden flex items-center">
                     <Anchor to="/auth/signin/auth" className="relative" onClick={handleMenuClick}>
