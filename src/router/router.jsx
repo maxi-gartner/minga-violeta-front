@@ -8,9 +8,11 @@ import MangaForm from "../pages/MangaForm.jsx";
 import ChapterForm from "../pages/ChapterForm.jsx";
 import CompanyForm from "../pages/CompanyForm.jsx";
 import DetailsManga from "../pages/DetailsManga.jsx";
-import Mangas from "../pages/Mangas.jsx"
+import Mangas from "../pages/Mangas.jsx";
 import ChapterPages from "../pages/Page.jsx";
 import EditChapter from "../pages/EditChapter.jsx";
+import NewRole from "../pages/NewRole.jsx";
+import AdminPanel from "../pages/AdminPanel.jsx";
 import MyMangas from "../pages/MyMangas.jsx";
 import { Navigate } from "react-router-dom"
 
@@ -36,6 +38,8 @@ const routes = createBrowserRouter([
       { path: "/chapters/:id/:page", element: <ChapterPages />},
       { path: "/edit/:id_manga", element: role === 1 || role === 2 && token ? <EditChapter /> : <Navigate to="/" />},
       { path: "/MyMangas", element: <MyMangas />}
+      { path: "/new-role/:url", element: <NewRole /> },
+      { path: "/admin/:url", element: <AdminPanel /> }
     ],
   },
 ]);
