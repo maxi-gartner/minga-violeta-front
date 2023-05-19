@@ -18,10 +18,20 @@ export default {
         backgroundImage: {
           "mangasGirlM" : "url('/mangasGirlM.png')",
           "mangasGirlD" : "url('/mangasGirlD.png')",
+          "newRole-bg" : "url('/newRole-bg.png')",
+          "adminPanel-bg" : "url('/adminPanel-bg.png')"
         },
         fontFamily: {
           'poppins': 'Poppins',
           'montserrat': 'Montserrat',
+        },
+        screens: {
+          'msm': {'min': '320px', 'max': '425px'},
+          'mmd': {'min': '426px', 'max': '768px'},
+          'mlg': {'min': '769px', 'max': '1023px'},
+          'mxl': {'min': '1024px', 'max': '1350px'},
+          'm2xl': {'min': '1351px'},
+  
         }
     }
     

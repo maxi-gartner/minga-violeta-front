@@ -17,12 +17,12 @@ export default function SignIn(){
     }
     axios.post(VITE_API + "auth/signin", data)
       .then(res => {
-        console.log(res.data)
+        //console.log(res.data)
         const token = res.data.token;
         const role = res.data.user.role;
         const email = res.data.user.email;
         const photo = res.data.user.photo;
-        console.log(token)
+        //console.log(token)
     
         localStorage.setItem('token', token);
         localStorage.setItem('role', role);
