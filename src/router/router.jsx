@@ -12,6 +12,10 @@ import Mangas from "../pages/Mangas.jsx"
 import ChapterPages from "../pages/Page.jsx";
 import EditChapter from "../pages/EditChapter.jsx";
 import MyMangas from "../pages/MyMangas.jsx";
+import { Navigate } from "react-router-dom"
+
+let token = localStorage.getItem('token')
+let role = JSON.parse(localStorage.getItem('role'))
 
 const routes = createBrowserRouter([
   {
@@ -27,10 +31,10 @@ const routes = createBrowserRouter([
       { path: "/chapter-form", element: <ChapterForm /> },
       { path: "/CompanyForm/:url", element: <CompanyForm /> },
       { path: "/DetailsManga/:id", element: <DetailsManga /> },
-      { path: "/chapter-form/:id_manga", element: <ChapterForm /> },
+      { path: "/chapter-form/:id_manga", element: role === 1 || role === 2 && token ? <ChapterForm /> : <Navigate to="/" /> },
       { path: "/mangas/:url", element: <Mangas /> },
       { path: "/chapters/:id/:page", element: <ChapterPages />},
-      { path: "/edit/:id_manga", element: <EditChapter />},
+      { path: "/edit/:id_manga", element: role === 1 || role === 2 && token ? <EditChapter /> : <Navigate to="/" />},
       { path: "/MyMangas", element: <MyMangas />}
     ],
   },
