@@ -30,11 +30,11 @@ export default function Navbar() {
         display = { position: "absolute", left: "0", backgroundColor:"#F472B6", color:"#fff" };
     }
 
-    const role = localStorage.getItem("role")
+    const role = () => localStorage.getItem("role")
     let email = localStorage.getItem('email')
     let photo = localStorage.getItem('photo')
-    let token = localStorage.getItem('token')
-    let headers = { headers: { 'authorization': `Bearer ${token}` } }
+    let token = () => localStorage.getItem('token')
+    let headers = { headers: { 'authorization': `Bearer ${token()}` } }
     const navigate = useNavigate()
             
     function backHome() {
@@ -53,16 +53,16 @@ const Drawer = () => {
             <div className="w-full p-5 sm:text-xl relative text-white flex">
                 <div className="mr-5 overflow-hidden flex items-center">
                     <Anchor to="/auth/signin/auth" className="relative" onClick={handleMenuClick}>
-                    {!token && <img
+                    {!token() && <img
                         className="object-cover w-14 h-14 mr-5 rounded-full overflow-hidden"
                         src={Logo}
                         alt="" />}
-                    {token && <img
+                    {token() && <img
                         className="object-cover w-14 h-14 mr-5 rounded-full overflow-hidden"
                         src={photo}
                         alt="" />}
                     </Anchor>
-                    {token && <div className="flex-col">
+                    {token() && <div className="flex-col">
                         <p className="text-sm">{email}</p>
                     </div>}
                 </div>
@@ -94,13 +94,14 @@ const Drawer = () => {
                         <Anchor className={anchorStyles}
                         to="/mangas/page">Mangas</Anchor>
                     </li>
-                    {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signup/login">Register</Anchor></li>}
-                    {!token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signin/auth" >Login</Anchor></li>}
-                    {token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/MyMangas">My mangas</Anchor></li>}
-                    {token && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="#">Favorites</Anchor></li>}
-                    {token && <li className="w-full flex justify-center cursor-pointer"><a className={anchorStyles} onClick={backHome}>Sign Out</a></li>}
-                    {role == 0 ?(<li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/new-role/page">New Role</Anchor></li>) : ("")}
-                    {role == 1 || role == 2 ? (<><li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/manga-form">New mangas</Anchor></li></>) : ("")}
+                    {!token() && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signup/login">Register</Anchor></li>}
+                    {!token() && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signin/auth" >Login</Anchor></li>}
+                    {token() && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/MyMangas">My mangas</Anchor></li>}
+                    {token() && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="#">Favorites</Anchor></li>}
+                    {token() && <li className="w-full flex justify-center cursor-pointer"><a className={anchorStyles} onClick={backHome}>Sign Out</a></li>}
+                    {role() == 0 ?(<li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/new-role/page">New Role</Anchor></li>) : ("")}
+                    {role() == 1 || role == 2 ? (<><li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/manga-form">New mangas</Anchor></li></>) : ("")}
+                    {role() == 3 ? (<><li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/admin/page">Admin Panel</Anchor></li></>) : ("")}
                 </ul>
             </nav>
         </div>

@@ -17,8 +17,8 @@ export default function Mangas() {
     const [categorias, setCategorias] = useState([])
     const [count, setCount] = useState()
     const [pagAct, setNextPag] = useState(1)
-    let token = localStorage.getItem('token')
-    let headers = {headers:{'Authorization' : `Bearer ${token}`}}
+    let token = () => localStorage.getItem('token')
+    let headers = {headers:{'Authorization' : `Bearer ${token()}`}}
     const {mangasFilter} = inputs_filter_actions
     //console.log(categories)
     useEffect(

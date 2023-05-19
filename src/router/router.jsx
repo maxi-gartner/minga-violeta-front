@@ -15,9 +15,10 @@ import AdminPanel from "../pages/AdminPanel.jsx";
 import MyMangas from "../pages/MyMangas.jsx";
 import { Navigate } from "react-router-dom";
 
-let token = localStorage.getItem('token')
-let role = JSON.parse(localStorage.getItem('role'))
-//console.log(role)
+let token = () => localStorage.getItem('token')
+let role = () => JSON.parse(localStorage.getItem('role'))
+//console.log(role())
+//console.log(token())
 
 const routes = createBrowserRouter([
   {
@@ -26,20 +27,19 @@ const routes = createBrowserRouter([
     children: [
       { path: "/", element: <Main /> },
       //{ path: '/auth', element: <Authform /> },
-      { path: "/manga-form", element: role === 1 || role === 2 && token ? <MangaForm /> : <Navigate to="/" /> },
+      { path: "/manga-form", element: role() === 1 || role() === 2 && token() ? <MangaForm /> : <Navigate to="/" /> },
       { path: "/auth/signup/:url", element: <SignUp /> },
       { path: "/auth/signin/:url", element: <SignIn /> }, //  sigue=> /login
       { path: "/chapter-form", element: <ChapterForm /> },
-      { path: "/AuthorRegister/:url", element: token ? <AuthorForm /> : <Navigate to="/" /> },
-      { path: "/CompanyForm/:url", element: token ? <CompanyForm /> : <Navigate to="/" /> },
+      { path: "/AuthorRegister/:url", element: token() ? <AuthorForm /> : <Navigate to="/" /> },
+      { path: "/CompanyForm/:url", element: token() ? <CompanyForm /> : <Navigate to="/" /> },
       { path: "/DetailsManga/:id", element: <DetailsManga /> },
       { path: "/chapter-form/:id_manga", element: <ChapterForm /> },
       { path: "/mangas/:url", element: <Mangas /> },
       { path: "/chapters/:id/:page", element: <ChapterPages /> },
-      { path: "/new-role/:url", element: role === 0 && token ? <NewRole /> : <Navigate to="/" /> },
+      { path: "/new-role/:url", element: role() === 0 && token() ? <NewRole /> : <Navigate to="/" /> },
       { path: "/MyMangas", element: <MyMangas /> },
-
-      { path: "/admin/:url", element: role === 3 && token ? <AdminPanel /> : <Navigate to="/" /> }
+      { path: "/admin/:url", element: role() === 3 && token() ? <AdminPanel /> : <Navigate to="/" /> }
     ],
   },
 ]);
