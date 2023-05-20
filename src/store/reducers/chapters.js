@@ -1,10 +1,9 @@
 import { createReducer } from "@reduxjs/toolkit";
 import actions from "../actions/chapters.js";
-const { read_chapters, read_mangas, delete_chapters, update_chapters } = actions
+const { read_chapters, delete_chapters, update_chapters } = actions
 
 let initialState = {
-    chapters: [],
-    mangas: []
+    chapters: []
 }
 
 const reducer = createReducer(
@@ -20,16 +19,6 @@ const reducer = createReducer(
             return newState
         }
     )
-    .addCase(
-        read_mangas.fulfilled,
-        (state,action)=> {
-            let newState = {
-                ...state,
-                mangas: action.payload.mangas
-            }
-            return newState
-        }
-    ) 
     .addCase(
         delete_chapters.fulfilled,
         (state,action)=> {

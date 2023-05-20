@@ -97,7 +97,7 @@ const Drawer = () => {
                     </li>
                     {!token() && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signup/login">Register</Anchor></li>}
                     {!token() && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/auth/signin/auth" >Login</Anchor></li>}
-                    {token() && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/MyMangas">My mangas</Anchor></li>}
+                    {role() == 1 || role == 2 ? (<><li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/MyMangas">My mangas</Anchor></li></>) : ("")}
                     {token() && <li className="w-full flex justify-center"><Anchor className={anchorStyles} to="#">Favorites</Anchor></li>}
                     {token() && <li className="w-full flex justify-center cursor-pointer"><a className={anchorStyles} onClick={backHome}>Sign Out</a></li>}
                     {role() == 0 ?(<li className="w-full flex justify-center"><Anchor className={anchorStyles} to="/new-role/page">New Role</Anchor></li>) : ("")}

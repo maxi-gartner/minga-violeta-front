@@ -26,25 +26,6 @@ const read_chapters = createAsyncThunk('read_chapters', async({id_manga})=>{
     }
 })
 
-const read_mangas = createAsyncThunk('read_mangas', async({id_manga})=>{
-    
-    try {
-        console.log(id_manga)
-        let response = await axios(apiUrl+'mangas/'+id_manga, headers)
-        console.log(response)
-    
-        return {
-            mangas: response.data.response.title
-        }
-
-    } catch(error) {
-        return {
-            mangas: []
-        }
-        
-    }
-})
-
 const delete_chapters = createAsyncThunk('delete_chapters', async({id})=>{
     try {
         let response = await axios.delete(apiUrl+'chapters/'+id, headers)
@@ -75,5 +56,5 @@ const update_chapters = createAsyncThunk('update_chapters', async({id, data})=>{
     }
 })
 
-const actions = {read_chapters , read_mangas, delete_chapters, update_chapters}
+const actions = {read_chapters ,  delete_chapters, update_chapters}
 export default actions

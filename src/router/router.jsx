@@ -39,7 +39,7 @@ const routes = createBrowserRouter([
       { path: "/chapters/:id/:page", element: <ChapterPages />},
       { path: "/edit/:id_manga", element: role() === 1 || role() === 2 && token() ? <EditChapter /> : <Navigate to="/" />},
       { path: "/new-role/:url", element: role() === 0 && token() ? <NewRole /> : <Navigate to="/" /> },
-      { path: "/MyMangas", element: <MyMangas /> },
+      { path: "/MyMangas", element: role() === 1 || role() === 2 && token() ? <MyMangas /> : <Navigate to="/" />},
       { path: "/admin/:url", element: role() === 3 && token() ? <AdminPanel /> : <Navigate to="/" /> }
     ],
   },

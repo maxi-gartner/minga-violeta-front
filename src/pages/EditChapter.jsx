@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import chapters_actions from '../store/actions/chapters'
 import ConfirmModal from "../components/ConfirmModal"
 import ModalMinga from "../components/ModalMinga"
-const { read_chapters, read_mangas, delete_chapters, update_chapters } = chapters_actions
+import myManga_actions from '../store/actions/myMangas'
+const { read_mangas } = myManga_actions
+const { read_chapters, delete_chapters, update_chapters } = chapters_actions
 
 export default function EditChapter() {
   
@@ -13,7 +15,10 @@ export default function EditChapter() {
     let data_chapter = useRef()
     let data_edit = useRef()
     let chapters = useSelector(store => store.chapters.chapters)
-    let mangasTitle = useSelector(store => store.chapters.mangas)
+    let mangas = useSelector(store => store.myMangas.mangas)
+    let mangasTitleObjetc = mangas.find(manga => manga._id === id_manga)
+    let mangasTitle = mangasTitleObjetc.title
+    //console.log(mangasTitle);
     
     const [coverPhoto, setcoverPhoto] = useState("")
     const [order, setOrder] = useState("")
@@ -65,7 +70,7 @@ export default function EditChapter() {
       handleModalOpenConfirmEdit(true)
     }
 
-    console.log(chapters)
+    //console.log(chapters)
     
 
     useEffect(
@@ -121,11 +126,8 @@ export default function EditChapter() {
       setPages(selectedChapter[0].pages)
       setCurrentKey(data.data_chapter)
       setCurrentValue(data.data_edit)
-      console.log(data.data_chapter) 
+      //console.log(data.data_chapter) 
     }
-    
-    let role = localStorage.getItem('role')
-    
 
   return (
     <>
