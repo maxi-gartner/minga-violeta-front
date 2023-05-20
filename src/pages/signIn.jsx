@@ -81,7 +81,7 @@ export default function SignIn(){
       <>
         <div className="h-screen w-full flex justify-center items-center bg-white">
           <img
-            src="/public/fondosignin.png"
+            src="/fondosignin.png"
             className="hidden sm:w-1/2 h-full sm:flex object-cover object-top "
           />
           <div className="flex justify-center sm:w-1/2 bg-white sm:pt-28">
