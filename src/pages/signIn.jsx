@@ -31,6 +31,7 @@ export default function SignIn(){
         setModalSuccessIsOpen(true)
         setTimeout(function(){
           navigate('/');
+          location.href="/"
       }, 1000);
       })
       .catch(err => { 
