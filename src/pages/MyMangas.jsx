@@ -55,18 +55,15 @@ export default function MyMangas() {
     setOpenModalDelete(false)
     setOpenModalConfirm(true)
   }
+  
   const [mangasfilter, setMangasfilter] = useState([])
   const category_id = useRef('')
   function capture(){
     dispatch(inputsCheked({
-      categoriesCheked: Object.values(category_id.current)
-            .filter(each => each.checked)
-            .map(each => each.value)
-    }))
+      categoriesCheked: Object.values(category_id.current).filter(each => each.checked).map(each => each.value)
+    }))// objetct me devuelve un array que me llega del useref y lo filtro al chekeado y lo mapeo poara q me devuelva el valor
     const edit_mangas = () => {
-      let categoriesCheked = Object.values(category_id.current)
-      .filter(each => each.checked)
-      .map(each => each.value)
+      let categoriesCheked = Object.values(category_id.current).filter(each => each.checked).map(each => each.value)
               let mangasFilters = []
               categoriesCheked.forEach(category => {
                 mangas.filter(each => {
@@ -129,7 +126,7 @@ const imputAll = () => {
                         </form>
       <div className="pt-10 flex flex-wrap justify-center sm:justify-around">
         <div className=" flex w-[23rem] sm:min-w-96 sm:w-96 sm:mx-2 h-48 sm:my-10 rounded-xl items-center overflow-hidden relative shadow-[0px_0px_10px_rgba(0,0,0,0.56)]">
-          <img className="w-full h-full object-cover" src="https://pm1.narvii.com/6053/fdbd539202ef383dd75878822be6e4e2ad8a61ce_hq.jpg" alt="" />
+          <img className="w-full h-full object-cover" src="/dibujandominga.jpg" alt="" />
             <Anchor to="/manga-form" className="mr-3 absolute w-full h-full flex flex-col items-center justify-center hover:bg-[#00000073]">
               <svg fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="w-14 h-14 border-solid border-2 border-black rounded-full bg-[#00000073]">
               <path d="M12 4.5v15m7.5-7.5h-15"></path></svg>  
