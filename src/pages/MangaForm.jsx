@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import apiUrl from "../../api"
 import ModalMinga from "../components/ModalMinga"
+import { uploadFile } from "../firebase/config"
 
 let token = () => localStorage.getItem('token')
 let headers = {headers:{'Authorization' : `Bearer ${token()}`}}
@@ -17,6 +18,22 @@ export default function MangaForm() {
     let [categories, setCategories] = useState([])
     const categoryNames = () => {
         return categories.map(cat => <option key={cat._id} value={cat._id}>{cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}</option>)
+    }
+
+    let [img, setImg] = useState(null)
+    let [buttonSend, setButtonSend] = useState(true)
+
+    const handleSubmit = async (img) => {
+        try {
+            const result = await uploadFile(img, "mangas/")
+            console.log(result);
+            setImg(result)
+            if(result){
+                setButtonSend(false)
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     let title = useRef()
@@ -65,12 +82,14 @@ export default function MangaForm() {
         let data = {
             title: title.current.value,
             category_id: category.current.value,
-            description: description.current.value
+            description: description.current.value,
+            cover_photo: img
         }
         axios.post(apiUrl + 'mangas', data, headers)
             .then(res => {
                 console.log(res)
                 setModalSuccessIsOpen(true)
+                e.target.reset()
             })
             .catch(err => {
                 console.error(err.response.data.message)
@@ -87,7 +106,7 @@ export default function MangaForm() {
                 </div>
                 <form onSubmit={(e) => handleForm(e)} className='flex flex-col text-left gap-y-4'>
                     <div>
-                        <input className='border-b-2 border-gray-400 bg-[#EBEBEB]' type="text" placeholder='Insert title' id='title-manga' ref={title}/>
+                        <input className='border-b-2 border-gray-400 bg-[#EBEBEB] w-full pl-1' type="text" placeholder='Insert title' id='title-manga' ref={title}/>
                     </div>
                     <div>
                         <select name="categories" className="bg-[#EBEBEB] border-b-2 border-gray-400 w-full text-gray-500" ref={category}>
@@ -96,9 +115,12 @@ export default function MangaForm() {
                         </select>
                     </div>
                     <div>
-                        <input className='border-b-2 border-gray-400 bg-[#EBEBEB]' type="text" placeholder='Insert description' id='description-manga' ref={description}/>
+                        <input type="file" onChange={e => handleSubmit(e.target.files[0])} className='border-b-2 border-gray-400 bg-[#EBEBEB] inputFile'/>
                     </div>
-                    <button className='bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] gap-y-12 h-10 mt-10 rounded-full text-white font-bold'>Send</button>
+                    <div>
+                        <input className='border-b-2 border-gray-400 bg-[#EBEBEB] w-full pl-1' type="text" placeholder='Insert description' id='description-manga' ref={description}/>
+                    </div>
+                    <button disabled={buttonSend}  className='bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] gap-y-12 h-10 mt-10 rounded-full text-white font-bold  disabled:opacity-50'>Send</button>
                 </form>
             </div>
             {modalSuccessIsOpen && (

@@ -3,13 +3,30 @@ import axios from "axios";
 import apiUrl from "../../api"
 import ModalMinga from "../components/ModalMinga"
 let photo = localStorage.getItem('photo');
+import { uploadFile } from "../firebase/config"
 
 export default function AuthorForm(){
   const name = useRef()
   const lastName = useRef()
   const country = useRef()
   const birthdate = useRef()
-  const img = useRef()
+
+  let [img, setImg] = useState(null)
+  let [buttonSend, setButtonSend] = useState(true)
+
+  const handleSubmit = async (img) => {
+      try {
+          const result = await uploadFile(img, "authors/")
+          console.log(result);
+          setImg(result)
+          if(result){
+            setButtonSend(false)
+          }
+      } catch (error) {
+          console.log(error);
+      }
+  }
+
   function handleForm(e){
     e.preventDefault()
     let dataCity =  country.current.value.split(',')[0]
@@ -20,11 +37,13 @@ export default function AuthorForm(){
       city: dataCity,
       country:dataCountry,
       date: birthdate.current.value,
-      photo: img.current.value,
+      photo: img,
       active: true,
     }
     console.log(data);
-    axios.post(apiUrl+"authors", data)
+    let token = () => localStorage.getItem('token')
+    let headers = {headers:{'Authorization' : `Bearer ${token()}`}}
+    axios.post(apiUrl+"authors", data, headers)
     .then(res =>{
       console.log(res)
       setModalSuccessIsOpen(true)
@@ -125,19 +144,11 @@ export default function AuthorForm(){
                         className="bg-transparent border-b-[1px] border-gray-600 pl-4 text-gray-500 text-lg" />
                 <label htmlFor="floating_last_name"></label>
             </div>
-            <div className="flex flex-col">
-                <input type="text" 
-                        name="floating_last_name" 
-                        id="floating_last_name" 
-                        ref={img} 
-                        placeholder="URL Profile Image" 
-                        required 
-                        autoComplete="off"
-                        className="bg-transparent border-b-[1px] border-gray-600 pl-4 text-gray-500 text-lg" />
-                <label htmlFor="floating_last_name"></label>
+            <div className="flex flex-col bg-transparent">
+            <input type="file" onChange={e => handleSubmit(e.target.files[0])} className=' inputFile border-2  border-gray-300'/>
             </div>
           </div>
-          <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">Submit</button>
+          <button type="submit" disabled={buttonSend} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:opacity-50">Submit</button> 
         </form>
       </div>
       {modalSuccessIsOpen && (
