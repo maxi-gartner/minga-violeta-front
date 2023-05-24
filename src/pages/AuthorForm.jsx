@@ -4,6 +4,7 @@ import apiUrl from "../../api"
 import ModalMinga from "../components/ModalMinga"
 let photo = localStorage.getItem('photo');
 import { uploadFile } from "../firebase/config"
+import Grid from "react-loading-icons/dist/esm/components/grid";
 
 export default function AuthorForm(){
   const name = useRef()
@@ -13,15 +14,18 @@ export default function AuthorForm(){
 
   let [img, setImg] = useState(null)
   let [buttonSend, setButtonSend] = useState(true)
+  let [loading, setLoading] = useState(false)
 
   const handleSubmit = async (img) => {
       try {
+        setLoading(true)
           const result = await uploadFile(img, "authors/")
           console.log(result);
           setImg(result)
           if(result){
             setButtonSend(false)
           }
+        setLoading(false)
       } catch (error) {
           console.log(error);
       }
@@ -47,6 +51,7 @@ export default function AuthorForm(){
     .then(res =>{
       console.log(res)
       setModalSuccessIsOpen(true)
+      e.target.reset()
     }) 
     .catch(err => {
       console.error(err.response.data.message)
@@ -97,6 +102,7 @@ export default function AuthorForm(){
     <div className="flex h-screen">
       <img src="../../img-authors.jpg" alt="" className="hidden sm:w-1/2 sm:flex object-cover object-top"/>
     <div className="bg-[#EBEBEB] w-screen h-screen flex flex-col justify-around pt-32 pb-10 items-center sm:w-1/2 ">
+      {!loading ? (<></>) : (<Grid className="absolute bg-[#00000073] p-2 rounded-lg"/>)}
         <h1 className="text-black text-3xl ">New Author</h1>
         <div className="mr-5 h-24 w-24 sm:h-36 sm:w-36 rounded-full overflow-hidden shadow-[0px_0px_20px_4px_rgba(0,0,0,0.56)]">
           <img className="h-full object-cover" src={photo} alt="" />
@@ -145,7 +151,7 @@ export default function AuthorForm(){
                 <label htmlFor="floating_last_name"></label>
             </div>
             <div className="flex flex-col bg-transparent">
-            <input type="file" onChange={e => handleSubmit(e.target.files[0])} className=' inputFile border-2  border-gray-300'/>
+            <input type="file" onChange={e => handleSubmit(e.target.files[0])} className=' inputFile border-2 border-gray-300 text-black'/>
             </div>
           </div>
           <button type="submit" disabled={buttonSend} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:opacity-50">Submit</button> 

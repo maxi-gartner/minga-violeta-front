@@ -3,13 +3,58 @@ import  { useRef, useState } from "react"
 import apiUrl from "../../api"
 import { useParams } from "react-router-dom"
 import ModalMinga from "../components/ModalMinga"
+import { uploadFile } from "../firebase/config"
+import Grid from "react-loading-icons/dist/esm/components/grid";
 
 export default function ChapterForm() {
+
+  let [img, setImg] = useState(null)
+  let [allPages, setAllPages] = useState([])
+  let [buttonSend, setButtonSend] = useState(true)
+  let [loading, setLoading] = useState(false)
+  //console.log(img,);
+  console.log(allPages);
+
+  const handleSubmit = async (img) => {
+    try {
+      setLoading(true)
+        const result = await uploadFile(img, "chapters/")
+        console.log(result);
+        setImg(result)
+        if(result && allPages.length > 0) {
+          setButtonSend(false)
+        }
+      setLoading(false)
+    } catch (error) {
+        console.log(error);
+    }
+}
+  const handleSubmitPages = async (file) => {
+    try {
+      setLoading(true)
+        let allResults = []
+        for(let i=0; i< file.length; i++){
+          //console.log(img[i]);
+          const result = await uploadFile(file[i], "pages/")
+          allResults.push(result)
+        }
+        if(allResults.length > 0){
+          setAllPages(allResults)
+        }
+        console.log(img);
+        if(img && allResults.length > 0) {
+          setButtonSend(false)
+        }
+      setLoading(false)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
   let chapterId = useParams()
-  console.log(chapterId)
+  //console.log(chapterId)
   let title = useRef()
   let order = useRef()
-  let pages = useRef()
 
   const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
   const [modalErrorIsOpen, setModalErrorIsOpen] = useState(false);
@@ -50,20 +95,19 @@ export default function ChapterForm() {
   function handleForm(e){
     
     e.preventDefault()
-    let inputpages = pages.current.value
-    let listPages = inputpages.split(',')
     let data = {
       manga_id: chapterId.id_manga,
       title: title.current.value,
       order: order.current.value,
-      pages: listPages
+      pages: allPages,
+      cover_photo: img
     }
 
-   
     axios.post(apiUrl+"chapters", data, headers)
     .then(res =>{
       console.log(res)
       setModalSuccessIsOpen(true)
+      e.target.reset()
     }) 
     .catch(err => {
       console.error(err.response.data.message)
@@ -72,8 +116,7 @@ export default function ChapterForm() {
     })
     
   }
- 
-  let role = localStorage.getItem('role')
+
   let token = localStorage.getItem('token')
   let headers = {headers:{'Authorization':`Bearer ${token}`}}
 
@@ -89,7 +132,7 @@ export default function ChapterForm() {
             id="title"
             name="title"
             placeholder="Insert title"
-            className="w-80 appearance-none  border-0  p-2 px-4  border-b border-gray-500 bg-transparent focus:outline-none focus:ring-0 text-black"
+            className="w-full appearance-none  border-0  p-2 px-4  border-b border-gray-500 bg-transparent focus:outline-none focus:ring-0 text-black"
             ref = {title}
           />
           <input
@@ -97,24 +140,23 @@ export default function ChapterForm() {
             id="Insert order"
             name="Insert order"
             placeholder="Insert order"
-            className="w-80 appearance-none  border-0  p-2 px-4  border-b border-gray-500 bg-transparent focus:outline-none focus:ring-0 text-black"
+            className="w-full appearance-none  border-0  p-2 px-4  border-b border-gray-500 bg-transparent focus:outline-none focus:ring-0 text-black"
             ref = {order}
             />
-         
-          
-          <input
-            type="array"
-            id="Insert pages"
-            name="Insert pages"
-            placeholder="Insert pages"
-            className="w-80 appearance-none  border-0  p-2 px-4  border-b border-gray-500 bg-transparent focus:outline-none focus:ring-0 mb-20 text-black"
-            ref = {pages}
-            />
+            <div>
+              <p className="text-gray-400 p-1 px-4">Insert Image</p>
+              <input type="file" onChange={e => handleSubmit(e.target.files[0])} className=' inputFile border-2 border-gray-300 text-black'/>
+            </div>
+            <div>
+              <p className="text-gray-400 p-1 px-4">Insert Pages</p>
+              <input type="file" multiple onChange={e => handleSubmitPages(e.target.files)} className=' inputFile border-2 border-gray-300 text-black'/>
+            </div>
           
 
-          <button className="rounded-full bg-pink-500 p-2 px-16 py-2 text-white t-10 text-lg font-bold mt-5" type="submit" value={"send"}>
+            <button disabled={buttonSend} className="rounded-full bg-pink-500 p-2 px-16 py-2 text-white t-10 text-lg font-bold mt-5  disabled:opacity-50" type="submit" value={"send"}>
             Send
           </button>
+          {!loading ? (<></>) : (<Grid className="absolute bg-[#00000073] p-2 rounded-lg"/>)}
         </form>
       </section>
       {modalSuccessIsOpen && (

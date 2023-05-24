@@ -3,6 +3,7 @@ import axios from "axios"
 import apiUrl from "../../api"
 import ModalMinga from "../components/ModalMinga"
 import { uploadFile } from "../firebase/config"
+import Grid from "react-loading-icons/dist/esm/components/grid"
 
 let token = () => localStorage.getItem('token')
 let headers = {headers:{'Authorization' : `Bearer ${token()}`}}
@@ -22,15 +23,18 @@ export default function MangaForm() {
 
     let [img, setImg] = useState(null)
     let [buttonSend, setButtonSend] = useState(true)
+    let [loading, setLoading] = useState(false)
 
     const handleSubmit = async (img) => {
         try {
+        setLoading(true)
             const result = await uploadFile(img, "mangas/")
             console.log(result);
             setImg(result)
             if(result){
                 setButtonSend(false)
             }
+        setLoading(false)
         } catch (error) {
             console.log(error);
         }
@@ -100,7 +104,8 @@ export default function MangaForm() {
 
     return (
         <div className='p-32 sm:p-10 h-screen sm:h-[91vh] flex flex-col justify-center items-center gap-12 '>
-            <div className='h-full'>
+        {!loading ? (<></>) : (<Grid className="absolute bg-[#00000073] p-2 rounded-lg"/>)}
+            <div>
                 <div className='text-center pb-12'>
                     <p className='text-2xl '>New Manga</p>
                 </div>
@@ -115,7 +120,7 @@ export default function MangaForm() {
                         </select>
                     </div>
                     <div>
-                        <input type="file" onChange={e => handleSubmit(e.target.files[0])} className='border-b-2 border-gray-400 bg-[#EBEBEB] inputFile'/>
+                        <input type="file" onChange={e => handleSubmit(e.target.files[0])} className='border-b-2 border-gray-400 bg-[#EBEBEB] inputFile text-black'/>
                     </div>
                     <div>
                         <input className='border-b-2 border-gray-400 bg-[#EBEBEB] w-full pl-1' type="text" placeholder='Insert description' id='description-manga' ref={description}/>

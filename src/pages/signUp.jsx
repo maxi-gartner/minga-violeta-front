@@ -4,11 +4,13 @@ import axios from "axios";
 import { Link as Anchor ,useNavigate } from "react-router-dom";
 import ModalMinga from "../components/ModalMinga"
 import { uploadFile } from "../firebase/config"
+import Grid from "react-loading-icons/dist/esm/components/grid";
 
 export default function SignUp(){
     let email = useRef();
     let password = useRef();
     const navigate = useNavigate()
+    let [loading, setLoading] = useState(false)
 
     function handleForm(e) {
       e.preventDefault();
@@ -23,6 +25,7 @@ export default function SignUp(){
           setTimeout(function(){
             navigate('/auth/signin/auth');
         }, 1000);
+        e.target.reset()
         })
         .catch(err => { 
           setErrorMessage(err.response.data.message.map(message => message))
@@ -35,12 +38,14 @@ export default function SignUp(){
 
     const handleSubmit = async (img) => {
         try {
+          setLoading(true)
             const result = await uploadFile(img, "users/")
             console.log(result);
             setImg(result)
             if(result){
               setButtonSend(false)
             }
+          setLoading(false)
         } catch (error) {
             console.log(error);
         }
@@ -84,7 +89,8 @@ export default function SignUp(){
 
   return (
     <>
-      <div className="h-screen w-full flex justify-center items-center bg-white">
+      <div className="h-screen w-full flex justify-center items-center bg-white relative">
+    {!loading ? (<></>) : (<Grid className="absolute bg-[#00000073] p-2 rounded-lg"/>)}
         <div className="flex justify-center w-1/2 bg-white">
           <div className="bg-white min-h-screen flex justify-center items-center pt-24 sm:pt-12 sm:w-[80%]">
             <div className="flex flex-col w-[90vw] sm:pt-28">
@@ -96,7 +102,6 @@ export default function SignUp(){
                     progress, have fun, read manga.
                   </p>
                 </div>
-
                 <div className="mt-5">
                   <fieldset className="border-2 rounded-md flex items-center">
                     <legend className="text-sm ml-2 text-fuchsia-400">
@@ -127,7 +132,7 @@ export default function SignUp(){
                 </div>
                 <div className="mt-5">
                   <fieldset className="">
-                    <input type="file" onChange={e => handleSubmit(e.target.files[0])} className='inputFile bg-transparent border-2 rounded-md flex items-center'/>
+                    <input type="file" onChange={e => handleSubmit(e.target.files[0])} className='inputFile bg-transparent border-2 rounded-md flex items-center text-black'/>
                   </fieldset>
                 </div>
                 <div className="mt-5">
