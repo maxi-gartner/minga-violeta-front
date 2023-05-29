@@ -11,8 +11,6 @@ export default function ChatBot() {
   const [message, setMessage] = useState('Send your message')
   const [messageBack, setMessageBack] = useState(['Response...'])
   const [mangas, setMangas] = useState([])
-  const list = mangas.map(data => data.title)
-  console.log(list);
 
   console.log("messageBack", messageBack);
 
@@ -21,10 +19,10 @@ export default function ChatBot() {
     socket.emit('message', message)
   }
   
-  let token = () => localStorage.getItem('token')
-  let headers = {headers:{'Authorization' : `Bearer ${token()}`}}
   useEffect(
     ()=>{
+      let token = () => localStorage.getItem('token')
+      let headers = {headers:{'Authorization' : `Bearer ${token()}`}}
         axios(apiUrl+`mangas/`, headers)
             .then(res=>{
                 setMangas(res.data.response)
@@ -35,6 +33,8 @@ export default function ChatBot() {
 )
 
   useEffect(()=>{
+    const list = mangas.map(data => data.title)
+    console.log(list);
     socket.on('message', message => {
       console.log(message);
       if(message === 'manga list'){
@@ -44,14 +44,14 @@ export default function ChatBot() {
         setMessageBack(message)
       }
     })
-  },[message])
+  },[mangas])
 
   return (
     <>
     {!open ? 
     (
-      <button className="fixed z-50 bottom-5 right-5 w-48 h-64 pt-4 flex justify-end items-end shadow-[0px_0px_15px_rgba(0,0,0,0.16)  cursor-pointer hover:shadow-[0px_0px_30px_rgba(0,140,255,0.28)] transition duration-200] hover:bg-[rgba(0,140,255,0.15)]"  onClick={ ()=> setOpen(true)}>
-          <img className='h-48 absolute left-0' src="./IMG-BotChat.png" alt="" />
+      <button className="fixed z-50 bottom-5 right-5 w-48 h-20 sm:h-64 pt-4 flex justify-end items-end shadow-[0px_0px_15px_rgba(0,0,0,0.16)  cursor-pointer hover:shadow-[0px_0px_30px_rgba(0,140,255,0.28)] transition duration-200] hover:bg-[rgba(0,140,255,0.15)]"  onClick={ ()=> setOpen(true)}>
+          <img className='h-48 absolute left-0 hidden sm:flex' src="./IMG-BotChat.png" alt="" />
           <img className='w-24 mt-3 absolute top-0' src="./IMG-Chat.png" alt="" />
       </button>
     ):
@@ -102,10 +102,9 @@ export default function ChatBot() {
                     type="textarea" 
                     placeholder='Whrite your message'
                     onChange={e => setMessage(e.target.value)}
-                    value={message}
           ></textarea>
           <div className='absolute right-3 h-full flex items-center'>
-            <button>
+            <button type='submit'>
               <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke="black" className="w-6 h-7 hover:w-7">
                 <path  d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
               </svg>
