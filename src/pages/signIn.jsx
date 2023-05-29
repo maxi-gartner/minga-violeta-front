@@ -1,13 +1,25 @@
 import VITE_API from '../../api'
-import  { useRef, useState } from "react"
+import  { useRef, useState, useEffect } from "react"
 import axios from 'axios';
 import { Link as Anchor ,useNavigate } from "react-router-dom";
 import ModalMinga from "../components/ModalMinga"
+import GoogleLogin from 'react-google-login';
+import { gapi } from 'gapi-script';
 
 export default function SignIn(){
   let email = useRef();
   let password = useRef();
   const navigate = useNavigate()
+  const clientID = "737446826653-er6fd8scpp0j10fn9iqhops40i07g09n.apps.googleusercontent.com"
+
+  useEffect( () =>{
+    const start = () => {
+      gapi.auth2.init({
+        clientId : clientID,
+      })
+    }
+    gapi.load("client:auth2", start)
+  } , [])
   
   function handleForm(e) {
     e.preventDefault()
@@ -45,17 +57,50 @@ export default function SignIn(){
   const [modalErrorIsOpen, setModalErrorIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
 
+  const onSuccess = (response) => {
+    console.log(response);
+    const {email, googleId} = response.profileObj
+    let data = {
+      email: email,
+      password: googleId
+    }
+    axios.post(VITE_API + "auth/signin", data)
+      .then(res => {
+        const token = res.data.token;
+        const role = res.data.user.role;
+        const email = res.data.user.email;
+        const photo = res.data.user.photo;
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
+        localStorage.setItem('email', email);
+        localStorage.setItem('photo', photo);
+        setModalSuccessIsOpen(true)
+        setTimeout(function(){
+          navigate('/');
+          location.href="/"
+      }, 1000);
+      })
+      .catch(err => { 
+        console.log(err)
+        setErrorMessage(err.response.data.message)
+        setModalErrorIsOpen(true)
+      })
+  }
+  const onFailure = () => {
+    setErrorMessage("Error, could not be verified.")
+    setModalErrorIsOpen(true)
+  }
+
   const successModal = () => {
     return (
       <div>
         <div className="p-4">
           <h2 className="font-semibold">Success</h2>
-          <p>User loged successfully!</p>
+          <p>User logged successfully!</p>
         </div>
       </div>
     );
   };
-
   const errorModal = () => {
     return (
       <div>
@@ -155,16 +200,12 @@ export default function SignIn(){
                   <div className="flex justify-between mt-2"></div>
                   <input className="mt-4 mb-3 w-full bg-gradient-to-b from-[#F9A8D4] to-[#F472B6] text-white py-2 rounded-xl transition duration-100 shadow-cyan-600 font-bold  text-xl h-12 cursor-pointer" type='submit' value="Sign in" />
                 </form>
-                <div className="flex space-x-2 justify-center items-end border-2 border-gray-250 text-gray-550 py-2 rounded-xl transition duration-100">
-                  <img
-                    className=" h-5 "
-                    src="https://i.imgur.com/arC60SB.png"
-                    alt="asd"
-                  />
-                  <a href="https://www.google.com.ar/">
-                  <button>Sign in with google</button>
-                  </a>
-                </div>
+                <GoogleLogin className="flex justify-center items-center mt-4 mb-3 w-full py-2 rounded-xl transition duration-100 shadow-cyan-600 font-bold text-xl h-12 cursor-pointer"
+                  clientId={clientID}
+                  onSuccess={onSuccess}
+                  onFailure={onFailure}
+                  cookiePolicy={"single_host_policy"}
+                />
                 <div className="flex flex-col items-center text-sm">
                   <Anchor to="/auth/signup/login" className="mt-6  ">
                     {" "}
