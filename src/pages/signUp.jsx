@@ -1,14 +1,17 @@
-import  { useRef, useState } from "react"
+import  { useRef, useState, useEffect } from "react"
 import VITE_API from '../../api'
 import axios from "axios";
 import { Link as Anchor ,useNavigate } from "react-router-dom";
 import ModalMinga from "../components/ModalMinga"
+import GoogleLogin from 'react-google-login';
+import { gapi } from 'gapi-script';
 
 export default function SignUp(){
     let email = useRef();
     let photo = useRef();
     let password = useRef();
     const navigate = useNavigate()
+    const clientID = "737446826653-er6fd8scpp0j10fn9iqhops40i07g09n.apps.googleusercontent.com"
 
     function handleForm(e) {
       e.preventDefault();
@@ -30,22 +33,53 @@ export default function SignUp(){
         })
     }
 
-    
   const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
+  const [onModalSuccessIsOpen, setOnModalSuccessIsOpen] = useState(false);
   const [modalErrorIsOpen, setModalErrorIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
+
+  const onSuccess = (response) => {
+    const { email, imageUrl, googleId } = response.profileObj;
+    let data = {
+      email: email,
+      photo: imageUrl,
+      password: googleId
+    }
+    axios.post(VITE_API + "auth/signup", data)
+      .then(res => {
+        setOnModalSuccessIsOpen(true)
+      })
+      .catch(err => {
+        console.log(err)
+        setErrorMessage(err.response.data.message)
+        setModalErrorIsOpen(true)
+      })
+  }
+  const onFailure = () => {
+    setErrorMessage("Error, could not be verified.")
+    setModalErrorIsOpen(true)
+  }
 
   const successModal = () => {
     return (
       <div>
         <div className="p-4">
           <h2 className="font-semibold">Success</h2>
-          <p>User crate successfully!</p>
+          <p>User created successfully!</p>
         </div>
       </div>
     );
   };
-
+  const onSuccessModal = () => {
+    return (
+      <div>
+        <div className="p-4">
+          <h2 className="font-semibold">Success</h2>
+          <p>Verify your Gmail</p>
+        </div>
+      </div>
+    );
+  };
   const errorModal = () => {
     return (
       <div>
@@ -61,6 +95,7 @@ export default function SignUp(){
 
   const closeModal = () => {
     setModalSuccessIsOpen(false);
+    setOnModalSuccessIsOpen(false)
   }
 
   const closeErrorModal = () => {
@@ -192,10 +227,13 @@ export default function SignUp(){
                   />
                 </div>
               </form>
-              <div className="flex space-x-2 justify-center items-end border-2 border-gray-300 text-gray-600 py-2 rounded-xl transition duration-100">
-                <img className=" h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="asd" />
-                <Anchor to="https://www.google.com.ar/"><button>Sign in with google</button></Anchor>
-              </div>
+              <GoogleLogin className="flex justify-center items-center mt-4 mb-3 w-full py-2 rounded-xl transition duration-100 shadow-cyan-600 font-bold text-xl h-12 cursor-pointer"
+                clientId={clientID}
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                cookiePolicy={"single_host_policy"}
+                buttonText="Sign up with Google"
+              />
               <div className='flex flex-col items-center'>
               <Anchor to="/auth/signin/login" className="mt-2"><span className="mt-6 "> Already have an account? <span className="cursor-pointer text-sm text-fuchsia-400 font-bold">Log in</span></span></Anchor>
               </div>
@@ -214,6 +252,11 @@ export default function SignUp(){
       {modalSuccessIsOpen && (
         <ModalMinga onClose={closeModal}>
           {successModal()}
+        </ModalMinga>
+      )}
+      {onModalSuccessIsOpen && (
+        <ModalMinga onClose={closeModal}>
+          {onSuccessModal()}
         </ModalMinga>
       )}
       {modalErrorIsOpen && (
