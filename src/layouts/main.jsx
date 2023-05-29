@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
+import ChatBot from "../components/ChatBot"
 
 import { Outlet } from "react-router-dom";
 
@@ -18,7 +19,7 @@ export default function Main(){
     return (
         <>
             <div className='h-full w-full bg-[#EBEBEB] text-black' id="layouts" style={styles}>
-                {/* <Dravel/> */}
+                <ChatBot/>
                 <Navbar/>
                 <Outlet/>
                 {!window.location.href.includes("donate") && <Footer/>}
