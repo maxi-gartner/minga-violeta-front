@@ -3,18 +3,20 @@ import VITE_API from '../../api'
 import axios from "axios";
 import { Link as Anchor ,useNavigate } from "react-router-dom";
 import ModalMinga from "../components/ModalMinga"
+import { uploadFile } from "../firebase/config"
+import Grid from "react-loading-icons/dist/esm/components/grid";
 
 export default function SignUp(){
     let email = useRef();
-    let photo = useRef();
     let password = useRef();
     const navigate = useNavigate()
+    let [loading, setLoading] = useState(false)
 
     function handleForm(e) {
       e.preventDefault();
       let data = {
         email: email.current.value,
-        photo: photo.current.value,
+        photo: img,
         password: password.current.value,
       };
       axios.post(VITE_API + "auth/signup", data)
@@ -23,14 +25,32 @@ export default function SignUp(){
           setTimeout(function(){
             navigate('/auth/signin/auth');
         }, 1000);
+        e.target.reset()
         })
         .catch(err => { 
           setErrorMessage(err.response.data.message.map(message => message))
           setModalErrorIsOpen(true)
         })
     }
-
     
+    let [img, setImg] = useState(null)
+    let [buttonSend, setButtonSend] = useState(true)
+
+    const handleSubmit = async (img) => {
+        try {
+          setLoading(true)
+            const result = await uploadFile(img, "users/")
+            console.log(result);
+            setImg(result)
+            if(result){
+              setButtonSend(false)
+            }
+          setLoading(false)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
   const [modalSuccessIsOpen, setModalSuccessIsOpen] = useState(false);
   const [modalErrorIsOpen, setModalErrorIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
@@ -69,7 +89,8 @@ export default function SignUp(){
 
   return (
     <>
-      <div className="h-screen w-full flex justify-center items-center bg-white">
+      <div className="h-screen w-full flex justify-center items-center bg-white relative">
+    {!loading ? (<></>) : (<Grid className="absolute bg-[#00000073] p-2 rounded-lg"/>)}
         <div className="flex justify-center w-1/2 bg-white">
           <div className="bg-white min-h-screen flex justify-center items-center pt-24 sm:pt-12 sm:w-[80%]">
             <div className="flex flex-col w-[90vw] sm:pt-28">
@@ -81,7 +102,6 @@ export default function SignUp(){
                     progress, have fun, read manga.
                   </p>
                 </div>
-
                 <div className="mt-5">
                   <fieldset className="border-2 rounded-md flex items-center">
                     <legend className="text-sm ml-2 text-fuchsia-400">
@@ -111,33 +131,8 @@ export default function SignUp(){
                   </fieldset>
                 </div>
                 <div className="mt-5">
-                  <fieldset className="border-2 rounded-md flex items-center">
-                    <legend className="text-sm ml-2 text-fuchsia-400">
-                      Photo
-                    </legend>
-                    <input
-                      ref={photo}
-                      className="px-4 w-full  py-2 rounded-md text-sm outline-none"
-                      type="url"
-                      name="Photo"
-                      placeholder="Url"
-                    />
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="icon w-6 h-6 icon-tabler icon-tabler-camera"
-                      width="44"
-                      height="44"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="#2c3e50"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
-                      <circle cx="12" cy="13" r="3" />
-                    </svg>{" "}
+                  <fieldset className="">
+                    <input type="file" onChange={e => handleSubmit(e.target.files[0])} className='inputFile bg-transparent border-2 rounded-md flex items-center text-black'/>
                   </fieldset>
                 </div>
                 <div className="mt-5">
@@ -184,13 +179,7 @@ export default function SignUp(){
                     </span>
                   </div>
                 </div>
-                <div className="">
-                  <input
-                    className="mt-4 mb-3 w-full bg-gradient-to-b from-[#f49dcd] to-[#f36eb3] text-white py-2 rounded-xl transition duration-100 shadow-cyan-600 font-bold text-md h-12 cursor-pointer"
-                    type="submit"
-                    value="Sign up"
-                  />
-                </div>
+                  <button type="submit" disabled={buttonSend} className="mt-4 mb-3 w-full bg-gradient-to-b from-[#f49dcd] to-[#f36eb3] text-white py-2 rounded-xl transition duration-100 shadow-cyan-600 font-bold text-md h-12 cursor-pointer disabled:opacity-50">Submit</button> 
               </form>
               <div className="flex space-x-2 justify-center items-end border-2 border-gray-300 text-gray-600 py-2 rounded-xl transition duration-100">
                 <img className=" h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="asd" />

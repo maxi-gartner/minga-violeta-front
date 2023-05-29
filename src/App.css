@@ -24,3 +24,22 @@ transform: translateX(100%);
 .fade-exit-active {
 transition: opacity 1000ms, transform 1000ms;
 }
+.inputFile{
+   background: transparent;
+   width: 100%;
+   outline: none;
+}
+
+::-webkit-file-upload-button{
+   color: white;
+   background-image: linear-gradient(to bottom, #f49dcd, #f36eb3);
+   padding-top: 12px;
+   padding-bottom: 12px;
+   border: none;
+   border-radius: 5px;
+   outline:none;
+   width: 45%;
+}
+::-webkit-file-upload-button:hover{
+   color: black;
+}
