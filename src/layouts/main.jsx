@@ -22,7 +22,7 @@ export default function Main(){
                 <ChatBot/>
                 <Navbar/>
                 <Outlet/>
-                <Footer/>
+                {!window.location.href.includes("donate") && <Footer/>}
             </div>
         </>
     );
