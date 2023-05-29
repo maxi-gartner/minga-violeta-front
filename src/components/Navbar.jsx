@@ -13,6 +13,7 @@ export default function Navbar() {
     const location = useLocation()
     const chapterPathName = location.pathname.includes("chapters")
     const MyMangas = location.pathname.includes("MyMangas")
+    const donatePathName = location.pathname.includes("donate")
 
     const handleMenuClick = () => {
     setShowMenu((prevState) => !prevState);
@@ -24,7 +25,7 @@ export default function Navbar() {
     if (url == "author-form" || url == "CompanyForm" || MyMangas) {
         display = { position: "absolute", left: "0", padding: "0vw 5vw", marginTop: "1rem" };
     }
-    if (url == "auth"|| url == "login" || url == "page") {
+    if (url == "auth"|| url == "login" || url == "page" || donatePathName) {
         display = { position: "absolute", left: "0" };
     } 
     if (chapterPathName){

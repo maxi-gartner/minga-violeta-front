@@ -7,6 +7,7 @@ import authorsReducer from '../store/reducers/authors'
 import companiesReducer from '../store/reducers/companies'
 import myMangas_reducer from './reducers/myMangas'
 import inputsCheked from './reducers/inputsCheked'
+import categories_reducer from "./reducers/categories";
 
 const store = configureStore({
         reducer: {
@@ -17,7 +18,8 @@ const store = configureStore({
                 authors: authorsReducer,
                 companies: companiesReducer,
                 myMangas: myMangas_reducer,
-                inputsCheked: inputsCheked
+                inputsCheked: inputsCheked,
+                categories: categories_reducer
         }
 })  
 
