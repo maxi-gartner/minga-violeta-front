@@ -21,7 +21,7 @@ export default function Main(){
                 {/* <Dravel/> */}
                 <Navbar/>
                 <Outlet/>
-                <Footer/>
+                {!window.location.href.includes("donate") && <Footer/>}
             </div>
         </>
     );

@@ -53,7 +53,7 @@ export default function Footer(){
                   />
                 </Anchor>
             </div>
-            <button className="text-white rounded-md flex justify-center items-center border-none bg-gradient-to-r from-[#F9A8D4] to-[#F472B6] w-56 p-2 mt-4 text-xl">Donate  <svg
+            <Anchor to="/donate" className="text-white rounded-md flex justify-center items-center border-none bg-gradient-to-r from-[#F9A8D4] to-[#F472B6] w-56 p-2 mt-4 text-xl">Donate  <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -66,7 +66,7 @@ export default function Footer(){
                       strokeLinejoin="round"
                       d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
                     />
-                  </svg></button>
+                  </svg></Anchor>
           </div>
         </div>
         <div className='h-1 w-full pb-5 mt-2 '></div>
